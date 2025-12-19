@@ -1,13 +1,7 @@
+import { LOGO1 } from '@/assets'
 import React from 'react'
-// src/components/navbar/Logo.tsx
 import { Link } from 'react-router-dom'
-import LOGO1 from "../../assets/BsHeartPulse.png"
 
-/*
- * Logo
- * --------- 
- * Brand logo that navigates to home page
- */
 
 const Logo: React.FC = () => {
   return (
