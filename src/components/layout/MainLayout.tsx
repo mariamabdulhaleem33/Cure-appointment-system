@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../navbar/Navbar";
-import HeroSection from "../hero/HeroSection";
+import Navbar from "./navbar/Navbar";
+import HeroSection from "../home/hero/HeroSection";
 
 // src/components/layout/MainLayout.tsx
 

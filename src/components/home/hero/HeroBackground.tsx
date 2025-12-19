@@ -1,10 +1,5 @@
-import heroBackground from '../../assets/Group 8.png'
+import { heroBackground } from "@/assets";
 
-// /*
-//  * HeroBackground
-//  * --------- 
-//  * Decorative hero background cilrcles (from Figma)
-//  */
 const HeroBackground: React.FC = () => {
   return (
     <img
