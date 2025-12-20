@@ -1,5 +1,5 @@
 import type { Doctor } from "./Types";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FaStar } from "react-icons/fa6"
 import { CiClock2 } from "react-icons/ci"
 
@@ -31,7 +31,7 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
       </div>
 
 
-      <Link to='/'> <button className="mt-4 w-full rounded-xl bg-blue-600 py-2 text-white font-medium hover:bg-blue-700 transition">
+      <Link to='/'> <button className="mt-4 w-full rounded-xl bg-blue-600 py-2 text-white font-medium hover:bg-blue-700 transition cursor-pointer">
         Book appointment
       </button> </Link>
     </div>
