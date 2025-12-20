@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./navbar/Navbar";
-import HeroSection from "../home/hero/HeroSection";
+// import HeroSection from "../home/hero/HeroSection";
+import { Outlet } from "react-router-dom";
 
 // src/components/layout/MainLayout.tsx
 
@@ -14,8 +15,8 @@ const MainLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <main>{/* <Outlet /> */}</main>
-      <HeroSection />
+      <main><Outlet /></main>
+      {/* <HeroSection /> */}
     </div>
   );
 };
