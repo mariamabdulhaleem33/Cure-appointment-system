@@ -1,5 +1,5 @@
 import { getDays, getYears, Months } from "@/utils/Date";
-import { NativeSelect, NativeSelectOption } from "../ui/native-select";
+import { NativeSelect, NativeSelectOption } from "../../ui/native-select";
 import type { FC } from "react";
 
 const BirthdaySelector: FC = () => {
@@ -7,7 +7,7 @@ const BirthdaySelector: FC = () => {
   const Years = getYears(100);
   return (
     <div className="w-full flex justify-between items-center">
-      <NativeSelect className="w-24 bg-[#F5F6F7] rounded-xs">
+      <NativeSelect className="w-24 bg-[#F5F6F7] rounded-xs focus:outline-0">
         <NativeSelectOption value="">Day</NativeSelectOption>
         {Days.map((day) => (
           <NativeSelectOption key={day} value={day}>
