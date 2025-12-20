@@ -4,7 +4,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CalendarDays, ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+/* ================= Types ================= */
 type BookingDate = {
   date: string;
   start_time: string;
@@ -12,15 +14,29 @@ type BookingDate = {
   day_name: string;
 };
 
+type Slot = {
+  start: string;
+  end: string;
+};
+
 type DayGroup = {
   date: string;
   dayName: string;
   dayNumber: number;
-  slots: string[];
+  slots: Slot[];
+};
+
+/* ================= Helpers ================= */
+const getMonthLabel = (date: string) => {
+  return new Date(date).toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
 };
 
 const AppointemntCard = () => {
-  const bookingDate = [
+  /* ================= From Api ================= */
+  const bookingDate: BookingDate[] = [
     {
       date: "2025-12-22",
       start_time: "09:00",
@@ -28,57 +44,59 @@ const AppointemntCard = () => {
       day_name: "Monday",
     },
     {
-      date: "2025-12-22",
+      date: "2025-12-23",
       start_time: "09:30",
       end_time: "10:00",
-      day_name: "Monday",
+      day_name: "Tuesday",
     },
     {
-      date: "2025-12-22",
+      date: "2025-12-24",
       start_time: "10:00",
       end_time: "10:30",
-      day_name: "Monday",
+      day_name: "Wednesday",
     },
     {
-      date: "2025-12-22",
+      date: "2025-12-25",
       start_time: "10:30",
       end_time: "11:00",
-      day_name: "Monday",
+      day_name: "Thursday",
     },
     {
-      date: "2025-12-22",
+      date: "2025-12-26",
       start_time: "11:00",
       end_time: "11:30",
-      day_name: "Monday",
+      day_name: "Friday",
     },
     {
       date: "2025-6-2",
       start_time: "11:00",
       end_time: "11:30",
-      day_name: "friday",
+      day_name: "Monday",
     },
   ];
-  const getAvailableMonths = (dates: BookingDate[]) => {
-    // 1. استخراج الشهور الفريدة بصيغة "اسم الشهر، السنة"
-    const months = dates.map((item) => {
-      const d = new Date(item.date);
-      return d.toLocaleString("en-US", { month: "long", year: "numeric" });
-    });
-    return Array.from(new Set(months));
-  };
 
-  const monthsFromApi = getAvailableMonths(bookingDate);
+  /* ================= Months ================= */
+  const monthsFromApi = Array.from(
+    new Set(bookingDate.map((item) => getMonthLabel(item.date)))
+  );
+
+  /* ================= Group Days ================= */
   const groupedData = bookingDate.reduce<Record<string, DayGroup>>(
     (acc, curr) => {
       if (!acc[curr.date]) {
         acc[curr.date] = {
           date: curr.date,
           dayName: curr.day_name,
-          dayNumber: curr.date.split("-")[2],
+          dayNumber: Number(curr.date.split("-")[2]),
           slots: [],
         };
       }
-      acc[curr.date].slots.push(curr.start_time);
+
+      acc[curr.date].slots.push({
+        start: curr.start_time,
+        end: curr.end_time,
+      });
+
       return acc;
     },
     {}
@@ -86,103 +104,123 @@ const AppointemntCard = () => {
 
   const finalDays: DayGroup[] = Object.values(groupedData);
 
-  // States
+  /* ================= States ================= */
   const [selectedMonth, setSelectedMonth] = useState(monthsFromApi[0]);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [selectedTime, setSelectedTime] = useState("");
 
+  /* ================= Filter Days by Month ================= */
+  const filteredDays = finalDays.filter(
+    (day) => getMonthLabel(day.date) === selectedMonth
+  );
+
+  /* ================= Current Day ================= */
   const currentDay =
-    finalDays[selectedDayIndex] ??
+    filteredDays[selectedDayIndex] ??
     ({
-      slots: [],
+      date: "",
       dayName: "",
       dayNumber: 0,
-      date: "",
+      slots: [],
     } as DayGroup);
+
+  /* ================= Reset on Month Change ================= */
+  useEffect(() => {
+    setSelectedDayIndex(0);
+    setSelectedTime("");
+  }, [selectedMonth]);
 
   return (
     <section className="w-full p-6 border-2 border-[#BBC1C7] rounded-[19px] bg-white mb-6">
-      <div className="h-[40px] border-b-1 border-[#99A2AB] flex justify-between items-center mb-6">
+      {/* Header */}
+      <div className="h-[40px] flex justify-between items-center mb-6 border-b">
         <h2 className="text-[#404448] font-medium text-[16px]">
           Choose date and time
         </h2>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="border-none pb-5 flex items-center gap-2 px-4 py-2 outline-none">
-            <CalendarDays size={20} className="text-[#05162C]" />
-            <span className="text-[#05162C] font-bold text-sm">
-              {selectedMonth}
-            </span>
-            <ChevronsUpDown size={14} className="text-gray-400" />
+          <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 outline-none">
+            <CalendarDays size={20} />
+            <span className="font-bold text-sm">{selectedMonth}</span>
+            <ChevronsUpDown size={14} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[193px] h-auto">
-            {/* ماب الشهور هنا */}
+
+          <DropdownMenuContent className="w-[200px]">
+            {monthsFromApi.map((month) => (
+              <button
+                key={month}
+                onClick={() => setSelectedMonth(month)}
+                className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${
+                  selectedMonth === month ? "font-bold text-[#145DB8]" : ""
+                }`}
+              >
+                {month}
+              </button>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
-      {/* Days Strip - مرتبطة بالـ API الآن */}
-      <div className="flex flex-wrap gap-4 mb-8 pb-2">
-        {finalDays.map((item, index) => (
+      {/* Days */}
+      <div className="flex flex-wrap gap-4 mb-8">
+        {filteredDays.map((day, index) => (
           <button
-            key={item.date}
+            key={day.date}
             onClick={() => {
               setSelectedDayIndex(index);
               setSelectedTime("");
             }}
-            className={`flex flex-col items-center justify-center p-3 rounded-[8px] w-[50px] h-[60px] transition-all duration-300 ${
+            className={`flex flex-col items-center justify-center w-[55px] h-[65px] rounded-lg transition ${
               selectedDayIndex === index
                 ? "bg-[#145DB8] text-white"
-                : "bg-gray-50 text-gray-400 hover:bg-gray-100 border border-transparent"
+                : "bg-gray-50 text-gray-400 hover:bg-gray-100"
             }`}
           >
-            <span className="text-[12px] uppercase font-medium mb-1">
-              {item.dayName.substring(0, 3)}
+            <span className="text-xs font-medium uppercase">
+              {day.dayName.slice(0, 3)}
             </span>
-            <span className="text-[14px] font-medium">{item.dayNumber}</span>
+            <span className="text-sm font-semibold">{day.dayNumber}</span>
           </button>
         ))}
       </div>
 
-      {/* Time Slots - مرتبطة بالـ API الآن */}
+      {/* Time Slots */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-        {currentDay.slots.map((slot: string) => (
-          <button
-            key={slot}
-            onClick={() => setSelectedTime(slot)}
-            className={`py-3 p-2 rounded-[10px] text-[14px] font-medium transition-all ${
-              selectedTime === slot
-                ? "bg-[#145DB8] text-white shadow-md"
-                : "bg-[#F5F6F7] text-[#6D7379] hover:bg-gray-200"
-            }`}
-          >
-            {slot}
-          </button>
-        ))}
+        {currentDay.slots.map((slot, index) => {
+          const value = `${slot.start} - ${slot.end}`;
+
+          return (
+            <button
+              key={index}
+              onClick={() => setSelectedTime(value)}
+              className={`py-3 rounded-lg text-sm font-medium transition ${
+                selectedTime === value
+                  ? "bg-[#145DB8] text-white"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              {value}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Footer Summary */}
-      <div className="flex flex-col sm:flex-row justify-between items-center pt-6 gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
-            <CalendarDays className="text-[#145DB8]" size={20} />
-          </div>
-          <div>
-            <span className="text-sm font-bold text-[#1A202C]">
-              {selectedTime
-                ? `${currentDay.dayName}, ${selectedMonth.split(",")[0]} ${
-                    currentDay.dayNumber
-                  } - ${selectedTime}`
-                : "Please select a preferred slot"}
-            </span>
-          </div>
-        </div>
+      {/* Footer */}
+      <div className="flex justify-between items-center">
+        <span className="text-sm font-medium">
+          {selectedTime
+            ? `${currentDay.dayName}, ${selectedMonth.split(",")[0]} ${
+                currentDay.dayNumber
+              } - ${selectedTime}`
+            : "Please select a slot"}
+        </span>
+
         <button
           disabled={!selectedTime}
-          className={`w-[132px] h-[48px] py-3 p-2 rounded-[8px] font-normal text-[16px] transition-all border-2 flex items-center justify-center ${
+          className={`px-6 py-2 rounded-lg border transition ${
             selectedTime
-              ? "bg-white border-[#145DB8] text-[#145DB8] hover:bg-blue-50"
-              : "bg-gray-100 border-transparent text-gray-400 cursor-not-allowed"
+              ? "border-[#145DB8] text-[#145DB8] hover:bg-blue-50"
+              : "border-gray-300 text-gray-400 cursor-not-allowed"
           }`}
         >
           Book
@@ -191,4 +229,5 @@ const AppointemntCard = () => {
     </section>
   );
 };
+
 export default AppointemntCard;

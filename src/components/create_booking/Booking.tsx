@@ -13,7 +13,6 @@ const Booking = () => {
           <span>Make an appointment</span>
         </h1>
         <div className="flex items-start flex-wrap gap-8">
-          {" "}
           {/* select time & date */}
           <div className="w-full md:w-[45%] lg:w-[60%]">
             {/* Choose data & time */}
