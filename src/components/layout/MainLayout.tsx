@@ -1,22 +1,22 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store";
+
 import Navbar from "./navbar/Navbar";
 import HeroSection from "../home/hero/HeroSection";
-
-// src/components/layout/MainLayout.tsx
-
-/*
- * MainLayout
- * ---------
- * Global layout containg Navbar and Footer
- */
+import Footer from "./footer/footer";
 
 const MainLayout: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main>{/* <Outlet /> */}</main>
-      <HeroSection />
-    </div>
+    <Provider store={store}>
+      <div className="min-h-screen bg-white flex flex-col">
+        <Navbar />
+        <div className="flex-grow">
+          <HeroSection />
+        </div>
+        <Footer />
+      </div>
+    </Provider>
   );
 };
 
