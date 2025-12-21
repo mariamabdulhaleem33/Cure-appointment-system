@@ -1,15 +1,10 @@
-// import MainLayout from "./components/layout/MainLayout"
-// import SignUp from "./pages/signup/SignUp"
-
-import Otp from "./pages/otp/Otp"
-
+import MainLayout from "./components/layout/MainLayout"
 
 
 const App = () => {
   return (
     <div className=" ">
-      {/* <MainLayout /> */}
-      <Otp/>
+      <MainLayout />
     </div>
   )
 }
