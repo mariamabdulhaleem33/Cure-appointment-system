@@ -3,8 +3,11 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import BirthdaySelector from "./BirthdaySelector";
 import type { FC } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 
 const EditProfileForm: FC = () => {
+  const selectedFile = useSelector((state:RootState) => state.profile.selectedFile);
   return (
     <div className="grid grid-cols-2 grid-rows-4 gap-y-10 gap-x-16">
       <p className="col-span-2 font-secondary text-3xl text-[#05162C]">
