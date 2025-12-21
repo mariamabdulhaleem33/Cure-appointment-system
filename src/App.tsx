@@ -1,15 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Booking from "./components/create_booking/Booking";
-
+import MainLayout from "./components/layout/MainLayout";
+// import MainLayout from "./components/layout/MainLayout"
+import AppRoutes from "./routes";
 
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Booking />} />
-        </Routes>
-      </BrowserRouter>
+    <div className="min-h-screen px-8 py-4 bg-white">
+      {/* <MainLayout /> */}
+      <AppRoutes />
     </div>
   );
 };
