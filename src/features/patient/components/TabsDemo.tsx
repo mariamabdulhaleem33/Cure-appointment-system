@@ -1,27 +1,17 @@
 import { AppointmentCard } from "@/features/patient/components/AppointmentCard";
 import { Calendar28 } from "@/features/patient/components/Calender28";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function TabsDemo() {
   return (
     <div className="flex  flex-col gap-6">
-      <Tabs defaultValue="account">
+      <Tabs defaultValue="all">
         <div className="flex justify-between flex-row-reverse">
           <Calendar28 />
           <TabsList className="bg-none">
             <TabsTrigger
-              value="account"
+              value="all"
               className="
     data-[state=active]:bg-sky-700
     data-[state=active]:text-white
@@ -32,7 +22,7 @@ export function TabsDemo() {
               all
             </TabsTrigger>
             <TabsTrigger
-              value="password"
+              value="upcoming"
               className="
     data-[state=active]:bg-sky-700
     data-[state=active]:text-white
@@ -43,7 +33,7 @@ export function TabsDemo() {
               up coming
             </TabsTrigger>
             <TabsTrigger
-              value="upComing"
+              value="canceled"
               className="
     data-[state=active]:bg-sky-700
     data-[state=active]:text-white
@@ -67,7 +57,7 @@ export function TabsDemo() {
           </TabsList>
         </div>
 
-        <TabsContent value="account">
+        <TabsContent value="all">
           <div className="flex gap-6 flex-wrap justify-start">
             <AppointmentCard status="upcoming" />
             <AppointmentCard status="completed" />
@@ -76,40 +66,14 @@ export function TabsDemo() {
             <AppointmentCard status="canceled" />
           </div>
         </TabsContent>
-        <TabsContent value="password">
-          <Card>
-            <CardHeader>
-              <CardTitle>Password</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you&apos;ll be logged
-                out.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-current">Current password</Label>
-                <Input
-                  id="tabs-demo-current"
-                  type="password"
-                />
-              </div>
-              <div className="grid gap-3">
-                <Label htmlFor="tabs-demo-new">New password</Label>
-                <Input
-                  id="tabs-demo-new"
-                  type="password"
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-        <TabsContent value="upComing">
+        <TabsContent value="upcoming">
           <div className="flex gap-6 flex-wrap justify-start">
             <AppointmentCard status="upcoming" />
-            <AppointmentCard status="completed" />
+            <AppointmentCard status="upcoming" />
+          </div>
+        </TabsContent>
+        <TabsContent value="canceled">
+          <div className="flex gap-6 flex-wrap justify-start">
             <AppointmentCard status="canceled" />
             <AppointmentCard status="canceled" />
             <AppointmentCard status="canceled" />
@@ -117,11 +81,11 @@ export function TabsDemo() {
         </TabsContent>
         <TabsContent value="completed">
           <div className="flex gap-6 flex-wrap justify-start">
-            <AppointmentCard status="upcoming" />
+            
             <AppointmentCard status="completed" />
-            <AppointmentCard status="canceled" />
-            <AppointmentCard status="canceled" />
-            <AppointmentCard status="canceled" />
+            <AppointmentCard status="completed" />
+            <AppointmentCard status="completed" />
+            
           </div>
         </TabsContent>
       </Tabs>

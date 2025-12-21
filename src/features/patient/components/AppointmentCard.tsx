@@ -20,7 +20,7 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
       label: "Completed",
       color: "text-green-600",
       primaryBtn: "Feedback",
-      secondaryBtn: "Book again",
+      secondaryBtn: "View Details",
     },
     canceled: {
       label: "Canceled",
@@ -33,9 +33,8 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
   const config = statusConfig[status];
 
   return (
-    <Card className="w-100 rounded-xl border shadow-sm">
-      <CardContent className="p-4 space-y-4">
-        
+    <Card className="w-100 rounded-xl border pt-1 shadow-sm">
+      <CardContent className="px-4  space-y-4">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar size={16} />
@@ -43,8 +42,8 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
           </div>
           <span className={`font-medium ${config.color}`}>{config.label}</span>
         </div>
+        <hr />
 
-       
         <div className="flex items-start gap-3">
           <img
             src="https://i.pravatar.cc/100"
@@ -63,7 +62,6 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
           </div>
         </div>
 
-        
         <div className="flex gap-2">
           <Button
             variant="outline"
