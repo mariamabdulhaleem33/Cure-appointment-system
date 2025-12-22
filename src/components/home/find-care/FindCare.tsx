@@ -1,6 +1,6 @@
 import Heading from "../../ui/Heading"
 import { CiSearch } from "react-icons/ci"
-// import { homeMap } from "@/assets"
+import { homeMap } from "@/assets"
 import Description from "../../ui/Description"
 import LocationButton from "./LocationButton"
 
@@ -21,7 +21,9 @@ export default function FindCare() {
           text="Search by location"
         />
       </div>
-      <div>{/* <img src={homeMap} alt="" /> */}</div>
+      <div>
+        <img src={homeMap} alt="" />
+      </div>
       <LocationButton
         className="inline-flex lg:hidden"
         icon={<CiSearch />}
