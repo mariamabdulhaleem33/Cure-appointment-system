@@ -1,18 +1,18 @@
 import { ArrowLeft } from "lucide-react";
-import AppointemntCard from "./AppointemntCard";
-import DoctorInfo from "./DoctorInfo";
-import DoctorReviews from "./DoctorReviews";
+import AppointemntCard from "./AppointmentCard/AppointemntCard";
+import DoctorReviews from "./DoctorReviews/DoctorReviews";
+import DoctorInfo from "./DoctorInfo/DoctorInfo";
 
 const Booking = () => {
   return (
     <section className="py-6">
-      <div className="app-container">
+      <div className="max-w-7xl px-[20px] mx-auto">
         {/* title */}
         <h1 className="flex items-center gap-2 mb-4">
           <ArrowLeft size={24} />
           <span>Make an appointment</span>
         </h1>
-        <div className="flex items-start flex-wrap gap-8">
+        <div className="w-full flex items-start justify-between flex-wrap gap-3">
           {/* select time & date */}
           <div className="w-full md:w-[45%] lg:w-[60%]">
             {/* Choose data & time */}

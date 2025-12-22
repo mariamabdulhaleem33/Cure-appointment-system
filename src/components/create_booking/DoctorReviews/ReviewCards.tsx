@@ -8,14 +8,8 @@ import {
 } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
-interface IReview {
-  id: number;
-  name: string;
-  time: string;
-  rating: number;
-  image: string;
-  comment: string;
-}
+import type { IReview } from "../types";
+
 interface ReviewCardsProps {
   reviewData: IReview[];
 }
