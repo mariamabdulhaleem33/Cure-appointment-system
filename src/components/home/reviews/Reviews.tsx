@@ -1,10 +1,10 @@
 import Heading from "@/components/ui/Heading"
 import { star } from "@/assets"
-// import { reviews } from "@/assets"
+import { reviews } from "@/assets"
 import Description from "@/components/ui/Description"
 export default function Reviews() {
   return (
-    <section className="home-container bg-white flex flex-col items-center justify-center text-center">
+    <section className="home-container mb-25 bg-white flex flex-col items-center justify-center text-center">
       <Heading tag={"h2"}>
         Reviews <br />
         That Speak for Themselves
@@ -20,7 +20,9 @@ export default function Reviews() {
         “Quick and easy booking! I found a great dermatologist near me and
         booked an appointment in just a few minutes.”
       </Description>
-      <div>{/* <img src={reviews} alt="reviews" /> */}</div>
+      <div className="mt-9 md:mt-14">
+        <img src={reviews} alt="reviews" />
+      </div>
     </section>
   )
 }
