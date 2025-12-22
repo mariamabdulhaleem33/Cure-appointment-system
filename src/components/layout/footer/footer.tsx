@@ -47,7 +47,7 @@ const Footer: React.FC<{ className?: string }> = ({ className = '' }) => {
     address: '123 Medical Street, Health City, HC 12345'
   };
 
-    const updatedSocialMedia = companyInfo.socialMedia
+  const updatedSocialMedia = companyInfo.socialMedia
     .filter(s => s.name !== 'Twitter' && s.name !== 'Instagram');
 
   const additionalSocialMedia = [
@@ -70,12 +70,36 @@ const Footer: React.FC<{ className?: string }> = ({ className = '' }) => {
   const allSocialMedia = [...updatedSocialMedia, ...additionalSocialMedia];
 
   return (
-    <footer className={`w-full bg-gray-900 text-white font-serif ${className}`}>
-      <div className="max-w-[1440px] mx-auto px-24 py-12">
-        <div className="grid grid-cols-4 gap-40">
+    <footer className={`w-full bg-[#05162C] text-white font-serif ${className}`}>
+      {/* القسم العلوي - للشاشات الصغيرة فقط العنوان والوصف */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24 py-6 sm:py-8 lg:py-12">
+        {/* للشاشات الصغيرة والمتوسطة: فقط العنوان والوصف */}
+        <div className="lg:hidden">
+          {/* العنوان والأيقونة يبقون على اليسار */}
+          <div className="flex items-center gap-2 mb-3">
+            {/* Icon - حجم محدد للشاشات الصغيرة */}
+            <div className="w-8 h-8 shrink-0">
+              {renderIcon('HeartPulse', 'w-full h-full')}
+            </div>
+            {/* Title - حجم محدد للشاشات الصغيرة */}
+            <Link 
+              to="/" 
+              className="text-xl font-bold hover:text-blue-400 transition whitespace-nowrap"
+            >
+              {companyInfo.name}
+            </Link>
+          </div>
+          
+          {/* الوصف فقط في المنتصف */}
+          <p className="text-xs opacity-80 leading-relaxed text-center mx-auto max-w-[293px]">
+            {companyInfo.description}
+          </p>
+        </div>
 
+        {/* للشاشات الكبيرة: التخطيط الكامل */}
+        <div className="hidden lg:grid grid-cols-4 gap-40">
           {/* Company Info */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 shrink-0">
                 {renderIcon('HeartPulse', 'w-full h-full')}
@@ -188,14 +212,52 @@ const Footer: React.FC<{ className?: string }> = ({ className = '' }) => {
         </div>
       </div>
 
+      {/* القسم السفلي */}
       <div className="border-t border-white/20 py-4">
-        <div className="max-w-[1240px] mx-auto flex justify-between text-sm opacity-100">
-          <p>© {currentYear} {companyInfo.name}. All rights reserved.</p>
-          <nav className="flex gap-6">
-             <NavLink to="/services/termsAndConditions" className="hover:opacity-100">Terms & Conditions</NavLink>
-             <p className="font-bold hover:opacity-100">|</p>
-            <NavLink to="/services/privacyPolicy" className="hover:opacity-100">Privacy Policy</NavLink>
-          </nav>
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 md:px-12 lg:px-0">
+          {/* للشاشات الصغيرة والمتوسطة */}
+          <div className="lg:hidden flex justify-between items-center">
+            {/* على اليسار: حقوق النشر */}
+            <div className="text-xs">
+              <span className="font-bold">{companyInfo.name}</span> - All rights reserved
+            </div>
+            
+            {/* على اليمين: أيقونات السوشيال ميديا */}
+            <div className="flex gap-3">
+              {allSocialMedia.map(s => (
+                <a
+                  key={s.id}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="opacity-80 hover:opacity-100 transform hover:-translate-y-1 transition"
+                  style={{ color: s.color }}
+                >
+                  {renderIcon(s.icon, 'w-4 h-4')}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* للشاشات الكبيرة */}
+          <div className="hidden lg:flex flex-row justify-between items-center gap-3 text-sm opacity-100">
+            <p className="text-sm text-left">© {currentYear} {companyInfo.name}. All rights reserved.</p>
+            <nav className="flex gap-6">
+              <NavLink 
+                to="/services/termsAndConditions" 
+                className="text-sm hover:opacity-100 whitespace-nowrap"
+              >
+                Terms & Conditions
+              </NavLink>
+              <span className="font-bold">|</span>
+              <NavLink 
+                to="/services/privacyPolicy" 
+                className="text-sm hover:opacity-100 whitespace-nowrap"
+              >
+                Privacy Policy
+              </NavLink>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>
