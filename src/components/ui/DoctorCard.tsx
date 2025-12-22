@@ -23,19 +23,19 @@ export default function DoctorCard({
   price,
 }: DoctorProps) {
   return (
-    <div className="flex flex-col gap-[8px] rounded-[10px] p-[16px] shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)]">
-      <div className="flex items-center gap-[10px] ">
-        <div className="w-[97px] h-[88px] rounded-[10px] overflow-hidden">
+    <div className="flex flex-col gap-2 rounded-[10px] min-w-89.5 p-4 shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)]
+">
+      <div className="flex items-center gap-2.5">
+        <div className="w-24.25 h-22 rounded-[10px] overflow-hidden">
           <img
             className="w-full h-full object-cover"
             src={imageUrl}
             alt="Doctor Image"
           />
         </div>
-        <div>
+        <div className="flex-1">
           <h4>{name}</h4>
           <p className="text-[#6D7379] text-[14px]">
-            {" "}
             {specialty} | El-Nasr Hospital{" "}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
@@ -58,7 +58,7 @@ export default function DoctorCard({
             </span>
             <span className="text-[#FC4B4E]">${price}</span>
           </div>
-          <button className="w-full py-[8px] cursor-pointer rounded-[10px] bg-[#145DB8] text-white">
+          <button className="w-full py-2 cursor-pointer rounded-[10px] bg-[#145DB8] text-white">
             Book appointment
           </button>
         </>

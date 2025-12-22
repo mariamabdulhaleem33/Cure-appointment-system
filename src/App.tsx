@@ -1,14 +1,20 @@
-import MainLayout from "./components/layout/MainLayout"
 
-import AppRoutes from "./routes";
+import { BrowserRouter } from "react-router-dom"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import AppRoutes from './routes/index'  
 
-const App = () => {
+const queryClient = new QueryClient()
+
+function App() {
   return (
-    <div className="min-h-screen px-8 py-4 bg-white">
-      {/* <MainLayout /> */}
-      <AppRoutes />
-    </div>
-  );
-};
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AppRoutes />  
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
+}
 
-export default App;
+export default App
