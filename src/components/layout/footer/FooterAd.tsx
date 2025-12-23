@@ -26,18 +26,7 @@ const FooterAd: React.FC<FooterAdProps> = ({ className = '' }) => {
             shadow-2xl
           "
         >
-          {/* زر الإغلاق */}
-          <button
-            onClick={() => setIsVisible(false)}
-            className="
-              absolute right-4 top-4 z-20
-              flex h-8 w-8 items-center justify-center
-              rounded-full bg-white/20
-              text-white hover:bg-white/30
-            "
-          >
-            <FaTimes className="h-4 w-4" />
-          </button>
+        
 
           {/* تأثيرات الخلفية */}
           <div className="absolute inset-0">
