@@ -9,6 +9,5 @@ export interface NavlinkProps {
 export interface ProfileImgProps{
   src?:string;
   editable:boolean;
-  onSelect?:(file:File)=>void;
   style:string;
 }

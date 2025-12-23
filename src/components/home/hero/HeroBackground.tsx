@@ -1,4 +1,4 @@
-import { heroBackground } from "@/assets"
+import { heroBackground } from "@/assets";
 
 const HeroBackground: React.FC = () => {
   return (
@@ -12,12 +12,13 @@ const HeroBackground: React.FC = () => {
         -translate-x-1/2
         -translate-y-1/2
         w-230
+        origin/main
         max-w-none
         opacity-70
         pointer-events-none
       "
     />
-  )
-}
+  );
+};
 
-export default HeroBackground
+export default HeroBackground;

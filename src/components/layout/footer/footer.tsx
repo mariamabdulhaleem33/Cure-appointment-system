@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa"
 import { MdHealthAndSafety } from "react-icons/md"
 
-const iconComponents: Record<string, React.ComponentType<any>> = {
+const iconComponents: Record<string, React.ComponentType<{ className?: string }>> = {
   Facebook: FaFacebookF,
   Linkedin: FaLinkedinIn,
   YouTube: FaYoutube,
