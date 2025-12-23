@@ -10,6 +10,7 @@ interface DoctorProps {
   endTime: string
   forBooking: boolean
   price: number
+  onClick?: () => void
 }
 
 export default function DoctorCard({
@@ -21,12 +22,16 @@ export default function DoctorCard({
   endTime,
   forBooking,
   price,
+  onClick,
 }: DoctorProps) {
   return (
-    <div className="flex flex-col gap-2 rounded-[10px] min-w-89.5 p-4 shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)]
-">
+    <div
+      className="flex flex-col gap-2 cursor-pointer justify-center rounded-[10px] min-w-89.5 p-4 shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)]
+"
+      onClick={onClick}
+    >
       <div className="flex items-center gap-2.5">
-        <div className="w-24.25 h-22 rounded-[10px] overflow-hidden">
+        <div className="w-[75px] h-[68px] rounded-[10px] overflow-hidden">
           <img
             className="w-full h-full object-cover"
             src={imageUrl}
@@ -36,7 +41,7 @@ export default function DoctorCard({
         <div className="flex-1">
           <h4>{name}</h4>
           <p className="text-[#6D7379] text-[14px]">
-            {specialty} | El-Nasr Hospital{" "}
+            {specialty} | El-Nasr Hospital
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
             <span className="flex items-center gap-1">

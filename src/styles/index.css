@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
 @import "tailwindcss";
-@import "flowbite-react/plugin/tailwindcss";
+/* @import "flowbite-react/plugin/tailwindcss"; */
+@plugin "flowbite/plugin";
 @source "../../.flowbite-react/class-list.json";
 @import "tw-animate-css";
 
@@ -202,4 +203,17 @@
   background: url("/src/assets/Group\ 8.png") center/cover no-repeat;
 
   z-index: 100;
+}
+
+.marker-cluster-small {
+  background-color: rgba(20, 93, 184, 0.6);
+}
+
+.marker-cluster-small div {
+  background-color: var(--color-primary);
+}
+
+.leaflet-div-icon {
+  background: transparent;
+  border: none;
 }
