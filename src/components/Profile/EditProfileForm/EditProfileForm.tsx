@@ -7,7 +7,7 @@ import type { FC } from "react";
 const EditProfileForm: FC = () => {
   return (
     <div className="grid grid-cols-2 grid-rows-4 gap-y-10 gap-x-16">
-      <p className="col-span-2 font-secondary text-3xl text-[#05162C]">
+      <p className="col-span-2 font-secondary text-3xl text-slate-900">
         Personal information
       </p>
       <div className="flex flex-col justify-center items-start gap-2">

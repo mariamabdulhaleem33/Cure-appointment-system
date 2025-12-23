@@ -175,6 +175,7 @@
 
   .text-text-neutral-darker {
     color: #6d7379;
+
   }
   .home-container {
     @apply mt-10 sm:mt-14 md:mt-20 lg:mt-24 xl:mt-25 px-4 sm:px-6 md:px-10 lg:px-15 xl:px-25;
@@ -190,6 +191,7 @@
     @apply border border-[#BBC1C7] rounded-[10px];
   }
 }
+
 .circle::after {
   content: "";
 
@@ -200,4 +202,17 @@
   background: url("/src/assets/Group\ 8.png") center/cover no-repeat;
 
   z-index: 100;
+}
+
+.marker-cluster-small {
+  background-color: rgba(20, 93, 184, 0.6);
+}
+
+.marker-cluster-small div {
+  background-color: var(--color-primary);
+}
+
+.leaflet-div-icon {
+  background: transparent;
+  border: none;
 }
