@@ -7,7 +7,7 @@ const BirthdaySelector: FC = () => {
   const Years = getYears(100);
   return (
     <div className="w-full flex justify-between items-center">
-      <NativeSelect className="w-24 bg-[#F5F6F7] rounded-xs focus:outline-0">
+      <NativeSelect className="w-24 bg-[#F5F6F7] rounded-xs">
         <NativeSelectOption value="">Day</NativeSelectOption>
         {Days.map((day) => (
           <NativeSelectOption key={day} value={day}>
@@ -35,6 +35,6 @@ const BirthdaySelector: FC = () => {
       </NativeSelect>
     </div>
   );
-}
+};
 
 export default BirthdaySelector;

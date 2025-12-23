@@ -6,7 +6,7 @@ import type { FC } from "react";
 
 const EditProfileForm: FC = () => {
   return (
-    <div className="grid grid-cols-2 grid-rows-4 gap-y-10 gap-x-16">
+    <form className="grid grid-cols-2 grid-rows-4 gap-y-10 gap-x-16">
       <p className="col-span-2 font-secondary text-3xl text-slate-900">
         Personal information
       </p>
@@ -45,7 +45,7 @@ const EditProfileForm: FC = () => {
           Save Changes
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 export default EditProfileForm;

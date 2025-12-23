@@ -5,11 +5,7 @@ import { setProfileImage } from "@/store/slices/profile.slice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/store";
 
-const ProfileImg: FC<ProfileImgProps> = ({
-  src,
-  editable,
-  style,
-}) => {
+const ProfileImg: FC<ProfileImgProps> = ({ src, editable, style }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (file: File) => {
