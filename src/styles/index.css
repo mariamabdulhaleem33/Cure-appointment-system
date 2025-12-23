@@ -204,3 +204,16 @@
 
   z-index: 100;
 }
+
+.marker-cluster-small {
+  background-color: rgba(20, 93, 184, 0.6);
+}
+
+.marker-cluster-small div {
+  background-color: var(--color-primary);
+}
+
+.leaflet-div-icon {
+  background: transparent;
+  border: none;
+}

@@ -10,16 +10,14 @@ function DoctorCardSkeleton() {
         </div>
       </div>
 
-
       <div className="flex items-center justify-between mt-4">
         <div className="h-3 w-20 bg-gray-200 rounded" />
         <div className="h-4 w-10 bg-gray-200 rounded" />
       </div>
 
-
       <div className="mt-4 h-10 w-full rounded-xl bg-gray-200" />
     </div>
-  );
+  )
 }
 
 export default DoctorCardSkeleton
