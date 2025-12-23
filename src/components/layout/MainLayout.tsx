@@ -14,7 +14,7 @@ const MainLayout: React.FC = () => {
           <Outlet />
         </div>
         <Footer />
-      </div>
+            </div>
     </Provider>
   );
 };
