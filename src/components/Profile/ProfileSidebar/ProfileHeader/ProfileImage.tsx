@@ -1,13 +1,27 @@
 import type { ProfileImgProps } from "@/Types/Profile.types";
 import { Camera, User } from "lucide-react";
 import type { FC } from "react";
+import { setProfileImage } from "@/store/slices/profile.slice";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "@/store";
 
 const ProfileImg: FC<ProfileImgProps> = ({
   src,
   editable,
-  onSelect,
   style,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleChange = (file: File) => {
+    const preview = URL.createObjectURL(file);
+
+    dispatch(
+      setProfileImage({
+        file,
+        preview,
+      })
+    );
+  };
   return (
     <div className="relative">
       <div
@@ -36,9 +50,7 @@ const ProfileImg: FC<ProfileImgProps> = ({
             hidden
             onChange={(e) => {
               const file = e.target.files?.[0];
-              if (file && onSelect) {
-                onSelect(file);
-              }
+              if (file) handleChange(file);
             }}
           />
         </label>

@@ -2,11 +2,18 @@ import { UserProfile } from "@/assets";
 import { MapPin } from "lucide-react";
 import { type FC } from "react";
 import ProfileImg from "./ProfileImage";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 
 const UserProfileHeader: FC = () => {
+  const previewImage = useSelector((state:RootState) => state.profile.previewImage);
   return (
     <div className="flex flex-col justify-center items-center gap-6">
-      <ProfileImg src={UserProfile} editable={true} style={`w-32 h-32`} />
+      <ProfileImg
+        src={previewImage ?? UserProfile}
+        editable={true}
+        style={`w-32 h-32`}
+      />
       <div className="flex flex-col justify-center items-center gap-2 text-center">
         <h4 className="font-secondary text-slate-900 text-2xl">
           Seif Mohammed

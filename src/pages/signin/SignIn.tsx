@@ -10,7 +10,6 @@ export default function SignIn() {
       </div>
       <SignInForm />
       <SignUpBg/>
-
     </div>
   )
 }

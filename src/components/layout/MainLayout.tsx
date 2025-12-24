@@ -1,11 +1,15 @@
-import React from "react"
-import { Provider } from "react-redux"
-import { store } from "@/store"
+import React from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store";
+import Navbar from "./navbar/Navbar";
+import Footer from "./footer/footer";
 
-import Navbar from "./navbar/Navbar"
-import HeroSection from "../home/hero/HeroSection"
-import Footer from "./footer/footer"
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
+
+import FooterAd from "./footer/FooterAd";
+import QuestionsAccordion from "@/components/home/faq/QuestionsAccordion";
+import HeroSection from "../home/hero/HeroSection";
+
 
 const MainLayout: React.FC = () => {
   return (
@@ -13,11 +17,19 @@ const MainLayout: React.FC = () => {
       <div className="min-h-screen bg-white flex flex-col">
         <Navbar />
 
-        <Outlet />
-        <Footer />
-      </div>
-    </Provider>
-  )
-}
+        <div className="grow">
+          <Outlet />
+        </div>
 
-export default MainLayout
+        <div className="flex-grow">
+          <HeroSection />
+          </div>
+          <QuestionsAccordion/>
+          <FooterAd/>
+        <Footer />
+            </div>
+    </Provider>
+  );
+};
+
+export default MainLayout;

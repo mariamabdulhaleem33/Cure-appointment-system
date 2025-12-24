@@ -14,7 +14,7 @@ import type {
   SocialMedia,
   AddSocialMediaPayload,
   RemoveSocialMediaPayload
-} from './footer.types';
+} from '../Types/footer.types';
 
 export const useFooter = () => {
   const dispatch = useDispatch<AppDispatch>();
