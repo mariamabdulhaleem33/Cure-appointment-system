@@ -1,6 +1,6 @@
 import type { FieldError } from "react-hook-form"
 
-const InputError = ({ error }: { error: FieldError | undefined }) => {
+const InputError = ({ error }: { error?: FieldError | {message?: string}}) => {
   return (
     <>
       {

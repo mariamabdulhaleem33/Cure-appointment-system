@@ -1,7 +1,7 @@
 import { UserProfile } from "@/assets";
 import { MapPin } from "lucide-react";
 import { type FC } from "react";
-import ProfileImg from "./ProfileImage";
+import ProfileImg from "../../../ui/ProfileImage";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store";
 
