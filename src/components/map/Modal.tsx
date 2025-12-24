@@ -98,7 +98,8 @@ export default function Modal() {
     },
   ]
 
-  const { center, centerMap } = useMap()
+  // const { center, centerMap, doctorAddress, handleMarkerClick } = useMap()
+  const { doctorInfo, handleDoctorInfo } = useMap()
 
   return (
     <>
@@ -128,17 +129,21 @@ export default function Modal() {
                   price={doctor.session_price}
                   startTime="9:00"
                   endTime="10:30"
-                  onClick={() =>
-                    centerMap(
+                  onClick={() => {
+                    handleDoctorInfo(
+                      doctor.clinic_address,
                       doctor.location.latitude,
                       doctor.location.longitude
                     )
-                  }
+                  }}
                 />
               ))}
             </div>
             <div className="flex-1 mt-4 rounded-[16px] overflow-hidden">
-              <DoctorsMap center={center} />
+              <DoctorsMap
+                doctorInfo={doctorInfo}
+                handleDoctorInfo={handleDoctorInfo}
+              />
             </div>
           </div>
         </DialogContent>

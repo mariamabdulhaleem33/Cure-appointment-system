@@ -6,7 +6,6 @@ import "react-leaflet-cluster/dist/assets/MarkerCluster.Default.css"
 import { createDoctorIcon } from "./createDoctorIcon"
 import Recenter from "./Recenter"
 import type { DoctorInfo } from "@/Types/Doctors.types"
-import useMap from "@/hooks/useMap"
 
 const doctors = [
   {
@@ -95,18 +94,16 @@ const doctors = [
   },
 ]
 
-const DoctorsMap = ({ center }: DoctorInfo) => {
-  const { doctorAddress, handleMarkerClick } = useMap()
-
+const DoctorsMap = ({ doctorInfo, handleDoctorInfo }: DoctorInfo) => {
   return (
     <div className="w-full h-100 rounded-[16px] overflow-hidden relative">
       <MapContainer
-        center={center}
+        center={doctorInfo.center}
         zoom={18}
         zoomControl={false}
         className="w-full h-full z-1"
       >
-        <Recenter center={center} />
+        <Recenter center={doctorInfo.center} />
         <TileLayer
           // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -119,7 +116,12 @@ const DoctorsMap = ({ center }: DoctorInfo) => {
               position={[doc.location.latitude, doc.location.longitude]}
               icon={createDoctorIcon(doc.profile_photo)}
               eventHandlers={{
-                click: () => handleMarkerClick(doc.clinic_address),
+                click: () =>
+                  handleDoctorInfo(
+                    doc.clinic_address,
+                    doc.location.latitude,
+                    doc.location.longitude
+                  ),
               }}
             >
               <Popup>
@@ -139,7 +141,7 @@ const DoctorsMap = ({ center }: DoctorInfo) => {
       </MapContainer>
       <div className="flex items-center absolute bottom-[22px] left-[22px] z-10 max-w-[300px] bg-white text-black py-[14px] px-[16px] rounded-[10px] shadow-[0_4px_7px_rgba(0,0,0,0.15)]">
         <img className="w-6 pr-2" src="/imgs/Icon.png" alt="Map icon" />
-        <span className="text-sm">{doctorAddress}</span>
+        <span className="text-sm">{doctorInfo.doctorAddress}</span>
       </div>
     </div>
   )

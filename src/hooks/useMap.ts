@@ -1,16 +1,15 @@
+import type { Doctor } from "@/Types/Doctors.types"
 import { useState } from "react"
 
 export default function useMap() {
-  const [center, setCenter] = useState<[number, number]>([30.0444, 31.2357])
-  const [doctorAddress, setDoctorAddress] = useState("Cairo, Egypt")
+  const [doctorInfo, setDoctorInfo] = useState<Doctor>({
+    doctorAddress: "Cairo, Egypt",
+    center: [30.0444, 31.2357],
+  })
 
-  function centerMap(lat: number, lng: number) {
-    setCenter([lat, lng])
+  function handleDoctorInfo(doctorAddress: string, lat: number, lng: number) {
+    setDoctorInfo({ doctorAddress: doctorAddress, center: [lat, lng] })
   }
 
-  function handleMarkerClick(doctorAddress: string) {
-    setDoctorAddress(doctorAddress)
-  }
-
-  return { center, centerMap, doctorAddress, handleMarkerClick }
+  return { doctorInfo, handleDoctorInfo }
 }
