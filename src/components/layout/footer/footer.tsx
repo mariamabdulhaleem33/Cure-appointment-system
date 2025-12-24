@@ -1,6 +1,7 @@
-import React, { useCallback } from "react"
-import { Link, NavLink } from "react-router-dom"
-import { useFooter } from "./useFooter"
+import React from "react"
+import  { useCallback } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { useFooter } from '../../../hooks/useFooter';
 import {
   FaFacebookF,
   FaLinkedinIn,
