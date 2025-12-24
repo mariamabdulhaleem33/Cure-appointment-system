@@ -22,7 +22,7 @@ export const resetPasswordSchema = z.object({
     .max(255),
 }).refine((data) => data.newPasswordR === data.confirmPasswordR, {
   message: "Passwords do not match",
-  path: ["confirm"],
+  path: ["confirmPasswordR"],
 });
 
 export type resetPasswordType = z.infer<typeof resetPasswordSchema>;

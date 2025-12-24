@@ -59,7 +59,7 @@ const ChangePassword: FC = () => {
   };
   return (
     <form
-      className="w-1/2  flex flex-col justify-start items-start  gap-8"
+      className="w-full flex flex-col justify-start items-start  gap-8"
       onSubmit={handleSubmit(onSubmit)}
     >
       <p className="font-secondary text-3xl text-slate-900">Change Password</p>

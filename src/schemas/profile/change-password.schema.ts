@@ -21,7 +21,7 @@ export const changePasswordSchema = z.object({
     .max(255),
 }).refine((data) => data.newPasswordCh === data.confirmPasswordCh, {
   message: "Passwords do not match",
-  path: ["confirm"],
+  path: ["confirmPasswordCh"],
 }).refine((data) => data.currentPassword !== data.newPasswordCh, {
   message: "New password must be different from current password",
   path: ["newPasswordCh"],
