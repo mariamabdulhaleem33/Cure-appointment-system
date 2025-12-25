@@ -11,3 +11,27 @@ export interface ProfileImgProps{
   editable:boolean;
   style:string;
 }
+
+export type FormDataType = {
+  name: string;
+  email: string;
+  phone: string;
+  image: null;
+  birthdate: {
+    day: string;
+    month: string;
+    year: string;
+  };
+  address: string;
+};
+
+export type UpdateProfilePayload = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  image: File|null;
+  birthDay: number;
+  birthMonth: number;
+  birthYear: number;
+};

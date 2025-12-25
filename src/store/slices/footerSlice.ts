@@ -7,7 +7,7 @@ import type {
   CompanyInfo,
   AddSocialMediaPayload,
   RemoveSocialMediaPayload
-} from '@/components/layout/footer/footer.types';
+} from '@/Types/footer.types';
 
 const initialState: FooterState = {
   companyInfo: {

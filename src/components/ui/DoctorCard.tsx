@@ -1,17 +1,7 @@
 import { FaStar } from "react-icons/fa6"
 import { CiClock2 } from "react-icons/ci"
-
-interface DoctorProps {
-  imageUrl: string
-  name: string
-  specialty: string
-  rate: number
-  startTime: string
-  endTime: string
-  forBooking: boolean
-  price: number
-  onClick?: () => void
-}
+import { Link } from "react-router-dom"
+import type { DoctorProps } from "@/Types/Doctors.types"
 
 export default function DoctorCard({
   imageUrl,
@@ -63,9 +53,11 @@ export default function DoctorCard({
             </span>
             <span className="text-[#FC4B4E]">${price}</span>
           </div>
-          <button className="w-full py-2 cursor-pointer rounded-[10px] bg-[#145DB8] text-white">
-            Book appointment
-          </button>
+          <Link to="/booking">
+            <button className="w-full py-2 cursor-pointer rounded-[10px] bg-[#145DB8] text-white">
+              Book appointment
+            </button>
+          </Link>
         </>
       )}
     </div>

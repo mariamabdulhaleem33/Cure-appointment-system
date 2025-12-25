@@ -41,6 +41,12 @@
     overflow: visible;
   }
   
+  /* Style for signin/signup dropdown */
+  .profileDropdownMobile.compact {
+    min-height: auto;
+    height: auto;
+  }
+  
   .profileMenuMobile {
     width: auto;
     height: auto;

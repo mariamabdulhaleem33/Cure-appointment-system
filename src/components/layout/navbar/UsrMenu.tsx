@@ -1,24 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { User } from "lucide-react";
 import DropDown from "../../profile-popup/DropDown";
-import { UserProfile } from "@/assets";
+import SignInSignUpDropdown from "../../profile-popup/SignInSignUpDropdown";
 import { useMediaQuery } from "@/hooks/useMatchMediaQuery";
+import { useAuthState, useLogout } from "@/hooks/useAuth";
+import { useProfile } from "@/hooks/useProfile";
 
 const UserMenu: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { isLargeScreen } = useMediaQuery("(min-width: 768px)");
-
-  // Mock data for user
-  const mockUser = {
-    name: "Seif Mohamed",
-    address: "129,El-Nasr Street, Cairo",
-    avatarUrl: UserProfile,
-  };
+  const { isAuthenticated } = useAuthState();
+  const logout = useLogout();
+  const { user } = useProfile();
 
   const handleLogout = () => {
-    console.log("Logout clicked!");
     setShowDropdown(false);
+    logout();
   };
 
   // Close dropdown when clicking outside (desktop only)
@@ -65,22 +63,39 @@ const UserMenu: React.FC = () => {
             hover:bg-gray-100
             cursor-pointer
             transition-colors
+            overflow-hidden
           "
           aria-label="Open user menu"
           aria-expanded={showDropdown}
           aria-haspopup="true"
         >
-          <User className="w-5 h-5 text-gray-600" />
+          {isAuthenticated ? (
+            <img
+              src={user.avatarUrl}
+              alt={`${user.name}'s profile`}
+              className="w-full h-full object-cover rounded-full"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "https://via.placeholder.com/36";
+              }}
+            />
+          ) : (
+            <User className="w-5 h-5 text-gray-600" />
+          )}
         </button>
 
         {/* Desktop Dropdown */}
         {showDropdown && (
           <div className="hidden md:block absolute right-0 top-12 z-50">
-            <DropDown
-              user={mockUser}
-              onLogout={handleLogout}
-              onClose={handleClose}
-            />
+            {isAuthenticated ? (
+              <DropDown
+                user={user}
+                onLogout={handleLogout}
+                onClose={handleClose}
+              />
+            ) : (
+              <SignInSignUpDropdown onClose={handleClose} />
+            )}
           </div>
         )}
       </div>
@@ -93,11 +108,15 @@ const UserMenu: React.FC = () => {
             className="relative w-full h-full"
             onClick={(e) => e.stopPropagation()}
           >
-            <DropDown
-              user={mockUser}
-              onLogout={handleLogout}
-              onClose={handleClose}
-            />
+            {isAuthenticated ? (
+              <DropDown
+                user={user}
+                onLogout={handleLogout}
+                onClose={handleClose}
+              />
+            ) : (
+              <SignInSignUpDropdown onClose={handleClose} />
+            )}
           </div>
         </div>
       )}
