@@ -7,7 +7,7 @@ type IProps = {
   doctorId: number | null;
 };
 const DoctorInfo = ({ doctorId }: IProps) => {
-  const token = "9|CRlNxa5Opg5MpTbwiGhst28jt7eSkW7uq3evShRlc571bd15";
+  const token: string | null = localStorage.getItem("authToken");
   const { data: doctorInfo } = useDoctor(doctorId, token);
   return (
     <section className="w-full md:w-[45%] lg:w-[37%] h-[753px] bg-[#F5F6F7] rounded-[19px] px-5 pt-8 pb-6 flex flex-col justify-between">

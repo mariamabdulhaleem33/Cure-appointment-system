@@ -20,7 +20,7 @@ const AppointemntCard = ({ doctorId }: IProps) => {
   /* ================= Params ================= */
 
   /* ================= Fetch Data ================= */
-  const token = "9|CRlNxa5Opg5MpTbwiGhst28jt7eSkW7uq3evShRlc571bd15";
+  const token: string | null = localStorage.getItem("authToken");
   const { data: doctorAvailability = [] } = useDoctorAvailability(
     doctorId,
     token

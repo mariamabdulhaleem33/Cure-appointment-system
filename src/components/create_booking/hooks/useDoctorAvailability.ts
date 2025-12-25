@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const useDoctorAvailability = (
   doctorId?: number | null,
-  token?: string
+  token?: string | null
 ) => {
   return useQuery({
     queryKey: ["doctorAvailability", doctorId],

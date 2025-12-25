@@ -20,7 +20,7 @@ const Footer = ({
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const token = "9|CRlNxa5Opg5MpTbwiGhst28jt7eSkW7uq3evShRlc571bd15";
+  const token: string | null = localStorage.getItem("authToken");
   const startTime = selectedTime.split(" - ")[0];
   // create Book Function
   const { mutate: createBooking, isPending } = useCreateBooking(token);

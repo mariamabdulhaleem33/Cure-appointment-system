@@ -14,7 +14,7 @@ interface ReviewCardsProps {
   doctorId: number | null;
 }
 const ReviewCards = ({ doctorId }: ReviewCardsProps) => {
-  const token = "9|CRlNxa5Opg5MpTbwiGhst28jt7eSkW7uq3evShRlc571bd15";
+  const token: string | null = localStorage.getItem("authToken");
   const { data: doctorReviews = [] } = useDoctorReviews(doctorId, token);
 
   return (

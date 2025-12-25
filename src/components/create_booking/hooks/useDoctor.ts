@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useDoctor = (doctorId?: number | null, token?: string) => {
+export const useDoctor = (doctorId?: number | null, token?: string | null) => {
   return useQuery({
     queryKey: ["doctor", doctorId],
     queryFn: async () => {

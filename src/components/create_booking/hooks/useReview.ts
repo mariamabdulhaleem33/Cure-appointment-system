@@ -3,7 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { IReview } from "../types";
 
-export const useDoctorReviews = (doctorId?: number | null, token?: string) => {
+export const useDoctorReviews = (
+  doctorId?: number | null,
+  token?: string | null
+) => {
   return useQuery<IReview[]>({
     queryKey: ["doctorReviews", doctorId],
     queryFn: async () => {
