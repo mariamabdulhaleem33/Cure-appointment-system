@@ -107,6 +107,7 @@ const EditProfileForm: FC = () => {
           placeholder="location"
           {...register("address")}
         />
+        {errors.address && InputError({ error: errors.address })}
       </div>
       <div className="col-start-2 flex flex-col justify-center items-end">
         <Button
