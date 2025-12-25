@@ -7,10 +7,10 @@ export const signUpSchema = z.object({
   email: z.email({ message: "please Enter Valid email" }),
   phone: z.string().regex(/^(\+20|0)?1[0-2,5][0-9]{8}$/, { message: "please enter valid number" }),
   password: z.string().regex(passwordRegex, { message: "Password must contain uppercase, lowercase, number and special character" }),
-  confirmed: z.string().min(8, { message: "password must be at least 8 charcater" }).max(255),
-}).refine((data) => data.password === data.confirmed, {
+  password_confirmation: z.string().min(8, { message: "password must be at least 8 charcater" }).max(255),
+}).refine((data) => data.password === data.password_confirmation, {
   message: "Passwords do not match",
-  path: ["confirmed"],
+  path: ["password_confirmation"],
 });
 
 export type typeForm = z.infer<typeof signUpSchema>;

@@ -4,7 +4,7 @@ import OtpForm from "./OtpForm"
 
 const CodeVerifaction = () => {
   return (
-    <div className="fixed w-105 top-46 left-46.5 text-center">
+    <div className=" w-105 relative flex justify-center  lg:left-0 mx-auto overflow-hidden text-center">
       <div className="w-76.5">
         <AuthFormHeading title="Code Verification"  />
         <p className="text-[14px] text-[#404448] mt-3">Code has been send to your phone number</p>

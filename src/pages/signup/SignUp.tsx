@@ -5,13 +5,14 @@ import Logo from "@/components/layout/navbar/Logo"
 
 const SignUp = () => {
   return (
-    <div className=" flex ">
-      <div className="fixed top-2.5 left-15">
+    <div className=" flex min-h-screen  items-center justify-center lg:justify-around">
+      <div className="fixed top-9.5 left-25 bg-white ">
         <Logo />
       </div>
-      <SignUpForm />
-      <SignUpBg />
-
+      <div><SignUpForm /></div>
+      <div>
+        <SignUpBg />
+      </div>
     </div>
   )
 }

@@ -7,10 +7,17 @@ import { useForm, } from 'react-hook-form';
 import { signUpSchema, type typeForm } from "@/schemas/signup.schema"
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputError from "@/components/ui/InputError"
+import { signUpFn } from "@/services/auth.service"
+import { useNavigate } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import type { AxiosError } from "axios"
+import type { SignUpErrorResponse, TserverErrors } from "../types/SignUpTypes"
 
 
 const SignUpForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<typeForm>({
+    console.log(import.meta.env.VITE_BASE_URL)
+    const navigate = useNavigate()
+    const { register, handleSubmit, formState: { errors },setError } = useForm<typeForm>({
         mode: 'onChange',
         resolver: zodResolver(signUpSchema)
     });
@@ -46,22 +53,43 @@ const SignUpForm = () => {
         {
             type: "password",
             placeholder: "Confirm Password",
-            id: "confirmed",
-            register: register("confirmed", { required: true }),
-            error: errors.confirmed
+            id: "password_confirmation",
+            register: register("password_confirmation", { required: true }),
+            error: errors.password_confirmation
         },
     ]
+    const { mutate } = useMutation({
+        mutationFn: signUpFn,
+        onSuccess: (data) => {
 
+            console.log('done', data)
+            if(data) {
+                navigate('/otp', { state: { phone: data.data.phone } })
+            }
+        },
+        onError: (error: AxiosError<SignUpErrorResponse>) => {
+            const serverErrors = error?.response?.data?.errors as TserverErrors;
+            if (serverErrors) {
+                Object.keys(serverErrors).forEach((key) => {
+                    setError(key as keyof typeForm, {
+                        message: serverErrors[key][0],
+                    });
+                });
+            }
+        }
+    });
     const onSubmit = (data: typeForm) => {
+        mutate(data)
         console.log(data)
+
     }
     return (
-        <div className="w-105 relative top-1.25 left-46.5">
-            <div  className="w-92.75 mx-auto">
+        <div className="w-[90%] sm:w-[90%]  mx-auto lg:w-105 flex flex-col justify-center  overflow-x-hidden my-20 p-2 ">
+            <div className="w-full lg:w-92.75 mx-auto">
                 <AuthFormHeading title="sign up" />
-                <p className="text-[#6D7379] text-[13px] w-92.75">Please provide all information required to create your account</p>
+                <p className="text-[#6d7379] text-[12px] w-full lg:w-92.75">Please provide all information required to create your account</p>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-94.5 mx-auto mt-5 flex flex-col gap-3 ">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:w-94.5 mx-auto mt-5 flex flex-col gap-3 ">
                 {
                     inputsData.map((input, index) => {
                         return (
