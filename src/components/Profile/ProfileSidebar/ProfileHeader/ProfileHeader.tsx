@@ -1,8 +1,8 @@
 import { UserProfile } from "@/assets";
-import { MapPin } from "lucide-react";
 import { type FC } from "react";
 import ProfileImg from "../../../ui/ProfileImage";
 import { useShowProfile } from "@/hooks/profile/useShowProfile";
+import { LocationIcon } from "@/components/profile-popup/icons";
 
 const UserProfileHeader: FC = () => {
   const { data } = useShowProfile((data) => ({
@@ -16,7 +16,7 @@ const UserProfileHeader: FC = () => {
       <div className="flex flex-col justify-center items-center gap-2 text-center">
         <h4 className="font-secondary text-slate-900 text-2xl">{data?.name}</h4>
         <p className="text-neutral-500 text-sm flex items-center gap-1">
-          <MapPin className="w-4 h-4 text-neutral-500" />
+          <LocationIcon className="w-3.5 h-3.5 shrink-0" />
           {data?.location ? data?.location : "Location not set yet"}
         </p>
       </div>
