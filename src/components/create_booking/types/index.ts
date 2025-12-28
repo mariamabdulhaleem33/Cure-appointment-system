@@ -8,9 +8,8 @@ export interface IReview {
 }
 export type BookingDate = {
   date: string;
-  start_time: string;
-  end_time: string;
-  day_name: string;
+  from: string;
+  to: string;
 };
 
 export type Slot = {

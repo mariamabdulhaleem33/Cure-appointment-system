@@ -14,12 +14,14 @@ interface ReviewCardsProps {
   doctorId: number | null;
 }
 const ReviewCards = ({ doctorId }: ReviewCardsProps) => {
-  const token: string | null = localStorage.getItem("authToken");
+  const token: string | null =
+    localStorage.getItem("authToken") ??
+    "11|4oTir7nbTiTxizu8G2jkbM53dTIUyNtHjH89F64L50c6c158";
   const { data: doctorReviews = [] } = useDoctorReviews(doctorId, token);
-
+  const allReviews = doctorReviews?.data?.reviews?.data || [];
   return (
     <>
-      {doctorReviews.length > 0 ? (
+      {allReviews?.length > 0 ? (
         <Carousel
           opts={{
             align: "start",

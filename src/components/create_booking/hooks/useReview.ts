@@ -11,7 +11,7 @@ export const useDoctorReviews = (
     queryKey: ["doctorReviews", doctorId],
     queryFn: async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/reviews/doctor/${doctorId}`,
+        `${import.meta.env.VITE_BASE_URL}reviews/doctor/${doctorId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -19,7 +19,9 @@ export const useDoctorReviews = (
           },
         }
       );
-      return res.data.data;
+      // console.log(res.data.data.reviews.data);
+      // console.log(res);
+      return res?.data;
     },
     enabled: !!doctorId,
   });

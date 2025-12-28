@@ -12,6 +12,7 @@ export default function DoctorCard({
   endTime,
   forBooking,
   price,
+  userId,
   onClick,
 }: DoctorProps) {
   return (
@@ -21,7 +22,7 @@ export default function DoctorCard({
       onClick={onClick}
     >
       <div className="flex items-center gap-2.5">
-        <div className="w-[75px] h-[68px] rounded-[10px] overflow-hidden">
+        <div className="w-18.75 h-17 rounded-[10px] overflow-hidden">
           <img
             className="w-full h-full object-cover"
             src={imageUrl}
@@ -53,7 +54,7 @@ export default function DoctorCard({
             </span>
             <span className="text-[#FC4B4E]">${price}</span>
           </div>
-          <Link to="/booking">
+          <Link to={`/booking/${userId}`}>
             <button className="w-full py-2 cursor-pointer rounded-[10px] bg-[#145DB8] text-white">
               Book appointment
             </button>

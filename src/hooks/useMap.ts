@@ -1,8 +1,8 @@
-import type { Doctor } from "@/Types/Doctors.types"
+import type { DoctorAddress } from "@/Types/Doctors.types"
 import { useState } from "react"
 
 export default function useMap() {
-  const [doctorInfo, setDoctorInfo] = useState<Doctor>({
+  const [doctorInfo, setDoctorInfo] = useState<DoctorAddress>({
     doctorAddress: "Cairo, Egypt",
     center: [30.0444, 31.2357],
   })

@@ -3,7 +3,7 @@ type IProps = {
   experience: number;
   patientCount: number;
   reviewsCount: number;
-  rating_avg: string;
+  rating_avg: number;
 };
 const Details = ({
   experience,
