@@ -61,6 +61,7 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
             top-full
             mt-3
             w-[156px]
+        max-h-[771]
             bg-white
             border
             rounded-xl

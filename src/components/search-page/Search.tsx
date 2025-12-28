@@ -78,11 +78,10 @@ export default function Search() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <main className="max-w-7xl mx-auto px-6 py-8 relative flex flex-col">
         {/* Header with Filter button and Search input */}
         <div className="flex items-center gap-3 mb-6 relative">
-          {/* Wrapper relative للزر والـ sidebar عشان نقدر نعمل sidebar absolute تحت الزر */}
           <div className="relative">
             <button
               onClick={() => setIsFilterOpen((p) => !p)}
@@ -92,19 +91,16 @@ export default function Search() {
               <span>Filter</span>
               <span className="ml-2 flex h-6 w-6 items-center justify-center rounded-md border">
                 <FiChevronRight
-                  className={`text-gray-400 transition-transform duration-300 ${
-                    isFilterOpen ? "rotate-90" : "rotate-0"
-                  }`}
+                  className={`text-gray-400 transition-transform duration-300 ${isFilterOpen ? "rotate-90" : "rotate-0"
+                    }`}
                 />
               </span>
             </button>
 
-            {/* Sidebar يظهر تحت الزر */}
             {isFilterOpen && (
               <aside
-                className="absolute left-0 top-full mt-2 w-[156px] h-[771px] bg-white flex flex-col gap-4 p-4 border rounded-xl shadow-lg z-50"
+                className="absolute left-0 top-full mt-2 w-[156px] max-h-[771px] bg-white flex flex-col gap-4 p-4 z-50"
               >
-                <h3 className="text-sm font-semibold">Filters</h3>
 
                 {/* Available Date */}
                 <div
@@ -199,8 +195,8 @@ export default function Search() {
                       checked={filters.sort === "recommended"}
                       onChange={() => toggleSort("recommended")}
                     />
-                   <span className="truncate"> 
-                    Most recommended
+                    <span className="truncate">
+                      Most recommended
                     </span>
                   </label>
 
@@ -212,7 +208,7 @@ export default function Search() {
                     />
                     <span className=" truncate">
                       Price Low to High
-                      </span>
+                    </span>
                   </label>
 
                   <label className="flex items-center gap-2 text-xs cursor-pointer max-w-[250px]">
@@ -221,11 +217,11 @@ export default function Search() {
                       checked={filters.sort === "price_high"}
                       onChange={() => toggleSort("price_high")}
                     />
-                   <span className="truncate"> 
-                    Price High to Low
+                    <span className="truncate">
+                      Price High to Low
                     </span>
                   </label>
-                  
+
                 </div>
               </aside>
             )}
@@ -272,9 +268,8 @@ export default function Search() {
 
           {/* pagination */}
           <div
-            className={`mt-10 flex ${
-              isFirstPage ? "justify-center" : "justify-between"
-            }`}
+            className={`mt-10 flex ${isFirstPage ? "justify-center" : "justify-between"
+              }`}
           >
             {!isFirstPage && (
               <button
