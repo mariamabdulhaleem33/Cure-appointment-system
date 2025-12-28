@@ -10,17 +10,22 @@ type IProps = {
   selectedTime: string;
   currentDay: DayGroup;
   selectedMonth: string;
+  session_price: string;
 };
+
 const Footer = ({
   selectedTime,
   currentDay,
   selectedMonth,
   doctorId,
+  session_price,
 }: IProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const token: string | null = localStorage.getItem("authToken");
+  const token: string | null =
+    localStorage.getItem("authToken") ??
+    "11|4oTir7nbTiTxizu8G2jkbM53dTIUyNtHjH89F64L50c6c158";
   const startTime = selectedTime.split(" - ")[0];
   // create Book Function
   const { mutate: createBooking, isPending } = useCreateBooking(token);
@@ -29,10 +34,10 @@ const Footer = ({
     createBooking(
       {
         doctor_id: doctorId,
-        appointment_date: currentDay.date,
-        appointment_time: startTime,
-        payment_method: "stripe",
-        notes: null,
+        booking_date: currentDay.date,
+        booking_time: startTime,
+        price: Number(session_price),
+        payment_method_id: 1,
       },
       {
         onError: (error: any) => {

@@ -4,10 +4,10 @@ import axios from "axios";
 
 interface BookingPayload {
   doctor_id: number | null;
-  appointment_date: string;
-  appointment_time: string;
-  payment_method: string;
-  notes?: string | null;
+  booking_date: string;
+  booking_time: string;
+  price: number;
+  payment_method_id: number;
 }
 
 export const useCreateBooking = (token: string | null) => {
@@ -18,7 +18,7 @@ export const useCreateBooking = (token: string | null) => {
       }
 
       const res = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/bookings`,
+        `${import.meta.env.VITE_BASE_URL}patient/bookings`,
         payload,
         {
           headers: {
