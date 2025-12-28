@@ -1,10 +1,16 @@
 import { Star } from "lucide-react";
-
-const Description = () => {
+import { useDoctor } from "../hooks/useDoctor";
+type IProps = {
+  doctorId: number | null;
+};
+const Description = ({ doctorId }: IProps) => {
+  const { data: doctorInfo } = useDoctor(doctorId);
   return (
     <>
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-[25px] md:text-[40px]">4.5/5</h2>
+        <h2 className="text-[25px] md:text-[40px]">
+          {Number(doctorInfo?.rating_avg).toFixed(1)}/5
+        </h2>
         <div className="flex flex-col">
           <div className="flex gap-1">
             {Array.from({ length: 5 }).map((_, index) => (
@@ -18,7 +24,9 @@ const Description = () => {
               />
             ))}
           </div>
-          <p className="text-[14px] text-[#6D7379]">1250+ Reviews</p>
+          <p className="text-[14px] text-[#6D7379]">
+            {doctorInfo?.reviews_count}+ Reviews
+          </p>
         </div>
       </div>
     </>

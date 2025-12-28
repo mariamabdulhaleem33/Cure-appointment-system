@@ -10,7 +10,7 @@ const BirthdaySelector: FC<{ control: any }> = ({ control }) => {
     <div className="w-full flex justify-between items-center">
       <Controller
         control={control}
-        name="birthdate.day"
+        name="birth_date.day"
         render={({ field }) => (
           <NativeSelect
             {...field }
@@ -28,7 +28,7 @@ const BirthdaySelector: FC<{ control: any }> = ({ control }) => {
 
       <Controller
         control={control}
-        name="birthdate.month"
+        name="birth_date.month"
         render={({ field }) => (
           <NativeSelect {...field} className="w-24 bg-[#F5F6F7] rounded-xs">
             <NativeSelectOption value="">Mon</NativeSelectOption>
@@ -43,7 +43,7 @@ const BirthdaySelector: FC<{ control: any }> = ({ control }) => {
 
       <Controller
         control={control}
-        name="birthdate.year"
+        name="birth_date.year"
         render={({ field }) => (
           <NativeSelect {...field} className="w-24 bg-[#F5F6F7] rounded-xs">
             <NativeSelectOption value="">Year</NativeSelectOption>

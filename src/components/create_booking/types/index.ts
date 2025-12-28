@@ -30,9 +30,11 @@ export interface Specialty {
   image: string;
 }
 
-export interface Location {
-  latitude: number;
-  longitude: number;
+export interface ILocation {
+  location?: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 export interface IDoctor {
@@ -48,4 +50,9 @@ export interface IDoctor {
   clinic_address: string;
   location: Location;
   experience_years: number;
+}
+
+export interface ILocation {
+  latitude: number;
+  longitude: number;
 }

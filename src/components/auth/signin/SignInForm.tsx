@@ -52,14 +52,14 @@ export default function SignInForm() {
     : '';
 
   return (
-    <div className="w-105 relative top-1.25 left-46.5">
-      <div className="w-92.75 mx-auto">
+    <div className="w-[90%] sm:w-[90%]  mx-auto lg:w-105 flex flex-col justify-center  overflow-x-hidden my-20 p-2 ">
+      <div className="w-full lg:w-92.75 mx-auto">
         <AuthFormHeading title="sign in" />
         <p className="text-[#6D7379] text-[13px] w-92.75">
           Please provide all information required to create your account
         </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-94.5 mx-auto mt-5 flex flex-col gap-3">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:w-94.5 mx-auto mt-5 flex flex-col gap-3 ">
         {isError && (
           <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-[10px] text-sm">
             {errorMessage}

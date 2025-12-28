@@ -2,49 +2,65 @@ import { Label } from "../../ui/label";
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import BirthdaySelector from "./BirthdaySelector";
-import { type FC } from "react";
+import { useEffect, type FC } from "react";
 import { useForm } from "react-hook-form";
 import {
   editProfileSchema,
-  type typeEditForm,
+  type EditProfileApiData,
+  type editProfileType,
 } from "@/schemas/profile/edit-profile.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from "@/components/ui/InputError";
-//import { useSelector } from "react-redux";
-//import type { RootState } from "@/store";
+import { useShowProfile } from "@/hooks/profile/useShowProfile";
+import { useEditProfile } from "@/hooks/profile/useEditProfile";
 
 const EditProfileForm: FC = () => {
+  const { data: profileData } = useShowProfile();
+  const { mutate } = useEditProfile();
   const {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<typeEditForm>({
+  } = useForm<editProfileType>({
     mode: "onChange",
     resolver: zodResolver(editProfileSchema),
-    defaultValues: {
-      birthdate: {
+  });
+
+  const onSubmit = (data: editProfileType) => {
+    const apiData: EditProfileApiData = {
+    name: data.name,
+    email: data.email,
+    mobile_number: data.mobile_number,
+    location: data.location,
+    birth_date: data.birth_date?.day && data.birth_date?.month && data.birth_date?.year
+      ? `${data.birth_date.year.padStart(4, "0")}-${data.birth_date.month.padStart(2, "0")}-${data.birth_date.day.padStart(2, "0")}`
+      : null,
+  };
+    mutate(apiData);
+  };
+
+  useEffect(() => {
+    if (profileData) {
+      let birthDateValues = {
         day: "",
         month: "",
         year: "",
-      },
-    },
-  });
-  //const profileImage = useSelector((state: RootState) => state.profile.selectedFile);
-
-  const onSubmit = (data: typeEditForm) => {
-    console.log("Raw Data :", data);
-    const formattedData = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-      birthDay: Number(data.birthdate.day),
-      birthMonth: Number(data.birthdate.month),
-      birthYear: Number(data.birthdate.year),
-    };
-    console.log("Formatted Data:", formattedData);
-  };
+      };
+      if (profileData.birth_date) {
+        const [year, month, day] = profileData.birth_date.split("-");
+        birthDateValues = { year, month, day };
+      }
+      reset({
+        name: profileData.name || "",
+        email: profileData.email || "",
+        mobile_number: profileData.mobile_number || "",
+        location: profileData.location || "",
+        birth_date: birthDateValues,
+      });
+    }
+  }, [profileData, reset]);
 
   return (
     <form
@@ -67,16 +83,16 @@ const EditProfileForm: FC = () => {
         {errors.name && InputError({ error: errors.name })}
       </div>
       <div className="h-25 flex flex-col justify-start items-start gap-2">
-        <Label htmlFor="phone" className="font-normal text-slate-900">
+        <Label htmlFor="mobile_number" className="font-normal text-slate-900">
           Phone Number
         </Label>
         <Input
           type="text"
-          id="phone"
+          id="mobile_number"
           placeholder="Phone Number"
-          {...register("phone")}
+          {...register("mobile_number")}
         />
-        {errors.phone && InputError({ error: errors.phone })}
+        {errors.mobile_number && InputError({ error: errors.mobile_number })}
       </div>
       <div className="h-25 flex flex-col justify-start items-start gap-2">
         <Label htmlFor="email" className="font-normal text-slate-900">
@@ -95,7 +111,7 @@ const EditProfileForm: FC = () => {
           Your birthday
         </Label>
         <BirthdaySelector control={control} />
-        {errors.birthdate && InputError({ error: errors.birthdate })}
+        {errors.birth_date && InputError({ error: errors.birth_date})}
       </div>
       <div className="h-25 col-span-2 flex flex-col justify-start items-start gap-2">
         <Label htmlFor="location" className="font-normal text-slate-900">
@@ -105,8 +121,9 @@ const EditProfileForm: FC = () => {
           type="text"
           id="location"
           placeholder="location"
-          {...register("address")}
+          {...register("location")}
         />
+        {errors.location && InputError({ error: errors.location })}
       </div>
       <div className="col-start-2 flex flex-col justify-center items-end">
         <Button

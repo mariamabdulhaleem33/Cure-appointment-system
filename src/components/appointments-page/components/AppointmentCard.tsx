@@ -33,7 +33,7 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
   const config = statusConfig[status];
 
   return (
-    <Card className="w-100 rounded-xl border pt-1 shadow-sm">
+    <Card className="w-100 rounded-xl border pt-3 shadow-sm">
       <CardContent className="px-4  space-y-4">
         <div className="flex items-center justify-between text-sm">
           <div className="flex items-center gap-2 text-muted-foreground">

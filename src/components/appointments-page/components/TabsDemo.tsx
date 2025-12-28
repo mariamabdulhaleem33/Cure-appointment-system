@@ -1,13 +1,13 @@
-import { AppointmentCard } from "@/features/patient/components/AppointmentCard";
-import { Calendar28 } from "@/features/patient/components/Calender28";
+import { AppointmentCard } from "@/components/appointments-page/components/AppointmentCard";
+import { Calendar28 } from "@/components/appointments-page/components/Calender28";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function TabsDemo() {
   return (
     <div className="flex  flex-col gap-6">
-      <Tabs defaultValue="all">
-        <div className="flex justify-between flex-row-reverse">
+      <Tabs defaultValue="all" className="gap-5">
+        <div className="flex justify-between flex-row-reverse ">
           <Calendar28 />
           <TabsList className="bg-none">
             <TabsTrigger
@@ -57,8 +57,8 @@ export function TabsDemo() {
           </TabsList>
         </div>
 
-        <TabsContent value="all">
-          <div className="flex gap-6 flex-wrap justify-start">
+        <TabsContent value="all" className="flex justify-content-center">
+          <div className="flex gap-6 flex-wrap sm:justify-center xl:justify-start">
             <AppointmentCard status="upcoming" />
             <AppointmentCard status="completed" />
             <AppointmentCard status="canceled" />
@@ -81,11 +81,9 @@ export function TabsDemo() {
         </TabsContent>
         <TabsContent value="completed">
           <div className="flex gap-6 flex-wrap justify-start">
-            
             <AppointmentCard status="completed" />
             <AppointmentCard status="completed" />
             <AppointmentCard status="completed" />
-            
           </div>
         </TabsContent>
       </Tabs>

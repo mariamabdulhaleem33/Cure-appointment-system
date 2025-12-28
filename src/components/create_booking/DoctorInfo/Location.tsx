@@ -1,20 +1,33 @@
-const Location = () => {
-  return (
-    <>
-      <div>
-        <h2 className="text-[20px] mb-3">Location</h2>
-        <div className="w-full h-[201px] rounded-[20px]">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27372.886477926775!2d31.251773810926572!3d30.9534324987143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f7a2eaad480117%3A0x283ca478d01a11ff!2z2LPZhdmG2YjYr9iMINmF2K_ZitmG2Kkg2LPZhdmG2YjYr9iMINiz2YXZhtmI2K_YjCDZhdit2KfZgdi42Kkg2KfZhNi62LHYqNmK2KkgNjc4MzUwNA!5e0!3m2!1sar!2seg!4v1766132442433!5m2!1sar!2seg"
-            width="100%"
-            height="210"
-            style={{ border: 0, borderRadius: "20px" }}
-            loading="lazy"
-          ></iframe>
-        </div>
+type IProps = {
+  latitude: number | null;
+  longitude: number | null;
+};
+const Location = ({ latitude, longitude }: IProps) => {
+  if (!latitude || !longitude) {
+    return (
+      <div className="w-full h-[240px] animate-pulse bg-gray-100 rounded-[20px] flex items-center justify-center">
+        <span className="text-gray-400">Loading map...</span>
       </div>
-    </>
+    );
+  }
+
+  const mapUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
+
+  return (
+    <div className="w-full">
+      <h2 className="text-[20px] mb-3 font-medium text-[#404448]">Location</h2>
+      <div className="w-full h-[210px] rounded-[20px] overflow-hidden border border-[#BBC1C7]/30">
+        <iframe
+          src={mapUrl}
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          title="Doctor Location"
+        ></iframe>
+      </div>
+    </div>
   );
 };
-
 export default Location;

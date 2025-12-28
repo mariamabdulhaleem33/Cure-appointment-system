@@ -1,30 +1,27 @@
 import { z } from "zod";
 
-const passwordRegex =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+export const changePasswordSchema = z
+  .object({
 
-export const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1, "Password is required").regex(passwordRegex, {
-    message:
-      "password must be at least 8 charcater",
-  }),
+    current_password: z.string().min(1, "Password is required"),
 
+    new_password: z
+      .string()
+      .min(8, { message: "password must be at least 8 charcater" })
+      .min(1, "Password is required"),
 
-  newPasswordCh: z.string().min(1, "Password is required").regex(passwordRegex, {
-    message:
-      "Password must contain uppercase,lowercase, number, and special character",
-  }),
+    new_password_confirmation: z
+      .string()
+      .min(8, { message: "password must be at least 8 charcater" })
+      .min(1, "Password is required"),
+  })
+  .refine((data) => data.new_password === data.new_password_confirmation, {
+    message: "Passwords do not match",
+    path: ["new_password_confirmation"],
+  })
+  .refine((data) => data.current_password !== data.new_password, {
+    message: "New password must be different from current password",
+    path: ["new_password"],
+  });
 
-  confirmPasswordCh: z
-    .string()
-    .min(8, { message: "password must be at least 8 charcater" })
-    .max(255),
-}).refine((data) => data.newPasswordCh === data.confirmPasswordCh, {
-  message: "Passwords do not match",
-  path: ["confirm"],
-}).refine((data) => data.currentPassword !== data.newPasswordCh, {
-  message: "New password must be different from current password",
-  path: ["newPasswordCh"],
-});
-
-export type changePasswordType = z.infer<typeof changePasswordSchema>;
+export type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;

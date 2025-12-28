@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import type { DayGroup } from "../types";
-import { bookingDate } from "../dummydata";
+import type { BookingDate, DayGroup } from "../types";
 import Header from "./Header";
 import DisplayDays from "./DisplayDays";
 import Footer from "./Footer";
 import Time from "./Time";
-
+import { useDoctorAvailability } from "../hooks/useDoctorAvailability";
+type IProps = {
+  doctorId: number | null;
+};
 /* ================= Helpers ================= */
 const getMonthLabel = (date: string) => {
   return new Date(date).toLocaleString("en-US", {
@@ -14,14 +16,39 @@ const getMonthLabel = (date: string) => {
   });
 };
 
-const AppointemntCard = () => {
-  /* ================= Months ================= */
-  const monthsFromApi = Array.from(
-    new Set(bookingDate.map((item) => getMonthLabel(item.date)))
+const AppointemntCard = ({ doctorId }: IProps) => {
+  /* ================= Params ================= */
+
+  /* ================= Fetch Data ================= */
+  const token: string | null = localStorage.getItem("authToken");
+  const { data: doctorAvailability = [] } = useDoctorAvailability(
+    doctorId,
+    token
   );
+
+  const [selectedMonth, setSelectedMonth] = useState<string>("");
+  const [selectedDayIndex, setSelectedDayIndex] = useState<number>(0);
+  const [selectedTime, setSelectedTime] = useState<string>("");
+
+  /* ================= Months ================= */
+  const monthsFromApi: string[] = Array.from(
+    new Set(
+      doctorAvailability?.map((item: DayGroup) => getMonthLabel(item.date))
+    )
+  );
+
+  /* ================= Set Default Month ================= */
+  useEffect(() => {
+    if (monthsFromApi.length > 0 && !selectedMonth) {
+      setSelectedMonth(monthsFromApi[0]);
+    }
+  }, [monthsFromApi, selectedMonth]);
+
   /* ================= Group Days ================= */
-  const groupedData = bookingDate.reduce<Record<string, DayGroup>>(
-    (acc, curr) => {
+  const groupedData: Record<string, DayGroup> = (
+    doctorAvailability ?? []
+  ).reduce(
+    (acc: Record<string, DayGroup>, curr: BookingDate) => {
       if (!acc[curr.date]) {
         acc[curr.date] = {
           date: curr.date,
@@ -38,15 +65,10 @@ const AppointemntCard = () => {
 
       return acc;
     },
-    {}
+    {} as Record<string, DayGroup> // هنا حددنا نوع الـ initial value
   );
-  // convert groupedData to array
-  const finalDays: DayGroup[] = Object.values(groupedData);
 
-  /* ================= States ================= */
-  const [selectedMonth, setSelectedMonth] = useState(monthsFromApi[0]);
-  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
-  const [selectedTime, setSelectedTime] = useState("");
+  const finalDays: DayGroup[] = Object.values(groupedData);
 
   /* ================= Filter Days by Month ================= */
   const filteredDays = finalDays.filter(
@@ -54,14 +76,12 @@ const AppointemntCard = () => {
   );
 
   /* ================= Current Day ================= */
-  const currentDay =
-    filteredDays[selectedDayIndex] ??
-    ({
-      date: "",
-      dayName: "",
-      dayNumber: 0,
-      slots: [],
-    } as DayGroup);
+  const currentDay: DayGroup = filteredDays[selectedDayIndex] ?? {
+    date: "",
+    dayName: "",
+    dayNumber: 0,
+    slots: [],
+  };
 
   /* ================= Reset on Month Change ================= */
   useEffect(() => {
@@ -81,19 +101,21 @@ const AppointemntCard = () => {
       {/* Days */}
       <DisplayDays
         filteredDays={filteredDays}
+        selectedDayIndex={selectedDayIndex}
         setSelectedDayIndex={setSelectedDayIndex}
         setSelectedTime={setSelectedTime}
-        selectedDayIndex={selectedDayIndex}
       />
 
       {/* Time Slots */}
       <Time
         currentDay={currentDay}
-        setSelectedTime={setSelectedTime}
         selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
       />
+
       {/* Footer */}
       <Footer
+        doctorId={doctorId}
         selectedTime={selectedTime}
         currentDay={currentDay}
         selectedMonth={selectedMonth}

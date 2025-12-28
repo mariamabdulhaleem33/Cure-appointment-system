@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { LockKeyhole, LogOut, User } from "lucide-react";
 import UserProfileHeader from "./ProfileHeader/ProfileHeader";
 import ProfileNavItem from "./ProfileNavlink";
+import { useLogout } from "@/hooks/useAuth";
 
 const NavItemData = [
   {
@@ -10,13 +11,14 @@ const NavItemData = [
     child: <User className="w-5 h-5 text-slate-900" />,
   },
   {
-    to: "/profile/password_management",
+    to: "/profile/change-password",
     text: "Password management",
     child: <LockKeyhole className="w-5 h-5 text-slate-900" />,
   },
 ];
 
 const ProfileSidebar: FC = () => {
+  const logout = useLogout();
   return (
     <div className="flex flex-col justify-center items-center bg-[#F5F6F7] h-full rounded-xl gap-10">
       <UserProfileHeader />
@@ -32,7 +34,7 @@ const ProfileSidebar: FC = () => {
             />
           ))}
 
-          <div className="cursor-pointer w-3/4 flex justify-start items-center gap-2 px-6 py-4 border-2 border-transparent ">
+          <div onClick={logout}className="cursor-pointer w-3/4 flex justify-start items-center gap-2 px-6 py-4 border-2 border-transparent ">
             <LogOut className="w-5 h-5 text-red-500" />
             <span className="text-red-500 text-md">Log out</span>
           </div>
