@@ -9,6 +9,7 @@ import Specialties from "./Specialties"
 import { FiChevronRight } from "react-icons/fi"
 import { PiSlidersHorizontalThin } from "react-icons/pi"
 import Modal from "../map/Modal"
+import FilterSidebar from "@/components/filters/FilterSidebar"
 
 type Filters = {
   availableDate: "today" | "tomorrow" | null
@@ -85,7 +86,7 @@ export default function Search() {
           <div className="relative">
             <button
               onClick={() => setIsFilterOpen((p) => !p)}
-              className="flex items-center gap-2 rounded-xl border px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 transition"
+              className="flex items-center gap-2 rounded-xl border px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 transition relative"
             >
               <PiSlidersHorizontalThin className="text-gray-500" />
               <span>Filter</span>
@@ -97,134 +98,12 @@ export default function Search() {
               </span>
             </button>
 
-            {isFilterOpen && (
-              <aside
-                className="absolute left-0 top-full mt-2 w-[156px] max-h-[771px] bg-white flex flex-col gap-4 p-4 z-50"
-              >
-
-                {/* Available Date */}
-                <div
-                  className="flex flex-col"
-                  style={{ width: 107, height: 93, gap: 16, opacity: 1 }}
-                >
-                  <span className="text-xs font-medium text-gray-600 mb-2">
-                    Available Date
-                  </span>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.availableDate === "today"}
-                      onChange={() => toggleAvailableDate("today")}
-                    />
-                    Today
-                  </label>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.availableDate === "tomorrow"}
-                      onChange={() => toggleAvailableDate("tomorrow")}
-                    />
-                    Tomorrow
-                  </label>
-                </div>
-
-                {/* Consultation Type */}
-                <div
-                  className="flex flex-col"
-                  style={{ width: 127, height: 93, gap: 16, opacity: 1 }}
-                >
-                  <span className="text-xs font-medium text-gray-600 mb-2">
-                    Consultation Type
-                  </span>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.consultationType === "in_clinic"}
-                      onChange={() => toggleConsultationType("in_clinic")}
-                    />
-                    In-clinic
-                  </label>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.consultationType === "home_visit"}
-                      onChange={() => toggleConsultationType("home_visit")}
-                    />
-                    Home Visit
-                  </label>
-                </div>
-
-                {/* Gender */}
-                <div className="flex flex-col gap-2">
-                  <span className="text-xs font-medium text-gray-600">
-                    Gender
-                  </span>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.gender.includes("male")}
-                      onChange={() => toggleGender("male")}
-                    />
-                    Male
-                  </label>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.gender.includes("female")}
-                      onChange={() => toggleGender("female")}
-                    />
-                    Female
-                  </label>
-                </div>
-
-                {/* Sort */}
-                <div className="flex flex-col gap-2">
-                  <span className="text-xs font-medium text-gray-600">
-                    Sort by price
-                  </span>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer max-w-[250px]">
-                    <input
-                      type="checkbox"
-                      checked={filters.sort === "recommended"}
-                      onChange={() => toggleSort("recommended")}
-                    />
-                    <span className="truncate">
-                      Most recommended
-                    </span>
-                  </label>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer max-w-[250px]">
-                    <input
-                      type="checkbox"
-                      checked={filters.sort === "price_low"}
-                      onChange={() => toggleSort("price_low")}
-                    />
-                    <span className=" truncate">
-                      Price Low to High
-                    </span>
-                  </label>
-
-                  <label className="flex items-center gap-2 text-xs cursor-pointer max-w-[250px]">
-                    <input
-                      type="checkbox"
-                      checked={filters.sort === "price_high"}
-                      onChange={() => toggleSort("price_high")}
-                    />
-                    <span className="truncate">
-                      Price High to Low
-                    </span>
-                  </label>
-
-                </div>
-              </aside>
-            )}
+            <FilterSidebar
+              open={isFilterOpen}
+              onClose={() => setIsFilterOpen(false)}
+              filters={filters}
+              setFilters={setFilters}
+            />
           </div>
 
           {/* Search input and modal */}
@@ -243,7 +122,7 @@ export default function Search() {
 
         {/* Page content - doctors area */}
         <div
-          className={`transition-all duration-300 mt-6`}
+          className={`transition-all duration-300 mt-2`}
           style={{
             marginLeft: isFilterOpen ? 172 : 0, // 156 sidebar width + 16 margin
             width: isFilterOpen ? "calc(100% - 172px)" : "100%",
