@@ -1,5 +1,7 @@
 import z from "zod";
 
+const locationRegex = /^\s*([A-Za-z\s-]+)\s*,\s*([A-Za-z\s-]+)\s*$/;
+
 export const editProfileSchema = z.object({
   name: z
     .string()
@@ -11,9 +13,20 @@ export const editProfileSchema = z.object({
   }),
   location: z
     .string()
-    .min(3, { message: "Address must be at least 3 characters" })
+    .regex(locationRegex, {message: "Please enter a valid Egyptian location (e.g., Cairo, Egypt)"})
     .nullable()
-    .or(z.literal("")),
+    .or(z.literal(""))
+    .transform((val) => {
+    if (!val) return null;
+
+    const parts = val.split(",").map(part => part.trim());
+    if (parts.length !== 2) return null;
+
+    return JSON.stringify({
+      city: parts[0],
+      country: parts[1],
+    })
+  }),
 
     profile_photo:z.file().optional(),
 

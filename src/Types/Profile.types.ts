@@ -24,5 +24,6 @@ export interface ProfileResponse {
   location?: string;
   birth_date?: string;
   profile_photo?: string;
+  profile_photo_url?:string;
 }
 

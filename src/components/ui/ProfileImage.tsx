@@ -23,7 +23,7 @@ const ProfileImg: FC<ProfileImgProps> = ({ src, editable, style }) => {
       <div
         className={`shadow-sm shadow-sky-700 ${style} rounded-full overflow-hidden  flex items-center justify-center`}
       >
-        {src ? (
+        {src && src.trim() !== "" ? (
           <img
             src={src}
             alt="Profile Img"

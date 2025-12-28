@@ -14,6 +14,7 @@ import { useShowProfile } from "@/hooks/profile/useShowProfile";
 import { useEditProfile } from "@/hooks/profile/useEditProfile";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store";
+import { formatLocation } from "@/utils/formatLocation";
 
 const EditProfileForm: FC = () => {
   const { data: profileData } = useShowProfile();
@@ -21,7 +22,6 @@ const EditProfileForm: FC = () => {
   const selectedFile = useSelector(
     (state: RootState) => state.profile.selectedFile
   );
-  console.log(selectedFile);
   const {
     register,
     handleSubmit,
@@ -59,6 +59,7 @@ const EditProfileForm: FC = () => {
     if (selectedFile) {
       formData.append("profile_photo", selectedFile);
     }
+
     mutate(formData);
   };
 
@@ -77,7 +78,7 @@ const EditProfileForm: FC = () => {
         name: profileData.name || "",
         email: profileData.email || "",
         mobile_number: profileData.mobile_number || "",
-        location: profileData.location || "",
+        location: formatLocation(profileData?.location) || "",
         birth_date: birthDateValues,
       });
     }
@@ -141,7 +142,7 @@ const EditProfileForm: FC = () => {
         <Input
           type="text"
           id="location"
-          placeholder="location"
+          placeholder="City, Country"
           {...register("location")}
         />
         {errors.location && InputError({ error: errors.location })}

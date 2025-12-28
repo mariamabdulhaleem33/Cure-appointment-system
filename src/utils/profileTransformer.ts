@@ -1,6 +1,6 @@
-import type { ShowProfileResponse } from "@/Types/Profile.types";
+import type { ProfileResponse } from "@/Types/Profile.types";
 
-export function transformProfileResponse(data: any): ShowProfileResponse {
+export function transformProfileResponse(data: any): ProfileResponse {
   const user = data.user;
 
   return {
@@ -11,5 +11,6 @@ export function transformProfileResponse(data: any): ShowProfileResponse {
     location: user.location,
     birth_date: user.birth_date,
     profile_photo: user.profile_photo,
+    profile_photo_url:user.profile_photo_url,
   };
 }
