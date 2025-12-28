@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin } from "lucide-react";
+import  FormReview  from "@/components/create_booking/DoctorReviews/FormReview";
+
 
 type AppointmentStatus = "upcoming" | "completed" | "canceled";
 
@@ -19,6 +21,7 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
     completed: {
       label: "Completed",
       color: "text-green-600",
+      cardHeaderDateColor: "text-black",
       primaryBtn: "Feedback",
       secondaryBtn: "View Details",
     },
@@ -36,7 +39,7 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
     <Card className="w-100 rounded-xl border pt-3 shadow-sm">
       <CardContent className="px-4  space-y-4">
         <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className={`flex items-center gap-2 ${config.cardHeaderDateColor || "text-muted-foreground"}`}>
             <Calendar size={16} />
             <span>Monday, July 21 · 11:00 AM</span>
           </div>
@@ -65,12 +68,20 @@ export function AppointmentCard({ status }: AppointmentCardProps) {
         <div className="flex gap-2">
           <Button
             variant="outline"
-            className="flex-1"
+            className="flex-1 hover:cursor-pointer"
           >
             {config.secondaryBtn}
           </Button>
-
-          <Button className="flex-1 ">{config.primaryBtn}</Button>
+          {status === "completed" ? (
+            <FormReview>
+              <Button className="flex-1 hover:cursor-pointer">
+                {config.primaryBtn}
+              </Button>
+            </FormReview>
+          ) : (
+            <Button className="flex-1 hover:cursor-pointer">{config.primaryBtn}</Button>
+          )}
+          {/* <Button className="flex-1 ">{config.primaryBtn}</Button> */}
         </div>
       </CardContent>
     </Card>

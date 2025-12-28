@@ -7,7 +7,7 @@ export default function YourAppointments() {
     
     <div className="w-full flex justify-center py-10">
       <div className="w-full max-w-7xl px-4 flex flex-col gap-6">
-        <h2>Your Appointments</h2>
+        <h2 className="text-2xl font-serif">Your Appointments</h2>
         <TabsDemo />
       </div>
     </div>

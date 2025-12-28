@@ -10,7 +10,7 @@ import Booking from "@/components/create_booking/Booking";
 import SignIn from "@/pages/signin/SignIn";
 import SignUp from "@/pages/signup/SignUp";
 import Otp from "@/pages/otp/Otp";
-import YourAppointments from "@/features/patient/pages/YourAppointments";
+import YourAppointments from "@/components/appointments-page/YourAppointments";
 import PasswordManagement from "@/components/Profile/PasswordManagement/PasswordManagement";
 // import ContactUs from "@/features/contact-us/components/pages/ContactUs";
 // import Chat from "@/features/chat/components/pages/chat";
