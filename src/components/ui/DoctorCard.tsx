@@ -14,6 +14,7 @@ export default function DoctorCard({
   price,
   userId,
   onClick,
+  address,
 }: DoctorProps) {
   return (
     <div
@@ -32,7 +33,7 @@ export default function DoctorCard({
         <div className="flex-1">
           <h4>{name}</h4>
           <p className="text-[#6D7379] text-[14px]">
-            {specialty} | El-Nasr Hospital
+            {specialty} | {address}
           </p>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
             <span className="flex items-center gap-1">

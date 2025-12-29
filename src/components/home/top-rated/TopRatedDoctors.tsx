@@ -2,7 +2,7 @@ import Description from "@/components/ui/Description"
 import Heading from "@/components/ui/Heading"
 import LocationButton from "../find-care/LocationButton"
 import DoctorCard from "@/components/ui/DoctorCard"
-import test from "@/assets/test.jpg"
+
 import {
   Carousel,
   CarouselContent,
@@ -11,201 +11,9 @@ import {
 import { useMediaQuery } from "@/hooks/useMatchMediaQuery"
 import { useTopRatedDoctors } from "@/hooks/useTopRatedDoctors"
 export default function TopRatedDoctors() {
-  // const doctors = [
-  //   {
-  //     id: 1,
-  //     name: "Robert Johnson",
-  //     email: "doctor1@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 1,
-  //       name: "General ",
-  //       image: "gp.png",
-  //     },
-  //     license_number: "LIC-10001",
-  //     bio: "Experienced cardiologist with 10 years of practice.",
-  //     session_price: 150,
-  //     clinic_address: "Clinic 1, Cairo",
-  //     location: {
-  //       latitude: 30.0444,
-  //       longitude: 31.2357,
-  //     },
-  //     experience_years: 10,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Robert Johnson",
-  //     email: "doctor2@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 2,
-  //       name: "Cardiologist",
-  //       image: "cardio.png",
-  //     },
-  //     license_number: "LIC-10002",
-  //     bio: "Dermatologist specializing in skin treatments.",
-  //     session_price: 120,
-  //     clinic_address: "Clinic 2, Cairo",
-  //     location: {
-  //       latitude: 30.045,
-  //       longitude: 31.236,
-  //     },
-  //     experience_years: 8,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  //   {
-  //     id: 9,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  //   {
-  //     id: 10,
-  //     name: "Robert Johnson",
-  //     email: "doctor3@example.com",
-  //     mobile: null,
-  //     profile_photo: test,
-  //     specialty: {
-  //       id: 3,
-  //       name: "Dermatologist",
-  //       image: "derma.png",
-  //     },
-  //     license_number: "LIC-10003",
-  //     bio: "General surgeon with 15 years of experience.",
-  //     session_price: 200,
-  //     clinic_address: "Clinic 3, Cairo",
-  //     location: {
-  //       latitude: 30.046,
-  //       longitude: 31.237,
-  //     },
-  //     experience_years: 15,
-  //   },
-  // ]
   const { data: doctors } = useTopRatedDoctors()
-  console.log(doctors)
   const { isLargeScreen } = useMediaQuery("(min-width: 640px)")
-
+  console.log(doctors)
   return (
     <section className="home-container flex flex-col items-center lg:block overflow-hidden">
       <div className="lg:flex items-center justify-between">
@@ -231,14 +39,16 @@ export default function TopRatedDoctors() {
               <CarouselItem key={index} className="basis-full sm:basis-auto">
                 <DoctorCard
                   key={doc.id}
-                  imageUrl={test}
-                  name={doc.user.name}
+                  imageUrl={doc.profile_photo}
+                  name={doc.name}
                   specialty={doc.specialization}
-                  rate={3}
+                  rate={doc.average_rating}
                   startTime={doc.availability_slots[0].from}
                   endTime={doc.availability_slots[0].to}
                   forBooking={true}
-                  price={Number(doc.session_price)}
+                  price={doc.session_price}
+                  address={doc.clinic_location.address}
+                  userId={doc.id}
                 />
               </CarouselItem>
             ))}

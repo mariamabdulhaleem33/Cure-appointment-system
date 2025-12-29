@@ -64,7 +64,20 @@ export interface DoctorProps {
   forBooking: boolean
   price: number
   onClick?: () => void
-  userId?: string
+  userId?: number
+  address: string
+}
+
+export interface TopRatedDoctor {
+  id: number
+  name: string
+  specialization: string
+  average_rating: number
+  reviews_count: number
+  session_price: number
+  profile_photo: string
+  availability_slots: AvailabilitySlot[]
+  clinic_location: ClinicLocation
 }
 
 /* NEW TYPE FOR THE NEW API RESPONSE */
@@ -73,6 +86,7 @@ export interface DoctorProps {
 export interface User {
   name: string
   email: string
+  profile_photo: string
 }
 
 // Availability slot

@@ -1,9 +1,9 @@
 import { getTopRatedDoctors } from "@/services/doctor.services"
-import type { DoctorProfile } from "@/Types/Doctors.types"
+import type { TopRatedDoctor } from "@/Types/Doctors.types"
 import { useQuery } from "@tanstack/react-query"
 
 export function useTopRatedDoctors() {
-  const { data, isPending } = useQuery<DoctorProfile[]>({
+  const { data, isPending } = useQuery<TopRatedDoctor[]>({
     queryKey: ["topDoctors"],
     queryFn: () => getTopRatedDoctors(),
   })
