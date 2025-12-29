@@ -6,32 +6,24 @@ export interface NavlinkProps {
   text: string;
 }
 
-export interface ProfileImgProps{
-  src?:string;
-  editable:boolean;
-  style:string;
+export type ProfileImgProps={
+  src?: string,
+  editable: boolean,
+  style?: string
 }
 
-export type FormDataType = {
-  name: string;
-  email: string;
-  phone: string;
-  image: null;
-  birthdate: {
-    day: string;
-    month: string;
-    year: string;
-  };
-  address: string;
-};
+export interface ChangePasswordResponse {
+  message: string;
+} 
 
-export type UpdateProfilePayload = {
+export interface ProfileResponse {
+  id: number;
   name: string;
   email: string;
-  phone: string;
-  address: string;
-  image: File|null;
-  birthDay: number;
-  birthMonth: number;
-  birthYear: number;
-};
+  mobile_number: string;
+  location?: string;
+  birth_date?: string;
+  profile_photo?: string;
+  profile_photo_url?:string;
+}
+

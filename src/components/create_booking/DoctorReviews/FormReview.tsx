@@ -26,8 +26,10 @@ const reviewSchema = z.object({
 
 // ===== Types =====
 type ReviewFormData = z.infer<typeof reviewSchema>;
-
-const FormReview = () => {
+interface FormReviewProps {
+  children: React.ReactNode;
+}
+const FormReview = ({ children }: FormReviewProps) => {
   const [hover, setHover] = useState(0);
 
   const {
@@ -52,17 +54,19 @@ const FormReview = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 mb-5">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[17px] md:text-[20px] font-medium">
+    // <div className="flex flex-col gap-3 mb-5">
+    //   <div className="flex items-center justify-between">
+    <>
+        {/* <h2 className="text-[17px] md:text-[20px] font-medium">
           Reviews and Rating
-        </h2>
+        </h2> */}
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-transparent hover:bg-transparent cursor-pointer text-[#145DB8]">
+            {children}
+            {/* <Button className="bg-transparent hover:bg-transparent cursor-pointer text-[#145DB8]">
               <Pen size={16} /> add review
-            </Button>
+            </Button> */}
           </DialogTrigger>
 
           <DialogContent className="sm:max-w-[425px]">
@@ -80,7 +84,7 @@ const FormReview = () => {
               </div>
 
               <div className="flex gap-1 mt-1">
-                {[1, 2, 3, 4, 5].map((star) => (
+                {[1, 2, 3, 4, 5].map(star => (
                   <button
                     key={star}
                     type="button"
@@ -129,15 +133,19 @@ const FormReview = () => {
                 <DialogClose asChild>
                   <Button variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button type="submit" className="bg-[#145DB8]">
+                <Button
+                  type="submit"
+                  className="bg-[#145DB8]"
+                >
                   Send your review
                 </Button>
               </DialogFooter>
             </form>
           </DialogContent>
         </Dialog>
-      </div>
-    </div>
+        </>
+    //   {/* </div>
+    // </div> */}
   );
 };
 

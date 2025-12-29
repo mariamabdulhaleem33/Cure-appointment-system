@@ -7,14 +7,14 @@ const BirthdaySelector: FC<{ control: any }> = ({ control }) => {
   const Days = getDays();
   const Years = getYears(100);
   return (
-    <div className="w-full flex justify-between items-center">
+    <div className="w-full flex justify-start gap-6 lg:justify-between items-center">
       <Controller
         control={control}
-        name="birthdate.day"
+        name="birth_date.day"
         render={({ field }) => (
           <NativeSelect
-            {...field }
-            className="w-24 bg-[#F5F6F7] rounded-xs"
+            {...field}
+            className="bg-[#F5F6F7] rounded-xs w-15 md:w-20 lg:w-18 xl:w-24"
           >
             <NativeSelectOption value="">Day</NativeSelectOption>
             {Days.map((day) => (
@@ -28,9 +28,12 @@ const BirthdaySelector: FC<{ control: any }> = ({ control }) => {
 
       <Controller
         control={control}
-        name="birthdate.month"
+        name="birth_date.month"
         render={({ field }) => (
-          <NativeSelect {...field} className="w-24 bg-[#F5F6F7] rounded-xs">
+          <NativeSelect
+            {...field}
+            className="bg-[#F5F6F7] rounded-xs w-15 md:w-20 lg:w-18 xl:w-24"
+          >
             <NativeSelectOption value="">Mon</NativeSelectOption>
             {Months.map((mon) => (
               <NativeSelectOption key={mon.value} value={mon.value}>
@@ -43,9 +46,12 @@ const BirthdaySelector: FC<{ control: any }> = ({ control }) => {
 
       <Controller
         control={control}
-        name="birthdate.year"
+        name="birth_date.year"
         render={({ field }) => (
-          <NativeSelect {...field} className="w-24 bg-[#F5F6F7] rounded-xs">
+          <NativeSelect
+            {...field}
+            className="bg-[#F5F6F7] rounded-xs w-15 md:w-20 lg:w-18 xl:w-24"
+          >
             <NativeSelectOption value="">Year</NativeSelectOption>
             {Years.map((year) => (
               <NativeSelectOption key={year} value={year}>

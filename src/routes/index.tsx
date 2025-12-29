@@ -7,12 +7,12 @@ import { Route, Routes } from "react-router-dom";
 import AppointmentPayment from "@/components/payment/AppointmentPayment";
 import ReviewCard from "@/components/rating/ReviewCard";
 import Booking from "@/components/create_booking/Booking";
-import SignIn from "@/Pages/signin/SignIn";
-import SignUp from "@/Pages/signup/SignUp";
-import Otp from "@/Pages/otp/Otp";
+import SignIn from "@/pages/signin/SignIn";
+import SignUp from "@/pages/signup/SignUp";
+import Otp from "@/pages/otp/Otp";
 import YourAppointments from "@/components/appointments-page/YourAppointments";
-import PasswordManagement from "@/components/Profile/PasswordManagement/PasswordManagement";
-// import ContactUs from "@/features/contact-us/components/pages/ContactUs";
+import ChangePassword from "@/components/Profile/PasswordManagement/ChangePassword";
+// import ContactUs from "@/app/components/contact-us/ContactUs";
 // import Chat from "@/features/chat/components/pages/chat";
 
 export default function AppRoutes() {
@@ -33,7 +33,7 @@ export default function AppRoutes() {
         {/* <Route path="contact-us" element={<ContactUs />} /> */}
         <Route path="profile" element={<Profile />}>
           <Route path="edit" element={<EditProfileForm />} />
-          <Route path="password_management" element={<PasswordManagement />} />
+          <Route path="change-password" element={<ChangePassword />} />
         </Route>
       </Route>
     </Routes>

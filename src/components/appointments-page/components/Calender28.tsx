@@ -98,6 +98,7 @@ export function Calendar28() {
                 setDate(date);
                 setValue(formatDate(date));
                 setOpen(false);
+                
               }}
             />
           </PopoverContent>

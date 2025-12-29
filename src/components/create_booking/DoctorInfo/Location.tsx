@@ -3,6 +3,7 @@ type IProps = {
   longitude: number | null;
 };
 const Location = ({ latitude, longitude }: IProps) => {
+  // console.log(latitude, longitude);
   if (!latitude || !longitude) {
     return (
       <div className="w-full h-[240px] animate-pulse bg-gray-100 rounded-[20px] flex items-center justify-center">

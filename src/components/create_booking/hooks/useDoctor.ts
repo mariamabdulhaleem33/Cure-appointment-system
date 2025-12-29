@@ -2,12 +2,12 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useDoctor = (doctorId?: number | null, token?: string) => {
+export const useDoctor = (doctorId?: number | null, token?: string | null) => {
   return useQuery({
     queryKey: ["doctor", doctorId],
     queryFn: async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/doctors/${doctorId}`,
+        `${import.meta.env.VITE_BASE_URL}doctors/${doctorId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -15,7 +15,7 @@ export const useDoctor = (doctorId?: number | null, token?: string) => {
           },
         }
       );
-      return res.data.data;
+      return res.data;
     },
     enabled: !!doctorId,
   });

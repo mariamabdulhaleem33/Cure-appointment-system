@@ -7,13 +7,13 @@ const ProfileNavItem: FC<NavlinkProps> = ({ to, children, text }) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `w-3/4 flex justify-start items-center gap-2 px-6 py-4 rounded-md transition-all ${
+        `w-full md:w-3/4 flex justify-start items-center gap-2 px-3 py-4 rounded-md transition-all ${
           isActive ? `border-2 border-sky-700` : `border-2 border-transparent`
         }`
       }
     >
       {children}
-      <span className="text-slate-900 text-md">{text}</span>
+      <span className=" text-slate-900 text-sm xl:text-lg">{text}</span>
     </NavLink>
   );
 };

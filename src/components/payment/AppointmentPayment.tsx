@@ -1,33 +1,27 @@
-import { useState } from "react";
-import axios from "axios";
-import { MapPin, Calendar, Plus, Check, Loader2 } from "lucide-react";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { useState } from "react"
+import axios from "axios"
+import { MapPin, Calendar, Plus, Check, Loader2 } from "lucide-react"
 
-// class name
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from "@/lib/utils"
 
 // --- Types & Interfaces ---
 interface PaymentPayload {
-  doctorId: string;
-  amount: number;
-  paymentMethod: string;
-  appointmentDate: string;
+  doctorId: string
+  amount: number
+  paymentMethod: string
+  appointmentDate: string
 }
 
 const PAYMENT_METHODS = [
   { id: "credit_card", label: "Credit Card", icon: "VISA" },
   { id: "paypal", label: "PayPal", icon: "Paypal" },
   { id: "apple_pay", label: "Apple Pay", icon: "ApplePay" },
-];
+]
 
 export default function AppointmentPayment() {
-  
   // 1.States
-  const [selectedMethod, setSelectedMethod] = useState<string>("credit_card");
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState<string>("credit_card")
+  const [isLoading, setIsLoading] = useState(false)
 
   // 2.Mock Data
   const appointmentData = {
@@ -37,34 +31,34 @@ export default function AppointmentPayment() {
     address: "129, El-Nasr Street, Cairo",
     date: "Friday, July 17 - 4:00pm",
     price: 350,
-  };
+  }
 
   // 3.API
   const handlePaymentSubmit = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
     const payload: PaymentPayload = {
       doctorId: appointmentData.doctorId,
       amount: appointmentData.price,
       paymentMethod: selectedMethod,
       appointmentDate: appointmentData.date,
-    };
+    }
 
     // 4.Error Handel
     try {
-      const response = await axios.post("API URL", payload);
+      const response = await axios.post("API URL", payload)
 
       if (response.status === 200) {
-        console.log("Payment Successful", response.data);
+        console.log("Payment Successful", response.data)
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("API Error:", error.response?.data || error.message);
+        console.error("API Error:", error.response?.data || error.message)
       }
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="w-full max-w-[420px] mx-auto bg-white p-8 rounded-[2rem] shadow-sm border border-gray-50 font-sans">
@@ -122,7 +116,7 @@ export default function AppointmentPayment() {
       {/* Payment List */}
       <div className="space-y-4">
         {PAYMENT_METHODS.map((method) => {
-          const isActive = selectedMethod === method.id;
+          const isActive = selectedMethod === method.id
           return (
             <div
               key={method.id}
@@ -172,7 +166,7 @@ export default function AppointmentPayment() {
                 <div className="text-black font-bold text-sm"> Pay</div>
               )}
             </div>
-          );
+          )
         })}
       </div>
 
@@ -218,5 +212,5 @@ export default function AppointmentPayment() {
         </button>
       </div>
     </div>
-  );
+  )
 }

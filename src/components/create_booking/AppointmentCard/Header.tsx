@@ -7,6 +7,7 @@ import { CalendarDays, ChevronsUpDown } from "lucide-react";
 type IProps = {
   selectedMonth: string;
   setSelectedMonth: (val: string) => void;
+  handleMonthChange: (val: string) => void;
   monthsFromApi: string[];
 };
 const Header = ({ selectedMonth, setSelectedMonth, monthsFromApi }: IProps) => {

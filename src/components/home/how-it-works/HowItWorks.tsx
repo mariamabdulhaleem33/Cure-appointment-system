@@ -18,13 +18,13 @@ export default function HowItWorks() {
         How it works
       </Heading>
       {/* only in large screen */}
-      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8 md:mt-[84px]">
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8 md:mt-21">
         <SearchDoctor />
         <DateAndTime />
         <PaymentCard />
       </div>
 
-      <div className="md:hidden w-full mt-8 md:mt-[84px]">
+      <div className="md:hidden w-full mt-8 md:mt-21">
         <Carousel setApi={setApi} className="w-full" opts={{ watchDrag: true }}>
           <CarouselContent>
             <CarouselItem className="basis-full">

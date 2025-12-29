@@ -8,23 +8,23 @@ const NavItemData = [
   {
     to: "/profile/edit",
     text: "Personal information",
-    child: <User className="w-5 h-5 text-slate-900" />,
+    child: <User className="w-4 h-4 text-slate-900 xl:w-5 xl:h-5" />,
   },
   {
-    to: "/profile/password_management",
+    to: "/profile/change-password",
     text: "Password management",
-    child: <LockKeyhole className="w-5 h-5 text-slate-900" />,
+    child: <LockKeyhole className="w-4 h-4 text-slate-900 xl:w-5 xl:h-5" />,
   },
 ];
 
 const ProfileSidebar: FC = () => {
   const logout = useLogout();
   return (
-    <div className="flex flex-col justify-center items-center bg-[#F5F6F7] h-full rounded-xl gap-10">
+    <div className="flex flex-col h-full justify-center items-center bg-[#F5F6F7] py-10 rounded-xl gap-12">
       <UserProfileHeader />
 
       <div className="flex flex-col justify-center items-center w-full">
-        <div className="flex flex-col justify-center items-center w-full gap-2">
+        <div className="px-10 lg:p-0 flex justify-center lg:justify-between items-center w-full gap-2 flex-col">
           {NavItemData.map((el, index) => (
             <ProfileNavItem
               key={index}
@@ -34,9 +34,9 @@ const ProfileSidebar: FC = () => {
             />
           ))}
 
-          <div onClick={logout}className="cursor-pointer w-3/4 flex justify-start items-center gap-2 px-6 py-4 border-2 border-transparent ">
-            <LogOut className="w-5 h-5 text-red-500" />
-            <span className="text-red-500 text-md">Log out</span>
+          <div onClick={logout}className="cursor-pointer w-full md:w-3/4 flex justify-start items-center gap-2 px-3 py-4 border-2 border-transparent ">
+            <LogOut className="w-4 h-4 text-red-500 xl:w-5 xl:h-5" />
+            <span className="text-red-500 text-xs md:text-sm xl:text-lg">Log out</span>
           </div>
         </div>
       </div>

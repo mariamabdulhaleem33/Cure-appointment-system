@@ -2,7 +2,7 @@
 import axios, { type AxiosInstance, type AxiosResponse, type AxiosError } from "axios"
 
 const api: AxiosInstance = axios.create({
-  baseURL: "https://round8-backend-team-one.huma-volve.com/api",
+  baseURL: "https://round8-cure-php-team-three.huma-volve.com/api/",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

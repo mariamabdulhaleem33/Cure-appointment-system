@@ -3,10 +3,9 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/footer";
-
 import { Outlet } from "react-router-dom";
-
 import FooterAd from "./footer/FooterAd";
+
 
 
 const MainLayout: React.FC = () => {
@@ -18,7 +17,7 @@ const MainLayout: React.FC = () => {
         <div className="grow">
           <Outlet />
         </div>
-          <FooterAd/>
+        <FooterAd/>
         <Footer />
       </div>
     </Provider>

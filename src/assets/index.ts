@@ -11,6 +11,7 @@ import date from "./date.png"
 import star from "./star.png"
 import reviews from "./reviews.png"
 import homeMap from "./map.png"
+import test from "./test.jpg"
 export {
   homeMap,
   reviews,
@@ -19,6 +20,7 @@ export {
   payOnline,
   searchDoctor,
   Userspng,
+  test,
   heroBackground,
   LOGO1,
   bgSignUp1,

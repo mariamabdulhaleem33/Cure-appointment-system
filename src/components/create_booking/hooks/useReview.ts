@@ -3,12 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { IReview } from "../types";
 
-export const useDoctorReviews = (doctorId?: number | null, token?: string) => {
+export const useDoctorReviews = (
+  doctorId?: number | null,
+  token?: string | null
+) => {
   return useQuery<IReview[]>({
     queryKey: ["doctorReviews", doctorId],
     queryFn: async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/reviews/doctor/${doctorId}`,
+        `${import.meta.env.VITE_BASE_URL}reviews/doctor/${doctorId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -16,7 +19,9 @@ export const useDoctorReviews = (doctorId?: number | null, token?: string) => {
           },
         }
       );
-      return res.data.data;
+      // console.log(res.data.data.reviews.data);
+      // console.log(res);
+      return res?.data;
     },
     enabled: !!doctorId,
   });
