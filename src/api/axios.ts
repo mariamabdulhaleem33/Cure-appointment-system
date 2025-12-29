@@ -4,9 +4,6 @@ import axios, { type AxiosInstance, type AxiosResponse, type AxiosError } from "
 const api: AxiosInstance = axios.create({
   baseURL: "https://round8-cure-php-team-three.huma-volve.com/api/",
   timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 // Request interceptor to attach token
@@ -25,6 +22,7 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 // Response interceptor to handle errors and token expiration
 api.interceptors.response.use(
   (response: AxiosResponse) => {
@@ -64,5 +62,18 @@ api.interceptors.response.use(
   }
 );
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken"); 
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  if (config.data instanceof FormData) {
+    delete config.headers["Content-Type"];
+  }
+
+  return config;
+});
 
 export default api

@@ -2,8 +2,6 @@ import { type FC } from "react";
 import ProfileImg from "../../../ui/ProfileImage";
 import { useShowProfile } from "@/hooks/profile/useShowProfile";
 import { LocationIcon } from "@/components/profile-popup/icons";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
 import { formatLocation } from "@/utils/formatLocation";
 
 const UserProfileHeader: FC = () => {
@@ -13,14 +11,10 @@ const UserProfileHeader: FC = () => {
     profile_photo_url: data?.profile_photo_url,
   }));
 
-  const previewImg = useSelector(
-    (state: RootState) => state.profile.previewImage
-  );
-
   return (
     <div className="flex flex-col justify-center items-center gap-6">
       <ProfileImg
-        src={previewImg || data?.profile_photo_url}
+        src={data?.profile_photo_url}
         editable={true}
         style={`w-32 h-32`}
       />

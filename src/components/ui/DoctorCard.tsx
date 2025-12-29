@@ -15,11 +15,11 @@ export default function DoctorCard({
   userId,
   onClick,
   address,
+  style
 }: DoctorProps) {
   return (
     <div
-      className="flex flex-col gap-2 cursor-pointer justify-center rounded-[10px] min-w-89.5 p-4 shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)]
-"
+      className={`flex flex-col gap-2 cursor-pointer justify-center rounded-[10px] min-w-89.5 p-4 shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] ${style}`}
       onClick={onClick}
     >
       <div className="flex items-center gap-2.5">

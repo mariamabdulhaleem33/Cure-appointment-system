@@ -1,31 +1,26 @@
+import { useProfileImage } from "@/context/ProfileImgContext";
 import type { ProfileImgProps } from "@/Types/Profile.types";
 import { Camera, User } from "lucide-react";
 import type { FC } from "react";
-import { setProfileImage } from "@/store/slices/profile.slice";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "@/store";
 
 const ProfileImg: FC<ProfileImgProps> = ({ src, editable, style }) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const { preview, setImage } = useProfileImage();
+  const displaySrc = preview || src || "";
 
-  const handleChange = (file: File) => {
-    const preview = URL.createObjectURL(file);
-
-    dispatch(
-      setProfileImage({
-        file,
-        preview,
-      })
-    );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+    }
   };
   return (
     <div className="relative">
       <div
         className={`shadow-sm shadow-sky-700 ${style} rounded-full overflow-hidden  flex items-center justify-center`}
       >
-        {src && src.trim() !== "" ? (
+        {displaySrc ? (
           <img
-            src={src}
+            src={displaySrc}
             alt="Profile Img"
             className="w-full h-full object-cover"
           />
@@ -44,10 +39,7 @@ const ProfileImg: FC<ProfileImgProps> = ({ src, editable, style }) => {
             type="file"
             accept="image/*"
             hidden
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) handleChange(file);
-            }}
+            onChange={handleChange}
           />
         </label>
       )}

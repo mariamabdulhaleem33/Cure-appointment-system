@@ -12,6 +12,7 @@ import SignUp from "@/pages/signup/SignUp";
 import Otp from "@/pages/otp/Otp";
 import YourAppointments from "@/components/appointments-page/YourAppointments";
 import ChangePassword from "@/components/Profile/PasswordManagement/ChangePassword";
+import Favorites from "@/pages/Favorites";
 // import ContactUs from "@/app/components/contact-us/ContactUs";
 // import Chat from "@/features/chat/components/pages/chat";
 
@@ -29,6 +30,7 @@ export default function AppRoutes() {
         <Route path="appointments" element={<YourAppointments />} />
         <Route path="payment" element={<AppointmentPayment />} />
         <Route path="rate" element={<ReviewCard />} />
+        <Route path="favorites" element={<Favorites />} />
         {/* <Route path="chat" element={<Chat />} /> */}
         {/* <Route path="contact-us" element={<ContactUs />} /> */}
         <Route path="profile" element={<Profile />}>
