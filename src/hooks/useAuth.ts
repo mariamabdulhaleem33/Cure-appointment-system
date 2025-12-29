@@ -9,28 +9,28 @@ import {
 } from "@/api/authServices"
 
 export const useLogin = () => {
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (credentials: LoginCredentials) => loginAPI(credentials),
-    onSuccess: (response: LoginResponse) => {
-      if (response.success && response.data.token) {
+    onSuccess: (response: LoginResponse) => {    
+      if (response.Status && response.data.Token) {
         // Store token in localStorage
-        localStorage.setItem("authToken", response.data.token)
+        localStorage.setItem("authToken", response.data.Token);
 
         // Cache the auth data in React Query
-        queryClient.setQueryData(["auth"], response)
+        queryClient.setQueryData(["auth"], response);
 
         // Navigate to dashboard
-        navigate("/")
+        navigate("/");
       }
     },
     onError: (error: Error) => {
-      console.error("Login failed:", error)
+      console.error("❌ Login failed:", error);
     },
-  })
-}
+  });
+};
 
 export const useLogout = () => {
   const navigate = useNavigate()
@@ -38,36 +38,32 @@ export const useLogout = () => {
 
   return () => {
     // Clear token from localStorage
-    localStorage.removeItem("authToken")
-
-    // Clear all queries
-    queryClient.clear()
-
-    // Navigate to login
+    localStorage.removeItem("authToken");
+    queryClient.clear();
     navigate("/login")
-  }
-}
+  };
+};
 
 // Hook to check if user is authenticated
 
 export const useAuthState = () => {
-  const queryClient = useQueryClient()
-  const authData = queryClient.getQueryData<LoginResponse>(["auth"])
+  const queryClient = useQueryClient();
+  const authData = queryClient.getQueryData<LoginResponse>(["auth"]);
 
   const isAuthenticated = useMemo(() => {
-    const token = localStorage.getItem("authToken")
-    return !!(token || authData?.data?.token)
-  }, [authData])
+    const token = localStorage.getItem("authToken");
+    return !!(token || authData?.data?.Token);
+  }, [authData]);
   useEffect(() => {
     const handleStorageChange = () => {
-      queryClient.invalidateQueries({ queryKey: ["auth"] })
-    }
-    window.addEventListener("storage", handleStorageChange)
+      queryClient.invalidateQueries({ queryKey: ["auth"] });  
+    };
+    window.addEventListener("storage", handleStorageChange);
 
     return () => {
-      window.removeEventListener("storage", handleStorageChange)
-    }
-  }, [queryClient])
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [queryClient]);
 
-  return { isAuthenticated }
-}
+  return { isAuthenticated };
+};

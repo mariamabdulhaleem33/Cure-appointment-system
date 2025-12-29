@@ -8,6 +8,7 @@ import { useProfile } from "@/hooks/useProfile";
 
 const UserMenu: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { isLargeScreen } = useMediaQuery("(min-width: 768px)");
   const { isAuthenticated } = useAuthState();
@@ -70,15 +71,22 @@ const UserMenu: React.FC = () => {
           aria-haspopup="true"
         >
           {isAuthenticated ? (
-            <img
-              src={user.avatarUrl}
-              alt={`${user.name}'s profile`}
-              className="w-full h-full object-cover rounded-full"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = "https://via.placeholder.com/36";
-              }}
-            />
+            user.avatarUrl && !imageError ? (
+              <img
+                key={user.avatarUrl}
+                src={user.avatarUrl}
+                alt={`${user.name}'s profile`}
+                className="w-full h-full object-cover rounded-full"
+                onError={() => {
+                  setImageError(true);
+                }}
+                onLoad={() => {
+                  setImageError(false);
+                }}
+              />
+            ) : (
+              <User className="w-5 h-5 text-gray-600" />
+            )
           ) : (
             <User className="w-5 h-5 text-gray-600" />
           )}
