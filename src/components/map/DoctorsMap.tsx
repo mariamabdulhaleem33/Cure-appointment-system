@@ -3,98 +3,10 @@ import "leaflet/dist/leaflet.css"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import "react-leaflet-cluster/dist/assets/MarkerCluster.css"
 import "react-leaflet-cluster/dist/assets/MarkerCluster.Default.css"
-import { createDoctorIcon } from "./createDoctorIcon"
 import Recenter from "./Recenter"
 import type { DoctorMapProps, DoctorProfile } from "@/Types/Doctors.types"
 import L from "leaflet"
-import { test } from "@/assets"
-
-// const doctors = [
-//   {
-//     id: 1,
-//     name: "Robert Johnson",
-//     email: "doctor1@example.com",
-//     mobile: null,
-//     profile_photo: "/imgs/doc-1.jpg",
-//     specialty: {
-//       id: 1,
-//       name: "General Practitioner",
-//       image: "gp.png",
-//     },
-//     license_number: "LIC-10001",
-//     bio: "Experienced cardiologist with 10 years of practice.",
-//     session_price: 150,
-//     clinic_address: "Clinic 1, Cairo",
-//     location: {
-//       latitude: 30.0444,
-//       longitude: 31.2357,
-//     },
-//     experience_years: 10,
-//   },
-//   {
-//     id: 2,
-//     name: "Robert Johnson",
-//     email: "doctor2@example.com",
-//     mobile: null,
-//     profile_photo: "/imgs/doc-2.jpg",
-//     specialty: {
-//       id: 2,
-//       name: "Cardiologist",
-//       image: "cardio.png",
-//     },
-//     license_number: "LIC-10002",
-//     bio: "Dermatologist specializing in skin treatments.",
-//     session_price: 120,
-//     clinic_address: "Clinic 2, Cairo",
-//     location: {
-//       latitude: 30.045,
-//       longitude: 31.236,
-//     },
-//     experience_years: 8,
-//   },
-//   {
-//     id: 3,
-//     name: "Robert Johnson",
-//     email: "doctor3@example.com",
-//     mobile: null,
-//     profile_photo: "/imgs/doc-3.jpg",
-//     specialty: {
-//       id: 3,
-//       name: "Dermatologist",
-//       image: "derma.png",
-//     },
-//     license_number: "LIC-10003",
-//     bio: "General surgeon with 15 years of experience.",
-//     session_price: 200,
-//     clinic_address: "Clinic 3, Cairo",
-//     location: {
-//       latitude: 30.046,
-//       longitude: 31.237,
-//     },
-//     experience_years: 15,
-//   },
-//   {
-//     id: 4,
-//     name: "Robert Johnson",
-//     email: "doctor3@example.com",
-//     mobile: null,
-//     profile_photo: "/imgs/doc-4.png",
-//     specialty: {
-//       id: 4,
-//       name: "Dermatologist",
-//       image: "derma.png",
-//     },
-//     license_number: "LIC-10003",
-//     bio: "General surgeon with 15 years of experience.",
-//     session_price: 200,
-//     clinic_address: "Clinic 3, Cairo",
-//     location: {
-//       latitude: 30.046,
-//       longitude: 31.2,
-//     },
-//     experience_years: 15,
-//   },
-// ]
+import { createDoctorIcon } from "./createDoctorIcon"
 
 const redIcon = new L.Icon({
   iconUrl:
@@ -107,12 +19,11 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41],
 })
 const DoctorsMap = (props: DoctorMapProps) => {
-  console.log(props.userLocation)
   return (
     <div className={`w-full h-${props.height} rounded-4 relative`}>
       <MapContainer
         center={props.userLocation}
-        zoom={props.variant === "home" ? 13 : 18}
+        zoom={props.variant === "home" ? 16 : 18}
         zoomControl={false}
         className="w-full h-full z-1"
       >
@@ -126,18 +37,18 @@ const DoctorsMap = (props: DoctorMapProps) => {
         />
 
         <MarkerClusterGroup chunkedLoading>
-          {props.doctors.map((doc: DoctorProfile) => (
+          {props?.doctors?.map((doc: DoctorProfile) => (
             <Marker
               key={doc.id}
-              position={[doc.clinic_location.lat, doc.clinic_location.lng]}
-              icon={createDoctorIcon(test)}
+              position={[doc?.clinic_location.lat, doc?.clinic_location.lng]}
+              icon={createDoctorIcon(doc?.user?.profile_photo)}
               eventHandlers={{
                 click: () => {
                   if (props.variant === "modal") {
                     props.handleDoctorInfo(
-                      doc.clinic_location.address,
-                      doc.clinic_location.lat,
-                      doc.clinic_location.lng
+                      doc?.clinic_location.address,
+                      doc?.clinic_location.lat,
+                      doc?.clinic_location.lng
                     )
                   }
                 },
@@ -146,7 +57,7 @@ const DoctorsMap = (props: DoctorMapProps) => {
               <Popup>
                 <div className="text-center p-1">
                   <strong className="block text-sm mb-1">
-                    {doc.user.name}
+                    {doc?.user.name}
                   </strong>
                   {/* <span className="text-xs text-gray-500 block">
                     {doc.specialty.name}
