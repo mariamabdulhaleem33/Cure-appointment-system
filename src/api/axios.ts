@@ -1,4 +1,3 @@
-// src/api/axios.ts
 import axios, { type AxiosInstance, type AxiosResponse, type AxiosError } from "axios"
 
 const api: AxiosInstance = axios.create({
@@ -12,7 +11,6 @@ const api: AxiosInstance = axios.create({
 // Request interceptor to attach token
 api.interceptors.request.use(
   (config) => {
-    // Get token from localStorage (adjust storage method as needed)
     const token = localStorage.getItem('authToken');
     
     if (token) {
@@ -25,36 +23,28 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 // Response interceptor to handle errors and token expiration
 api.interceptors.response.use(
   (response: AxiosResponse) => {
-    // Return successful response as-is
     return response;
   },
-  (error: AxiosError) => {
+  (error: AxiosError<{ Status?: boolean; message?: string }>) => {
     if (error.response) {
-      const { status } = error.response;
+      const { status, data } = error.response;
       
-      // Handle token expiration (401 Unauthorized)
       if (status === 401) {
-        // Clear stored token
         localStorage.removeItem('authToken');
-        
-        // Redirect to login page (adjust path as needed)
         window.location.href = '/login';
-        
-        // Optional: Show a message to the user
-        console.error('Session expired. Please log in again.');
+        console.error(data?.message || 'Session expired. Please log in again.');
       }
       
-      // Handle forbidden access (403)
       if (status === 403) {
-        console.error('Access forbidden. Insufficient permissions.');
+        console.error(data?.message || 'Access forbidden. Insufficient permissions.');
       }
       
-      // Handle server errors (500)
       if (status >= 500) {
-        console.error('Server error. Please try again later.');
+        console.error(data?.message || 'Server error. Please try again later.');
       }
     } else if (error.request) {
       console.error('Network error. Please check your connection.');
@@ -64,5 +54,4 @@ api.interceptors.response.use(
   }
 );
 
-
-export default api
+export default api;

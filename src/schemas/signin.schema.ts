@@ -4,11 +4,11 @@ const passwordRegex =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
 export const signInSchema = z.object({
-  phone: z
+  mobile_number: z
     .string()
-    .min(1, "Phone number is required")
+    .min(1, "Mobile number is required")
     .regex(/^(\+20|0)?1[0-2,5][0-9]{8}$/, {
-      message: "Please enter a valid Egyptian phone number",
+      message: "Please enter a valid Egyptian mobile number",
     }),
 
   password: z
