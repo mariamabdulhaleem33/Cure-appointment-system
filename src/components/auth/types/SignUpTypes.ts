@@ -1,28 +1,45 @@
+
 export type Totp = {
-    phone: string;
-    otp: string;
+  mobile_number: string;
+  otp: string;
 }
 export type TserverErrors = {
-    [key: string]: string[];
+  [key: string]: string[];
 };
 
 export type SignUpErrorResponse = {
-    message: string;
-    errors: TserverErrors;
+  message: string;
+  errors: TserverErrors;
 };
 
+export type Tuser = {
+  name: string;
+  email: string;
+  password:string,
+  mobile_number:string
+}
+export type TSignupResponse = {
+  message:string;
+  user: {
+    id:number;
+    name:string;
+    email:string;
+    mobile_number:string;
+  }
+  token:string;
+}
+
 export type TErrorErrorResponse = {
-    message: string;
-    errors: TserverErrors;
+  message: string;
+  errors: TserverErrors;
 };
 
 export type TResendOtpPayload = {
-  phone: string;
+  mobile_number: string;
 };
 
-export type TServerErrorsResend = {
-  success:boolean;
-  message:string;
-  retry_after_seconds?:number
+export type TServerErrorsResendOtp = {
+  message: string;
+  time_remaining: number
 };
 
