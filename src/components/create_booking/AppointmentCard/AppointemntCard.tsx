@@ -10,7 +10,6 @@ import { BookingSkeleton } from "../Skelton/BookingSkeleton";
 type IProps = {
   doctorId: number | null;
 };
-
 const AppointemntCard = ({ doctorId }: IProps) => {
   const token: string | null = localStorage.getItem("authToken");
   const { data, isLoading } = useDoctor(doctorId, token);
@@ -102,7 +101,6 @@ const AppointemntCard = ({ doctorId }: IProps) => {
         session_price={data?.session_price}
         selectedTime={selectedTime}
         currentDay={currentDay}
-        selectedMonth={selectedMonth}
       />
     </section>
   );

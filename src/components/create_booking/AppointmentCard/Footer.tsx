@@ -10,14 +10,12 @@ type IProps = {
   doctorId: number | null;
   selectedTime: string;
   currentDay: DayGroup;
-  selectedMonth: string;
   session_price: string;
 };
 
 const Footer = ({
   selectedTime,
   currentDay,
-  selectedMonth,
   doctorId,
   session_price,
 }: IProps) => {
@@ -29,6 +27,12 @@ const Footer = ({
   // create Book Function
   const { mutate: createBooking, isPending } = useCreateBooking(token);
   const handleBooking = () => {
+    if (!selectedTime) {
+      toast.error("Please select a time slot first", {
+        position: "top-center",
+      });
+      return;
+    }
     createBooking(
       {
         doctor_id: doctorId,
@@ -74,12 +78,7 @@ const Footer = ({
 
         <button
           onClick={handleBooking}
-          disabled={!selectedTime}
-          className={`px-6 py-2 rounded-lg border transition ${
-            selectedTime
-              ? "border-[#145DB8] bg-[#145DB8] text-white hover:bg-blue-800 cursor-pointer"
-              : "border-gray-300 text-gray-400 cursor-not-allowed"
-          }`}
+          className={`px-6 py-2 rounded-lg border transition border-[#145DB8] bg-[#145DB8] text-white hover:bg-blue-800 cursor-pointer`}
         >
           {isPending ? (
             <Loader2 className="h-6 w-6 animate-spin text-white" />

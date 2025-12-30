@@ -31,6 +31,7 @@ const ReviewCards = ({ doctorId }: ReviewCardsProps) => {
       </div>
     );
   }
+
   return (
     <>
       {allReviews.length > 0 ? (
