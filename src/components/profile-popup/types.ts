@@ -1,7 +1,7 @@
 export type UserProfile = {
   name: string;
-  address: string;
-  avatarUrl: string;
+  address: string | null;
+  avatarUrl: string | null;
 };
 
 export type DropdownProps = {

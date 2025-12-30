@@ -4,12 +4,13 @@ type IProps = {
   doctorId: number | null;
 };
 const Description = ({ doctorId }: IProps) => {
-  const { data: doctorInfo } = useDoctor(doctorId);
+  const token: string | null = localStorage.getItem("authToken");
+  const { data: doctorInfo } = useDoctor(doctorId, token);
   return (
     <>
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-5 px-3">
         <h2 className="text-[25px] md:text-[40px]">
-          {Number(doctorInfo?.rating_avg).toFixed(1)}/5
+          {Number(doctorInfo?.average_rating || 0).toFixed(1)}/5
         </h2>
         <div className="flex flex-col">
           <div className="flex gap-1">
@@ -25,7 +26,7 @@ const Description = ({ doctorId }: IProps) => {
             ))}
           </div>
           <p className="text-[14px] text-[#6D7379]">
-            {doctorInfo?.reviews_count}+ Reviews
+            {Number(doctorInfo?.reviews_count) || 0}+ Reviews
           </p>
         </div>
       </div>

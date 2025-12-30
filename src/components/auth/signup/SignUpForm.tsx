@@ -40,8 +40,8 @@ const SignUpForm = () => {
             type: "text",
             placeholder: "Phone number",
             id: "phone",
-            register: register("phone", { required: true }),
-            error: errors.phone
+            register: register("mobile_number", { required: true }),
+            error: errors.mobile_number
         },
         {
             type: "password",
@@ -64,7 +64,8 @@ const SignUpForm = () => {
 
             console.log('done', data)
             if(data) {
-                navigate('/otp', { state: { phone: data.data.phone } })
+                console.log('helo',data)
+                navigate('/otp', { state: { mobile_number: data.user.mobile_number } })
             }
         },
         onError: (error: AxiosError<SignUpErrorResponse>) => {

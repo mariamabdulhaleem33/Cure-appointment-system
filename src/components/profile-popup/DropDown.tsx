@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { User } from "lucide-react";
 import { DropdownItem } from "./DropDownItem";
 import {
   PaymentIcon,
@@ -21,13 +23,17 @@ const SettingsHeaderIcon = ({
 
 const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
   const navigate = useNavigate();
+  const [imageError, setImageError] = useState(false);
 
   const handlePaymentClick = () => {
     console.log("Payment Method clicked");
   };
 
   const handleFavoriteClick = () => {
-    console.log("Favorite clicked");
+    navigate("/favorites");
+    if (onClose) {
+      onClose();
+    }
   };
 
   const handleSettingsClick = () => {
@@ -38,7 +44,10 @@ const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
   };
 
   const handlePrivacyClick = () => {
-    console.log("Privacy Policy clicked");
+    navigate("/profile/change-password");
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (
@@ -82,20 +91,33 @@ const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
       )}
 
       <div className="flex items-center gap-4 pb-4">
-        <img
-          src={user.avatarUrl}
-          alt={`${user.name}'s profile picture`}
-          className="h-14 w-14 rounded-full object-cover flex-shrink-0"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "https://via.placeholder.com/56";
-          }}
-        />
+        {user.avatarUrl && !imageError ? (
+          <div className="h-14 w-14 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img
+              key={user.avatarUrl}
+              src={user.avatarUrl}
+              alt={`${user.name}'s profile picture`}
+              className="h-full w-full object-cover"
+              onError={() => {
+                setImageError(true);
+              }}
+              onLoad={() => {
+                setImageError(false);
+              }}
+            />
+          </div>
+        ) : (
+          <div className="h-14 w-14 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+            <User className="w-7 h-7 text-gray-600" />
+          </div>
+        )}
         <div className="flex-1 min-w-0">
-          <p className={TYPOGRAPHY.username}>{user.name}</p>
+          <p className={TYPOGRAPHY.username}>{user.name || "User"}</p>
           <div className="flex items-center gap-1.5 mt-1">
             <LocationIcon className="w-3.5 h-3.5 flex-shrink-0" />
-            <p className={TYPOGRAPHY.address}>{user.address}</p>
+            <p className={TYPOGRAPHY.address}>
+              {user.address || "No location provided yet"}
+            </p>
           </div>
         </div>
         <button

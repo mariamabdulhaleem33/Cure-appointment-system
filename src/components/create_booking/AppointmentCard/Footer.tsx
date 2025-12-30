@@ -4,6 +4,7 @@ import { useCreateBooking } from "../hooks/useCreateBooking";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 type IProps = {
   doctorId: number | null;
@@ -23,13 +24,10 @@ const Footer = ({
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const token: string | null =
-    localStorage.getItem("authToken") ??
-    "11|4oTir7nbTiTxizu8G2jkbM53dTIUyNtHjH89F64L50c6c158";
+  const token: string | null = localStorage.getItem("authToken");
   const startTime = selectedTime.split(" - ")[0];
   // create Book Function
   const { mutate: createBooking, isPending } = useCreateBooking(token);
-
   const handleBooking = () => {
     createBooking(
       {
@@ -40,17 +38,20 @@ const Footer = ({
         payment_method_id: 1,
       },
       {
-        onError: (error: any) => {
-          const message =
-            error?.response?.data?.message ||
-            "Something went wrong, please try again";
+        onError: (error: unknown) => {
+          let message = "Something went wrong, please try again";
+          if (axios.isAxiosError(error)) {
+            message = error.response?.data?.message || message;
+          } else if (error instanceof Error) {
+            message = error.message;
+          }
           toast.error(message, {
             position: "top-center",
           });
         },
 
         onSuccess: (data) => {
-          toast.success("Booking created successfully 🎉", {
+          toast.success("Booking created successfully", {
             position: "top-center",
           });
           queryClient.invalidateQueries({
@@ -65,11 +66,9 @@ const Footer = ({
   return (
     <>
       <div className="flex justify-between items-center">
-        <span className="text-sm font-medium">
+        <span className="text-sm md:text-md font-medium">
           {selectedTime
-            ? `${currentDay.dayName}, ${selectedMonth.split(",")[0]} ${
-                currentDay.dayNumber
-              } - ${selectedTime}`
+            ? `${currentDay.dayName} - ( ${selectedTime} )`
             : "Please select a slot"}
         </span>
 
