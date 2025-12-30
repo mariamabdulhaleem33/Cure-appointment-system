@@ -1,10 +1,25 @@
-export interface IReview {
+interface User {
   id: number;
   name: string;
-  time: string;
+  profile_photo: string | null;
+}
+
+interface Booking {
+  id: number;
+  booking_date: string;
+}
+
+export interface IReview {
+  id: number;
+  booking_id: number;
+  user_id: number;
+  doctor_id: number;
   rating: number;
-  image: string;
   comment: string;
+  created_at: string;
+  updated_at: string;
+  user: User;
+  booking: Booking;
 }
 export type BookingDate = {
   date: string;
@@ -54,4 +69,11 @@ export interface IDoctor {
 export interface ILocation {
   latitude: number;
   longitude: number;
+}
+export interface ApiResponse {
+  data: {
+    reviews: {
+      data: IReview[];
+    };
+  };
 }
