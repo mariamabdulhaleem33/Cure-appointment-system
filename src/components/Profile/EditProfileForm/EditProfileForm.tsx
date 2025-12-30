@@ -17,7 +17,7 @@ import { useProfileImage } from "@/context/ProfileImgContext";
 
 const EditProfileForm: FC = () => {
   const { data: profileData } = useShowProfile();
-  const { mutate } = useEditProfile();
+  const { mutate} = useEditProfile();
   const { selectedFile } = useProfileImage();
   const {
     register,

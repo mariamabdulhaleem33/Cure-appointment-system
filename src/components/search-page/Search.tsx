@@ -19,9 +19,11 @@ type Filters = {
 }
 
 export default function Search() {
-  const [search, setSearch] = useState("")
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [specialtyId, setSpecialtyId] = useState<number | undefined>();
   const isFirstPage = page === 1
+
 
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
@@ -67,16 +69,20 @@ export default function Search() {
   const queryParams = {
     page,
     search,
+    specialtyId,
     availableDate: filters.availableDate,
     consultationType: filters.consultationType,
     gender: filters.gender,
     sort: filters.sort,
   }
 
-  const { data, isLoading } = useQuery({
+  const { data = [], isLoading } = useQuery({
     queryKey: ["doctors", queryParams],
     queryFn: () => fetchDoctors(queryParams),
   })
+
+  const PAGE_SIZE = 9;
+  const hasNextPage = data.length === PAGE_SIZE;
 
   return (
     <div className="min-h-screen bg-white">
@@ -129,7 +135,11 @@ export default function Search() {
           }}
         >
           <h2 className="font-semibold mb-3">Choose Specialties</h2>
-          <Specialties />
+          <Specialties selectedId={specialtyId}
+            onSelect={(id) => {
+              setPage(1);
+              setSpecialtyId(id);
+            }} />
 
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -139,7 +149,7 @@ export default function Search() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-              {(data ?? []).map((doctor) => (
+              {data?.map((doctor) => (
                 <DoctorCard key={doctor.id} doctor={doctor} />
               ))}
             </div>
@@ -153,15 +163,19 @@ export default function Search() {
             {!isFirstPage && (
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded-xl border text-blue-400 border-blue-400 px-14 py-3 text-sm hover:bg-blue-50 cursor-pointer transition"
+                className="rounded-xl border text-blue-400 border-blue-400 px-14 py-3 text-sm hover:bg-blue-50  cursor-pointer transition "
               >
                 Previous page
               </button>
             )}
 
             <button
-              onClick={() => setPage((p) => p + 1)}
-              className="rounded-xl border text-blue-400 border-blue-400 px-14 py-3 text-sm hover:bg-blue-50 cursor-pointer transition"
+              onClick={() => hasNextPage && setPage((p) => p + 1)}
+              disabled={!hasNextPage}
+              className="rounded-xl border px-14 py-3 text-sm transition hover:bg-blue-50 cursor-pointer
+      text-blue-400 border-blue-400
+      disabled:text-gray-400 disabled:border-gray-300
+      disabled:cursor-not-allowed disabled:hover:bg-transparent"
             >
               Next Page
             </button>

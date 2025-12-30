@@ -29,7 +29,7 @@ export type TSignupResponse = {
   token:string;
 }
 
-export type TErrorErrorResponse = {
+export type TErrorResponse = {
   message: string;
   errors: TserverErrors;
 };

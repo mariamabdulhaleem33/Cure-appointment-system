@@ -22,7 +22,7 @@ const DisplayDays = ({
               setSelectedDayIndex(index);
               setSelectedTime("");
             }}
-            className={`flex flex-col items-center justify-center w-[55px] h-[65px] rounded-lg transition ${
+            className={`flex flex-col items-center justify-center w-13.75 h-16.25 rounded-lg transition ${
               selectedDayIndex === index
                 ? "bg-[#145DB8] text-white"
                 : "bg-gray-50 text-gray-400 hover:bg-gray-100"

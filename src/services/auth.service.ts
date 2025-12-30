@@ -19,12 +19,11 @@ export const otpFn = async (data : Totp ) => {
         mobile_number:data.mobile_number,
         otp:data.otp
     });
-    console.log(response)
     return response.data;
 }
 
 export const resendOtpFn = async (data: TResendOtpPayload ) => {
   const response = await api.post('resendOtp', data);
-  console.log(response)
+  console.log('resend',response)
   return response.data;
 };

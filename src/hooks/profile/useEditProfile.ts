@@ -13,7 +13,7 @@ export const useEditProfile = () => {
     },
     onError: (error: any) => {
       const message =
-        error.response?.data?.message || "Failed to update profile.";
+        error.response?.data?.message || error?.response?.data?.errors.email[0] || "Failed to update profile.";
       toast.error(message);
     },
   });

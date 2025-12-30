@@ -1,16 +1,16 @@
 // hooks/useDoctor.ts
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { IReview } from "../types";
+import type { ApiResponse } from "../types";
 
 export const useDoctorReviews = (
   doctorId?: number | null,
   token?: string | null
 ) => {
-  return useQuery<IReview[]>({
+  return useQuery<ApiResponse, Error>({
     queryKey: ["doctorReviews", doctorId],
     queryFn: async () => {
-      const res = await axios.get(
+      const { data } = await axios.get(
         `${import.meta.env.VITE_BASE_URL}reviews/doctor/${doctorId}`,
         {
           headers: {
@@ -20,8 +20,7 @@ export const useDoctorReviews = (
         }
       );
       // console.log(res.data.data.reviews.data);
-      // console.log(res);
-      return res?.data;
+      return data;
     },
     enabled: !!doctorId,
   });

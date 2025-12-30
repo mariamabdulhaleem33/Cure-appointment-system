@@ -49,5 +49,10 @@ export const ProfileImageProvider = ({ children }: { children: ReactNode }) => {
 
 export const useProfileImage = () => {
   const context = useContext(ProfileImageContext);
+  if (!context) {
+    throw new Error(
+      "useProfileImage must be used within a ProfileImageProvider"
+    );
+  }
   return context;
 };

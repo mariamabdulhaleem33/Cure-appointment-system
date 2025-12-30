@@ -1,42 +1,49 @@
-import { GiNoseSide } from "react-icons/gi";
-import {
-  FaTooth,
-  FaHeart,
-  FaBrain,
-  FaUserDoctor,
-  FaEye,
-  FaLungs,
-} from "react-icons/fa6";
 
-type Specialty = {
-  name: string;
-  icon: React.ReactNode;
+import { useQuery } from "@tanstack/react-query";
+import { fetchSpecialties } from "./api-doctors";
+
+type Props = {
+  selectedId?: number;
+  onSelect: (id?: number) => void;
 };
 
-const specialties: Specialty[] = [
-  { name: "Dentist", icon: <FaTooth /> },
-  { name: "Cardiologist", icon: <FaHeart /> },
-  { name: "ENT", icon: <GiNoseSide /> },
-  { name: "Neurologist", icon: <FaBrain /> },
-  { name: "General Practitioner", icon: <FaUserDoctor /> },
-  { name: "Ophthalmologist", icon: <FaEye /> },
-  { name: "Pulmonologist", icon: <FaLungs /> },
-];
+export default function Specialties({ selectedId, onSelect }: Props) {
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["specialties"],
+    queryFn: fetchSpecialties,
+  });
 
-export default function Specialties() {
+  if (isLoading) {
+    return <div className="h-10 bg-gray-200 rounded-lg animate-pulse" />;
+  }
+
   return (
-    <div>
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        {specialties.map((item) => (
-          <button
-            key={item.name}
-            className="flex items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-sm text-gray-600 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer"
-          >
-            <span className="">{item.icon}</span>
-            {item.name}
-          </button>
-        ))}
-      </div>
+    <div className="flex gap-2 overflow-x-auto pb-2">
+      <button
+        onClick={() => onSelect(undefined)}
+        className={`rounded-full border px-4 py-2 text-sm cursor-pointer ${
+          !selectedId ? "bg-blue-50 border-blue-500 text-blue-600" : ""
+        }`}
+      >
+        All
+      </button>
+
+      {data.map((specialty) => (
+        <button
+          key={specialty.id}
+          onClick={() => onSelect(specialty.id)}
+          className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm transition cursor-pointer
+            ${
+              selectedId === specialty.id
+                ? "bg-blue-50 border-blue-500 text-blue-600"
+                : "hover:bg-gray-50"
+            }
+          `}
+        >
+          {specialty.name}
+        </button>
+      ))}
     </div>
   );
 }
+
