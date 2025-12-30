@@ -22,6 +22,9 @@ const OtpForm = () => {
         return () => clearInterval(interval);
     }, [timer]);
     const mobile_number = location.state?.mobile_number;
+    if(!mobile_number) {
+        navigate("/signup")
+    }
     const { control, handleSubmit, register, formState: { errors }, setError
     } = useForm<otpType>({
         mode: 'onChange',
