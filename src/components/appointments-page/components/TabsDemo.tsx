@@ -13,18 +13,7 @@ export function TabsDemo({ data }: AppointmentListProps) {
     setSelectedDate(date);
   }
 
-  // const filteredItems = selectedDate
-  //   ? data.filter(item => {
-  //       const itemDate = item.date ? new Date(item.date) : null;
-  //       return (
-  //         itemDate !== null &&
-  //         selectedDate !== null &&
-  //         itemDate.toDateString() === selectedDate.toDateString()
-  //       );
-  //     })
-  //   : data;
 
-  //   const displayedData = selectedDate ? filteredItems : data;
 
   function filterByDateAndStatus(
     status?: "Upcoming" | "Cancelled" | "Completed",
@@ -111,24 +100,12 @@ export function TabsDemo({ data }: AppointmentListProps) {
                 card={card}
               />
             ))}
-            {/* {displayedData.map(card => (
-              <AppointmentCard
-                key={card.id}
-                card={card}
-              />
-            ))} */}
+           
           </div>
         </TabsContent>
         <TabsContent value="upcoming">
           <div className="flex gap-6 flex-wrap justify-start">
-            {/* {data
-              .filter(card => card.status === "Upcoming")
-              .map(card => (
-                <AppointmentCard
-                  key={card.id}
-                  card={card}
-                />
-              ))} */}
+      
             {filterByDateAndStatus("Upcoming").map(card => (
               <AppointmentCard
                 key={card.id}
@@ -145,14 +122,7 @@ export function TabsDemo({ data }: AppointmentListProps) {
                 card={card}
               />
             ))}
-            {/* {data
-              .filter(card => card.status === "Cancelled")
-              .map(card => (
-                <AppointmentCard
-                  key={card.id}
-                  card={card}
-                />
-              ))} */}
+          
           </div>
         </TabsContent>
         <TabsContent value="completed">
@@ -163,14 +133,7 @@ export function TabsDemo({ data }: AppointmentListProps) {
                 card={card}
               />
             ))}
-            {/* {data
-              .filter(card => card.status === "Completed")
-              .map(card => (
-                <AppointmentCard
-                  key={card.id}
-                  card={card}
-                />
-              ))} */}
+          
           </div>
         </TabsContent>
       </Tabs>

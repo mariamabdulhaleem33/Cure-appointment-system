@@ -1,5 +1,5 @@
 import { useCancelAppointment } from "@/hooks/appointments/useCancelAppointment";
-import { ReactNode } from "react";
+import type{ ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 interface CancelBtnProps {
   appointmentId: string;

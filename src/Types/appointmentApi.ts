@@ -5,7 +5,7 @@ export interface AppointmentApi {
   doctor_id: number;
   booking_date: string;
   booking_time: string;
-  status: "Upcoming" | "Cancelled" | "Completed";
+  status: "Upcoming" | "Cancelled" | "Completed" | "Rescheduled";
   price: number;
   created_at: string;
   updated_at: string;

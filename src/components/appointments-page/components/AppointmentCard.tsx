@@ -73,7 +73,7 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
           <div className="flex-1">
             <h3 className="font-semibold text-sm">{doctor.name}</h3>
             <p className="text-xs text-muted-foreground">
-              {doctor.specialization}
+              {doctor.specialization.name}
             </p>
 
             <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
@@ -83,47 +83,10 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
           </div>
         </div>
 
-        {/* <div className="flex gap-2">
-          {status === "Completed" ? (
-            <>
-              <BookAgainButton
-                asChild
-                doctorId={doctor.id}
-              >
-                {config.secondaryBtn}
-              </BookAgainButton>
-
-              <FormReview>
-                <Button className="flex-1 hover:cursor-pointer">
-                  {config.primaryBtn}
-                </Button>
-              </FormReview>
-            </>
-          ) : (
-            {status === "Completed" && (
-             <CancelBtn appointmentId={card.id}>
-  {config.secondaryBtn}
-</CancelBtn>
-
-            )}
-            <>
-              <Button
-                variant="outline"
-                className="flex-1 hover:cursor-pointer"
-              >
-                {config.secondaryBtn}
-              </Button>
-              <Button className="flex-1 hover:cursor-pointer">
-                {config.primaryBtn}
-              </Button>
-            </>
-          )}
-        </div> */}
-
         <div className="flex gap-2">
           {status === "Completed" && (
             <>
-              <BookAgainButton doctorId={doctor.id}>
+              <BookAgainButton doctorId={String(doctor.id)}>
                 {config.secondaryBtn}
               </BookAgainButton>
 
@@ -135,17 +98,21 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
 
           {status === "Upcoming" && (
             <>
-              <CancelBtn appointmentId={card.id}>
+              <CancelBtn appointmentId={String(card.id)}>
                 {config.secondaryBtn}
               </CancelBtn>
-
-              <Button className="flex-1">{config.primaryBtn}</Button>
+              <BookAgainButton
+                variant="default"
+                doctorId={String(doctor.id)}
+              >
+                {config.primaryBtn}
+              </BookAgainButton>
             </>
           )}
 
           {status === "Cancelled" && (
             <>
-              <BookAgainButton doctorId={doctor.id}>
+              <BookAgainButton doctorId={String(doctor.id)}>
                 {config.secondaryBtn}
               </BookAgainButton>
 

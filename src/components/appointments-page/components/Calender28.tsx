@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/popover";
 
 interface CalendarProps {
-  selectedDate: Date | null;
-  onDateChange: (date: Date | null) => void;
+  selectedDate: Date | undefined;
+  onDateChange: (date: Date | undefined) => void;
 }
-function formatDate(date: Date | null) {
+function formatDate(date: Date | undefined) {
   if (!date) {
     return "";
   }
