@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin } from "lucide-react";
 import FormReview from "@/components/create_booking/DoctorReviews/FormReview";
 import type { AppointmentCardData } from "@/Types/appointmentCardData";
+import { BookAgainButton } from "./BookAgainButton";
 
 interface AppointmentCardProps {
   card: AppointmentCardData;
@@ -28,7 +29,7 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
       color: "text-green-600",
       cardHeaderDateColor: "text-black",
       primaryBtn: "Feedback",
-      secondaryBtn: "View Details",
+      secondaryBtn: "Book again",
     },
     Canceled: {
       label: "Canceled",
@@ -82,22 +83,33 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
         </div>
 
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="flex-1 hover:cursor-pointer"
-          >
-            {config.secondaryBtn}
-          </Button>
           {status === "Completed" ? (
-            <FormReview>
+            <>
+              <BookAgainButton
+                asChild
+                doctorId={doctor.id}
+              >
+                {config.secondaryBtn}
+              </BookAgainButton>
+
+              <FormReview>
+                <Button className="flex-1 hover:cursor-pointer">
+                  {config.primaryBtn}
+                </Button>
+              </FormReview>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                className="flex-1 hover:cursor-pointer"
+              >
+                {config.secondaryBtn}
+              </Button>
               <Button className="flex-1 hover:cursor-pointer">
                 {config.primaryBtn}
               </Button>
-            </FormReview>
-          ) : (
-            <Button className="flex-1 hover:cursor-pointer">
-              {config.primaryBtn}
-            </Button>
+            </>
           )}
         </div>
       </CardContent>
