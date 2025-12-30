@@ -30,7 +30,10 @@ const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
   };
 
   const handleFavoriteClick = () => {
-    console.log("Favorite clicked");
+    navigate("/favorites");
+    if (onClose) {
+      onClose();
+    }
   };
 
   const handleSettingsClick = () => {
@@ -41,7 +44,10 @@ const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
   };
 
   const handlePrivacyClick = () => {
-    console.log("Privacy Policy clicked");
+    navigate("/profile/change-password");
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (
