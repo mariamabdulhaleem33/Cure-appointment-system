@@ -58,7 +58,7 @@ export interface DoctorProps {
   imageUrl: string
   name: string
   specialty: string
-  rate?: number
+  rate: number
   startTime: string
   endTime: string
   forBooking: boolean

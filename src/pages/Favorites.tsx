@@ -2,12 +2,10 @@ import DoctorCard from "@/components/ui/DoctorCard";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/api/axios";
 import { type FC } from "react";
-import type { FavoriteItem } from "@/Types/Favorites.types";
-
+import type { FavoriteDoctorResponse } from "@/Types/Favorites.types";
 
 const Favorites: FC = () => {
-
-  const { data } = useQuery<FavoriteItem[]>({
+  const { data } = useQuery<FavoriteDoctorResponse[]>({
     queryKey: ["favorites"],
     queryFn: async () => {
       const res = await api.get("/all-favourites");
@@ -23,21 +21,25 @@ const Favorites: FC = () => {
 
       <div className="flex justify-center gap-x-10 gap-y-10 flex-wrap">
         {data?.map((fav) => {
-          const doctor = fav.doctor;
+          const doc = fav.doctor;
+          const startTime = doc.availability_slots[0].from;
+          const endTime =
+            doc.availability_slots[doc.availability_slots.length - 1].to;
 
           return (
             <DoctorCard
-              key={fav.id}
+              key={fav.doctor_id}
               style="w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
-              name={""}
-              imageUrl={``}
-              specialty={doctor.specialization.name}
-              startTime={doctor.availability_slots[0].from}
-              endTime={doctor.availability_slots[0].to}
-              address={doctor.clinic_location?.address}
+              name={doc.name}
+              imageUrl={doc.profile_photo}
+              specialty={doc.specialization_name}
+              startTime={startTime}
+              endTime={endTime}
+              address={doc.clinic_location.address}
               forBooking={true}
-              price={parseFloat(doctor.session_price)}
-              userId={doctor.id}
+              price={parseFloat(doc.session_price)}
+              userId={fav.doctor_id}
+              rate={doc.average_rating || 0}
             />
           );
         })}
