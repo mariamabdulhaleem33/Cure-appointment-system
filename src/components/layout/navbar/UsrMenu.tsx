@@ -1,19 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
-import { User } from "lucide-react";
 import DropDown from "../../profile-popup/DropDown";
 import SignInSignUpDropdown from "../../profile-popup/SignInSignUpDropdown";
 import { useMediaQuery } from "@/hooks/useMatchMediaQuery";
 import { useAuthState, useLogout } from "@/hooks/useAuth";
 import { useProfile } from "@/hooks/useProfile";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 
 const UserMenu: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [imageError, setImageError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { isLargeScreen } = useMediaQuery("(min-width: 768px)");
   const { isAuthenticated } = useAuthState();
   const logout = useLogout();
-  const { user } = useProfile();
+  const { user, isLoading: isProfileLoading } = useProfile();
 
   const handleLogout = () => {
     setShowDropdown(false);
@@ -71,24 +70,17 @@ const UserMenu: React.FC = () => {
           aria-haspopup="true"
         >
           {isAuthenticated ? (
-            user.avatarUrl && !imageError ? (
-              <img
-                key={user.avatarUrl}
-                src={user.avatarUrl}
-                alt={`${user.name}'s profile`}
-                className="w-full h-full object-cover rounded-full"
-                onError={() => {
-                  setImageError(true);
-                }}
-                onLoad={() => {
-                  setImageError(false);
-                }}
-              />
-            ) : (
-              <User className="w-5 h-5 text-gray-600" />
-            )
+            <UserAvatar
+              avatarUrl={user.avatarUrl}
+              name={user.name || "User"}
+              size="sm"
+              isLoading={isProfileLoading}
+              className="w-full h-full"
+            />
           ) : (
-            <User className="w-5 h-5 text-gray-600" />
+            <div className="w-full h-full rounded-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-600 font-semibold text-sm">?</span>
+            </div>
           )}
         </button>
 

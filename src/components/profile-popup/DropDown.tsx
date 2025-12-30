@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { User } from "lucide-react";
 import { DropdownItem } from "./DropDownItem";
+import { UserAvatar } from "@/components/ui/UserAvatar";
 import {
   PaymentIcon,
   LocationIcon,
@@ -23,10 +22,12 @@ const SettingsHeaderIcon = ({
 
 const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
   const navigate = useNavigate();
-  const [imageError, setImageError] = useState(false);
 
   const handlePaymentClick = () => {
-    console.log("Payment Method clicked");
+    navigate("/payment");
+    if (onClose) {
+      onClose();
+    }
   };
 
   const handleFavoriteClick = () => {
@@ -91,26 +92,12 @@ const Dropdown = ({ user, onLogout, onClose }: DropdownProps) => {
       )}
 
       <div className="flex items-center gap-4 pb-4">
-        {user.avatarUrl && !imageError ? (
-          <div className="h-14 w-14 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img
-              key={user.avatarUrl}
-              src={user.avatarUrl}
-              alt={`${user.name}'s profile picture`}
-              className="h-full w-full object-cover"
-              onError={() => {
-                setImageError(true);
-              }}
-              onLoad={() => {
-                setImageError(false);
-              }}
-            />
-          </div>
-        ) : (
-          <div className="h-14 w-14 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-            <User className="w-7 h-7 text-gray-600" />
-          </div>
-        )}
+        <UserAvatar
+          avatarUrl={user.avatarUrl}
+          name={user.name || "User"}
+          size="md"
+          className="flex-shrink-0"
+        />
         <div className="flex-1 min-w-0">
           <p className={TYPOGRAPHY.username}>{user.name || "User"}</p>
           <div className="flex items-center gap-1.5 mt-1">

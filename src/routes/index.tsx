@@ -3,7 +3,7 @@ import EditProfileForm from "@/components/Profile/EditProfileForm/EditProfileFor
 import Profile from "@/Pages/Profile";
 import Home from "@/Pages/Home";
 import Search from "@/components/search-page/Search";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import AppointmentPayment from "@/components/payment/AppointmentPayment";
 import ReviewCard from "@/components/rating/ReviewCard";
 import Booking from "@/components/create_booking/Booking";
@@ -15,6 +15,7 @@ import ChangePassword from "@/components/Profile/PasswordManagement/ChangePasswo
 
 // import AuthenticatedRoute from "@/routes/AuthenticatedRoute";
 import UnauthenticatedRoute from "@/routes/UnauthenticatedRoute";
+import Favorites from "@/Pages/Favorites";
 
 export default function AppRoutes() {
   return (
@@ -37,9 +38,11 @@ export default function AppRoutes() {
         <Route path="rate" element={<ReviewCard />} />
 
         <Route path="profile" element={<Profile />}>
+          <Route index element={<Navigate to="/profile/edit" replace />} />
           <Route path="edit" element={<EditProfileForm />} />
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
+        <Route path="favorites" element={<Favorites />} />
       </Route>
       {/* </Route> */}
     </Routes>
