@@ -1,8 +1,9 @@
 import MainLayout from "@/components/layout/MainLayout";
 import EditProfileForm from "@/components/Profile/EditProfileForm/EditProfileForm";
 import Profile from "@/Pages/Profile";
+import Home from "@/Pages/Home";
 import Search from "@/components/search-page/Search";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AppointmentPayment from "@/components/payment/AppointmentPayment";
 import ReviewCard from "@/components/rating/ReviewCard";
 import Booking from "@/components/create_booking/Booking";
@@ -11,15 +12,22 @@ import SignUp from "@/Pages/signup/SignUp";
 import Otp from "@/Pages/otp/Otp";
 import YourAppointments from "@/components/appointments-page/YourAppointments";
 import ChangePassword from "@/components/Profile/PasswordManagement/ChangePassword";
-import Favorites from "@/Pages/Favorites";
-import Home from "@/Pages/Home";
-// import ContactUs from "@/app/components/contact-us/ContactUs";
-// import Chat from "@/features/chat/components/pages/chat";
+
+// import AuthenticatedRoute from "@/routes/AuthenticatedRoute";
+import UnauthenticatedRoute from "@/routes/UnauthenticatedRoute";
 
 export default function AppRoutes() {
   return (
     <Routes>
+      {/* Unauthenticated Routes */}
+      <Route element={<UnauthenticatedRoute />}>
+        <Route path="login" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="otp" element={<Otp />} />
+      </Route>
 
+      {/* Authenticated Routes */}
+      {/* <Route element={<AuthenticatedRoute />}> */}
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="search" element={<Search />} />
@@ -27,16 +35,13 @@ export default function AppRoutes() {
         <Route path="appointments" element={<YourAppointments />} />
         <Route path="payment" element={<AppointmentPayment />} />
         <Route path="rate" element={<ReviewCard />} />
-        <Route path="favorites" element={<Favorites />} />
-        {/* <Route path="chat" element={<Chat />} /> */}
-        {/* <Route path="contact-us" element={<ContactUs />} /> */}
+
         <Route path="profile" element={<Profile />}>
-          <Route index element={<Navigate to="/profile/edit" replace />} />
           <Route path="edit" element={<EditProfileForm />} />
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
       </Route>
-
+      {/* </Route> */}
     </Routes>
-  )
+  );
 }
