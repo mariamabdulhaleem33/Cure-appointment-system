@@ -1,4 +1,3 @@
-
 export interface AppointmentApi {
   id: number;
   user_id: number;
@@ -17,7 +16,8 @@ export interface AppointmentApi {
     experience_years: number;
     session_price: string;
     about_me: string;
-
+    specialization: string;
+    img: string;
     availability_slots: {
       date: string;
       from: string;
@@ -39,4 +39,3 @@ export interface AppointmentApi {
     code: string;
   };
 }
-
