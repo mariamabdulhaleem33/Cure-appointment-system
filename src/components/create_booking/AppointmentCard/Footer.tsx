@@ -23,8 +23,7 @@ const Footer = ({
   const queryClient = useQueryClient();
 
   const token: string | null = localStorage.getItem("authToken");
-  const startTime = selectedTime.split(" - ")[0];
-  // create Book Function
+  const startTime = selectedTime.split(" - ")[0].substring(0, 5); // create Book Function
   const { mutate: createBooking, isPending } = useCreateBooking(token);
   const handleBooking = () => {
     if (!selectedTime) {
