@@ -22,7 +22,6 @@ const ReviewSkeleton = () => {
           </div>
         </div>
       </div>
-      ;
     </>
   );
 };

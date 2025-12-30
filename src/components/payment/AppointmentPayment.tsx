@@ -4,7 +4,7 @@ import { MapPin, Calendar, Check, Loader2 } from "lucide-react";
 import { apple, paypal } from "@/assets";
 import { cn } from "@/lib/utils";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Elements,
   CardElement,
@@ -47,6 +47,7 @@ function PaymentContent() {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [isErrorOpen, setIsErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   /**
    * STRIPE TRANSACTION HANDLER
@@ -80,7 +81,7 @@ function PaymentContent() {
         setErrorMessage(result.error.message || "Payment Declined");
         setIsErrorOpen(true);
       } else if (result.paymentIntent?.status === "succeeded") {
-        setIsSuccessOpen(true);
+        navigate("/appointments");
       }
     } catch (error: any) {
       setErrorMessage(error.message || "An unexpected error occurred during payment.");

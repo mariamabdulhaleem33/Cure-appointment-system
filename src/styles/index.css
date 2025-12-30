@@ -193,14 +193,15 @@
 
 .circle::after {
   content: "";
-
+  background: #000;
   position: absolute;
-
+  width: 60%;
   inset: 0;
-  top: 500px;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
   background: url("/src/assets/Group\ 8.png") center/cover no-repeat;
-
-  z-index: 100;
+  /* z-index: -1; */
 }
 
 .marker-cluster-small {

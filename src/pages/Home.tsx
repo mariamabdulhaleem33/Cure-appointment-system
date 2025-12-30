@@ -10,12 +10,12 @@ export default function Home() {
     <main>
       <div className="circle">
         <HeroSection />
-        <HowItWorks />
       </div>
+      <HowItWorks />
       <FindCare />
       <TopRatedDoctors />
       <Reviews />
-       <QuestionsAccordion/>
+      <QuestionsAccordion />
     </main>
   );
 }

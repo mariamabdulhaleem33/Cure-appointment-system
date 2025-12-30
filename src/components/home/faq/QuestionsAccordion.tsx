@@ -1,12 +1,42 @@
 import { useState } from "react";
 
 const questions = [
-  { id: 1, question: "What is this app used for?", answer: "" },
-  { id: 2, question: "Is the app free to use?", answer: "" },
-  { id: 3, question: "How can I find a doctor?", answer: "" },
-  { id: 4, question: "Can I cancel my appointment?", answer: "" },
-  { id: 5, question: "What payment are supported", answer: "" },
-  { id: 6, question: "How do I edit my profile?", answer: "" }
+  {
+    id: 1,
+    question: "What is this app used for?",
+    answer:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius nemo laboriosam quae assumenda dignissimos!",
+  },
+  {
+    id: 2,
+    question: "Is the app free to use?",
+    answer:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius nemo laboriosam quae assumenda dignissimos!",
+  },
+  {
+    id: 3,
+    question: "How can I find a doctor?",
+    answer:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius nemo laboriosam quae assumenda dignissimos!",
+  },
+  {
+    id: 4,
+    question: "Can I cancel my appointment?",
+    answer:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius nemo laboriosam quae assumenda dignissimos!",
+  },
+  {
+    id: 5,
+    question: "What payment are supported",
+    answer:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius nemo laboriosam quae assumenda dignissimos!",
+  },
+  {
+    id: 6,
+    question: "How do I edit my profile?",
+    answer:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius nemo laboriosam quae assumenda dignissimos!",
+  },
 ];
 
 export default function QuestionsAccordion() {
@@ -29,15 +59,17 @@ export default function QuestionsAccordion() {
           {questions.map((q) => (
             <div key={q.id} className="flex flex-col w-full max-w-[800px]">
               <div
-                className="w-full h-[59px] flex justify-between items-center p-4 rounded-[8px] bg-gray shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                className="w-full h-14.75 flex justify-between items-center p-4 rounded-xl bg-gray shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                 onClick={() => setOpenId(openId === q.id ? null : q.id)}
               >
                 <span className="font-medium text-lg">{q.question}</span>
-                <span className="text-2xl font-bold">{openId === q.id ? "−" : "+"}</span>
+                <span className="text-2xl font-bold">
+                  {openId === q.id ? "−" : "+"}
+                </span>
               </div>
 
               {openId === q.id && (
-                <div className="w-full bg-gray px-4 pb-4 text-gray-600 border-t border-white">
+                <div className="w-full bg-white px-4 pb-4 text-gray-600 border-t border-white">
                   {q.answer}
                 </div>
               )}
