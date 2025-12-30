@@ -3,7 +3,7 @@ import EditProfileForm from "@/components/Profile/EditProfileForm/EditProfileFor
 import Profile from "@/Pages/Profile";
 import Home from "@/Pages/Home";
 import Search from "@/components/search-page/Search";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import AppointmentPayment from "@/components/payment/AppointmentPayment";
 import ReviewCard from "@/components/rating/ReviewCard";
 import Booking from "@/components/create_booking/Booking";
@@ -34,6 +34,7 @@ export default function AppRoutes() {
         {/* <Route path="chat" element={<Chat />} /> */}
         {/* <Route path="contact-us" element={<ContactUs />} /> */}
         <Route path="profile" element={<Profile />}>
+          <Route index element={<Navigate to="/profile/edit" replace />} />
           <Route path="edit" element={<EditProfileForm />} />
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
