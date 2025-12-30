@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -6,22 +5,35 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star } from "lucide-react";
 import { useDoctorReviews } from "../hooks/useReview";
+import type { IReview } from "../types";
+import ReviewSkeleton from "../Skelton/ReviewSkeleton";
+import CardReview from "./CardReview";
 
 interface ReviewCardsProps {
   doctorId: number | null;
 }
 const ReviewCards = ({ doctorId }: ReviewCardsProps) => {
-  const token: string | null =
-    localStorage.getItem("authToken") ??
-    "11|4oTir7nbTiTxizu8G2jkbM53dTIUyNtHjH89F64L50c6c158";
-  const { data: doctorReviews = [] } = useDoctorReviews(doctorId, token);
-  const allReviews = doctorReviews?.data?.reviews?.data || [];
+  const token: string | null = localStorage.getItem("authToken");
+  const { data: doctorReviews, isLoading } = useDoctorReviews(doctorId, token);
+  const allReviews: IReview[] = (doctorReviews?.data?.reviews?.data ||
+    []) as IReview[];
+  //==========================
+  // ==== Display Skeleton ===
+  // =========================
+  if (isLoading) {
+    return (
+      <div className="w-full py-6">
+        <div className="flex overflow-hidden">
+          <ReviewSkeleton />
+          <ReviewSkeleton />
+        </div>
+      </div>
+    );
+  }
   return (
     <>
-      {allReviews?.length > 0 ? (
+      {allReviews.length > 0 ? (
         <Carousel
           opts={{
             align: "start",
@@ -30,53 +42,32 @@ const ReviewCards = ({ doctorId }: ReviewCardsProps) => {
           className="w-full"
         >
           <CarouselContent className="-ml-4">
-            {doctorReviews?.map((review) => (
-              <CarouselItem key={review.id} className="pl-4 md:basis-1/2">
-                <Card className="rounded-[19px] border-[#BBC1C7] shadow-sm h-full">
-                  <CardContent className="px-6">
-                    {/* Header: Photo, Name, Rating */}
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex gap-3">
-                        <Avatar className="h-12 w-12 border">
-                          <AvatarImage src={review.image} />
-                          <AvatarFallback>{review.name[0]}</AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col">
-                          <h4 className="font-bold text-[#1A202C] text-sm">
-                            {review.name}
-                          </h4>
-                          <span className="text-xs text-gray-400">
-                            {review.time}
-                          </span>
-                        </div>
-                      </div>
-                      {/* Rating Badge */}
-                      <div className="bg-[#FFFBEB] px-2 py-1 rounded-lg flex items-center gap-1 border border-[#FEF3C7]">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                        <span className="text-xs font-bold text-[#D97706]">
-                          {review.rating}
-                        </span>
-                      </div>
-                    </div>
-                    {/* Comment */}
-                    <p className="text-sm text-[#4A5568] leading-relaxed line-clamp-4">
-                      {review.comment}
-                    </p>
-                  </CardContent>
-                </Card>
+            {allReviews.map((review) => (
+              <CarouselItem
+                key={review.id}
+                className="pl-4 md:basis-1/2 lg:basis-1/2"
+              >
+                <CardReview
+                  profilePhoto={review?.user?.profile_photo}
+                  name={review?.user?.name}
+                  createdAt={review.created_at}
+                  comment={review.comment}
+                  rating={review.rating}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
 
-          {/* The arrows of carousel */}
-          <div className="hidden md:block">
-            <CarouselPrevious className="-left-0 border-[#BBC1C7]" />
-            <CarouselNext className="-right-0 border-[#BBC1C7]" />
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <CarouselPrevious className="static translate-y-0 border-[#BBC1C7] bg-white hover:bg-gray-50 h-10 w-10" />
+            <CarouselNext className="static translate-y-0 border-[#BBC1C7] bg-white hover:bg-gray-50 h-10 w-10" />
           </div>
         </Carousel>
       ) : (
-        <div className="w-full px-6 py-10 text-center border-2 border-[#BBC1C7] rounded-[20px]">
-          There are no reviews available......
+        <div className="w-full px-6 py-12 text-center border-2 border-dashed border-[#BBC1C7] rounded-4xl text-gray-400">
+          <p className="text-sm">
+            There are no reviews available for this doctor yet.
+          </p>
         </div>
       )}
     </>

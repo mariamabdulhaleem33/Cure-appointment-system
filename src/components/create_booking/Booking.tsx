@@ -9,14 +9,14 @@ const Booking = () => {
   const doctorId = id ? Number(id) : null;
   return (
     <section className="py-6">
-      <div className="max-w-7xl px-[20px] mx-auto">
-        {/* title */}
+      <div className="max-w-7xl px-5 mx-auto">
+        {/* ============ title ================*/}
         <h1 className="flex items-center gap-2 mb-4">
           <ArrowLeft size={24} />
           <span>Make an appointment</span>
         </h1>
         <div className="w-full flex items-start justify-between flex-wrap gap-3">
-          {/* select time & date */}
+          {/* ================== select time & date ============== */}
           <div className="w-full md:w-[45%] lg:w-[60%]">
             <AppointemntCard doctorId={doctorId} />
             <DoctorReviews doctorId={doctorId} />

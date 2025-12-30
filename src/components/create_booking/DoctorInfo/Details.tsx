@@ -42,7 +42,7 @@ const Details = ({
               key={detail.title}
               className="flex flex-col items-center justify-center"
             >
-              <span className="flex items-center justify-center w-[56px] h-[56px] bg-white rounded-full">
+              <span className="flex items-center justify-center w-14 h-14 bg-white rounded-full">
                 {detail.icon}
               </span>
               <h3 className="font-semibold text-[14px]">{detail.number}</h3>
