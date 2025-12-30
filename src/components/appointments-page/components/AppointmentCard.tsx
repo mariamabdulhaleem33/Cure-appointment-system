@@ -65,7 +65,7 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
 
         <div className="flex items-start gap-3">
           <img
-            src="https://i.pravatar.cc/100"
+            src={doctor.img}
             alt="Doctor"
             className="w-10 h-10 rounded-full object-cover"
           />
@@ -73,7 +73,7 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
           <div className="flex-1">
             <h3 className="font-semibold text-sm">{doctor.name}</h3>
             <p className="text-xs text-muted-foreground">
-              {doctor.specialization.name}
+              {doctor.specialization}
             </p>
 
             <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">

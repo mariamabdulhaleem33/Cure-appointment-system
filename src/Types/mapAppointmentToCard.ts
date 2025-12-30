@@ -1,36 +1,30 @@
+
 import type { AppointmentApi } from "@/Types/appointmentApi";
 import type { AppointmentCardData } from "@/Types/appointmentCardData";
 
 export const mapAppointmentToCard = (
-  appointment: AppointmentApi | undefined,
+  appointment?: AppointmentApi,
 ): AppointmentCardData | null => {
-  if (!appointment) return null; 
-  console.log("appointment", appointment);
-const mappedStatus =
-  appointment.status === "Rescheduled"
-    ? "Upcoming"
-    : appointment.status ?? "Upcoming";
+  if (!appointment) return null;
+
+  const mappedStatus: AppointmentCardData["status"] =
+    appointment.status === "Rescheduled" ? "Upcoming" : appointment.status;
 
   return {
-    id: appointment.id ?? "unknown",
-    date: appointment.booking_date ?? "unknown",
-    time: appointment.booking_time ?? "unknown",
+    id: appointment.id,
+    date: appointment.booking_date,
+    time: appointment.booking_time,
     status: mappedStatus,
-    // status: appointment.status ?? "upcoming",
-    // status: !appointment.status || "Completed",
 
     doctor: {
-      name: appointment.doctor?.user_id
-        ? `Dr. ${appointment.doctor.user_id}`
-        : "Dr. Unknown",
-      specialization: appointment.doctor?.specialization ?? "Cardiology",
-      img: appointment.doctor?.img ?? "/doctor-placeholder.png",
-      id: appointment.doctor?.id ?? 0,
+      id: appointment.doctor.id,
+      name: appointment.doctor.user.name,
+      specialization: appointment.doctor.specialization.name,
+      img: appointment.doctor.user.profile_photo || "/doctor-placeholder.png",
     },
 
     clinic: {
-      address:
-        appointment.doctor?.clinic_location?.address ?? "Unknown Address",
+      address: appointment.doctor.clinic_location?.address ?? "Unknown Address",
     },
   };
 };
