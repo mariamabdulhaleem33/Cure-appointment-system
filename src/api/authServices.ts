@@ -2,20 +2,31 @@ import api from './axios';
 
 // Types matching actual API response
 export interface LoginResponse {
-  success: boolean;
+  Status: boolean;
   message: string;
   data: {
-    token: string;
+    Token: string;
   };
 }
 
 export interface LoginCredentials {
-  phone: string;
+  mobile_number: string;
   password: string;
+}
+
+// Logout response type
+export interface LogoutResponse {
+  Status: boolean;
+  message: string;
 }
 
 // API Functions
 export const loginAPI = async (credentials: LoginCredentials): Promise<LoginResponse> => {
-  const response = await api.post<LoginResponse>('/auth/login', credentials);
+  const response = await api.post<LoginResponse>('/login', credentials);
+  return response.data;
+};
+
+export const logoutAPI = async (): Promise<LogoutResponse> => {
+  const response = await api.post<LogoutResponse>('/logout');
   return response.data;
 };

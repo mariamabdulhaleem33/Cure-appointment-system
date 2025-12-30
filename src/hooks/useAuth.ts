@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useMemo } from "react"
 import {
   loginAPI,
+  logoutAPI,
   type LoginCredentials,
   type LoginResponse,
 } from "@/api/authServices"
@@ -36,11 +37,17 @@ export const useLogout = () => {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  return () => {
-    // Clear token from localStorage
-    localStorage.removeItem("authToken");
-    queryClient.clear();
-    navigate("/login")
+  return async () => {
+    try {
+      await logoutAPI();
+    } catch (error) {
+      console.error("Logout API call failed:", error);
+    } finally {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userData");
+      queryClient.clear();
+      navigate("/login");
+    }
   };
 };
 
