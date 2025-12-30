@@ -1,7 +1,7 @@
 import MainLayout from "@/components/layout/MainLayout";
 import EditProfileForm from "@/components/Profile/EditProfileForm/EditProfileForm";
-import Profile from "@/Pages/Profile";
-import Home from "@/Pages/Home";
+import Profile from "@/pages/Profile";
+import Home from "@/pages/Home";
 import Search from "@/components/search-page/Search";
 import { Route, Routes } from "react-router-dom";
 import AppointmentPayment from "@/components/payment/AppointmentPayment";

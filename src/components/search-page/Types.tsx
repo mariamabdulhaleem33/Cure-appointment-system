@@ -1,14 +1,14 @@
-// ------------------ types ------------------
 
 
 export type Doctor = {
   id: number;
-  name: string;
-  specialty: {
+  user: {
+    name: string;
+  };
+  specialization: {
     id: number;
     name: string;
     image: string;
-    icon: React.ReactNode;
   };
   hospital: string;
   rating: number;
@@ -17,4 +17,3 @@ export type Doctor = {
   session_price: number;
   profile_photo: string | undefined;
 };
-

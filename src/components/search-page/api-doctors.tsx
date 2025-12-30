@@ -2,7 +2,7 @@ import type { Doctor } from "./Types";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://round8-backend-team-one.huma-volve.com/api",
+  baseURL: "https://round8-cure-php-team-three.huma-volve.com/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -11,6 +11,7 @@ const api = axios.create({
 type FetchDoctorsParams = {
   page: number;
   search: string;
+  specialtyId?: number;
   availableDate?: "today" | "tomorrow" | null;
   consultationType?: "in_clinic" | "home_visit" | null;
   gender?: string[];
@@ -18,11 +19,12 @@ type FetchDoctorsParams = {
 };
 
 export const fetchDoctors = async (params: FetchDoctorsParams): Promise<Doctor[]> => {
-  const { page, search, availableDate, consultationType, gender, sort } = params;
+  const { page, search, specialtyId, availableDate, consultationType, gender, sort } = params;
 
   const queryParams: Record<string, any> = {
     page,
     search,
+    specialty_id: specialtyId,
     limit: 9,
   };
 
@@ -36,4 +38,21 @@ export const fetchDoctors = async (params: FetchDoctorsParams): Promise<Doctor[]
   });
 
   return data.data;
+};
+
+
+type Specialization = Doctor["specialization"];
+
+export const fetchSpecialties = async (): Promise<Specialization[]> => {
+  const { data } = await api.get("/doctors");
+
+  const map = new Map<number, Specialization>();
+
+  data.data.forEach((doctor: Doctor) => {
+    if (doctor.specialization) {
+      map.set(doctor.specialization.id, doctor.specialization);
+    }
+  });
+
+  return Array.from(map.values());
 };
