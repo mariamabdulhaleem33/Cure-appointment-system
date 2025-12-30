@@ -27,7 +27,7 @@ export function TabsDemo({ data }: AppointmentListProps) {
   //   const displayedData = selectedDate ? filteredItems : data;
 
   function filterByDateAndStatus(
-    status?: "Upcoming" | "Canceled" | "Completed",
+    status?: "Upcoming" | "Cancelled" | "Completed",
   ) {
     return data.filter(item => {
       const itemDate = item.date ? new Date(item.date) : null;
@@ -77,7 +77,7 @@ export function TabsDemo({ data }: AppointmentListProps) {
               up coming
             </TabsTrigger>
             <TabsTrigger
-              value="canceled"
+              value="Cancelled"
               className="
     data-[state=active]:bg-sky-700
     data-[state=active]:text-white
@@ -85,7 +85,7 @@ export function TabsDemo({ data }: AppointmentListProps) {
     
   "
             >
-              canceled
+              Cancelled
             </TabsTrigger>
             <TabsTrigger
               value="completed"
@@ -137,16 +137,16 @@ export function TabsDemo({ data }: AppointmentListProps) {
             ))}
           </div>
         </TabsContent>
-        <TabsContent value="canceled">
+        <TabsContent value="Cancelled">
           <div className="flex gap-6 flex-wrap justify-start">
-            {filterByDateAndStatus("Canceled").map(card => (
+            {filterByDateAndStatus("Cancelled").map(card => (
               <AppointmentCard
                 key={card.id}
                 card={card}
               />
             ))}
             {/* {data
-              .filter(card => card.status === "Canceled")
+              .filter(card => card.status === "Cancelled")
               .map(card => (
                 <AppointmentCard
                   key={card.id}

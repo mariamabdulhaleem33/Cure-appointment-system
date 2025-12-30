@@ -4,6 +4,7 @@ import { Calendar, MapPin } from "lucide-react";
 import FormReview from "@/components/create_booking/DoctorReviews/FormReview";
 import type { AppointmentCardData } from "@/Types/appointmentCardData";
 import { BookAgainButton } from "./BookAgainButton";
+import CancelBtn from "./CancelBtn";
 
 interface AppointmentCardProps {
   card: AppointmentCardData;
@@ -31,8 +32,8 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
       primaryBtn: "Feedback",
       secondaryBtn: "Book again",
     },
-    Canceled: {
-      label: "Canceled",
+    Cancelled: {
+      label: "Cancelled",
       color: "text-red-500",
       primaryBtn: "Support",
       secondaryBtn: "Book again",
@@ -82,7 +83,7 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
           </div>
         </div>
 
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           {status === "Completed" ? (
             <>
               <BookAgainButton
@@ -99,6 +100,12 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
               </FormReview>
             </>
           ) : (
+            {status === "Completed" && (
+             <CancelBtn appointmentId={card.id}>
+  {config.secondaryBtn}
+</CancelBtn>
+
+            )}
             <>
               <Button
                 variant="outline"
@@ -109,6 +116,40 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
               <Button className="flex-1 hover:cursor-pointer">
                 {config.primaryBtn}
               </Button>
+            </>
+          )}
+        </div> */}
+
+        <div className="flex gap-2">
+          {status === "Completed" && (
+            <>
+              <BookAgainButton doctorId={doctor.id}>
+                {config.secondaryBtn}
+              </BookAgainButton>
+
+              <FormReview>
+                <Button className="flex-1">{config.primaryBtn}</Button>
+              </FormReview>
+            </>
+          )}
+
+          {status === "Upcoming" && (
+            <>
+              <CancelBtn appointmentId={card.id}>
+                {config.secondaryBtn}
+              </CancelBtn>
+
+              <Button className="flex-1">{config.primaryBtn}</Button>
+            </>
+          )}
+
+          {status === "Cancelled" && (
+            <>
+              <BookAgainButton doctorId={doctor.id}>
+                {config.secondaryBtn}
+              </BookAgainButton>
+
+              <Button className="flex-1">{config.primaryBtn}</Button>
             </>
           )}
         </div>

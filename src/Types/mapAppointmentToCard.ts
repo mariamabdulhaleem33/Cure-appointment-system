@@ -10,8 +10,8 @@ export const mapAppointmentToCard = (
     id: appointment.id ?? "unknown",
     date: appointment.booking_date ?? "unknown",
     time: appointment.booking_time ?? "unknown",
-    // status: appointment.status ?? "upcoming", 
-    status: !appointment.status || "Completed", 
+    status: appointment.status ?? "upcoming", 
+    // status: !appointment.status || "Completed", 
 
     doctor: {
       name: appointment.doctor?.user_id
