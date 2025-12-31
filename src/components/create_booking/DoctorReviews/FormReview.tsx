@@ -57,93 +57,88 @@ const FormReview = ({ children }: FormReviewProps) => {
     // <div className="flex flex-col gap-3 mb-5">
     //   <div className="flex items-center justify-between">
     <>
-        {/* <h2 className="text-[17px] md:text-[20px] font-medium">
+      {/* <h2 className="text-[17px] md:text-[20px] font-medium">
           Reviews and Rating
         </h2> */}
 
-        <Dialog>
-          <DialogTrigger asChild>
-            {children}
-            {/* <Button className="bg-transparent hover:bg-transparent cursor-pointer text-[#145DB8]">
+      <Dialog>
+        <DialogTrigger asChild>
+          {children}
+          {/* <Button className="bg-transparent hover:bg-transparent cursor-pointer text-[#145DB8]">
               <Pen size={16} /> add review
             </Button> */}
-          </DialogTrigger>
+        </DialogTrigger>
 
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>Add Your Review</DialogHeader>
+        <DialogContent className="sm:max-w-106.25">
+          <DialogHeader>Add Your Review</DialogHeader>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* ===== Rating ===== */}
-              <div className="flex justify-between items-center mt-2">
-                <Label className="text-[#1A202C] font-semibold text-lg">
-                  Your Rate
-                </Label>
-                <span className="text-2xl font-bold text-[#1A202C]">
-                  {rating}/5
-                </span>
-              </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* ===== Rating ===== */}
+            <div className="flex justify-between items-center mt-2">
+              <Label className="text-[#1A202C] font-semibold text-lg">
+                Your Rate
+              </Label>
+              <span className="text-2xl font-bold text-[#1A202C]">
+                {rating}/5
+              </span>
+            </div>
 
-              <div className="flex gap-1 mt-1">
-                {[1, 2, 3, 4, 5].map(star => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() =>
-                      setValue("rating", star, { shouldValidate: true })
-                    }
-                    onMouseEnter={() => setHover(star)}
-                    onMouseLeave={() => setHover(0)}
-                    className="focus:outline-none transition-transform hover:scale-110"
-                  >
-                    <Star
-                      size={32}
-                      className={`transition-colors ${
-                        star <= (hover || rating)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "fill-gray-200 text-gray-200"
-                      }`}
-                    />
-                  </button>
-                ))}
-              </div>
-              {errors.rating && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.rating.message}
-                </p>
-              )}
-
-              {/* ===== Review Text ===== */}
-              <div className="grid gap-3 mt-4">
-                <Label htmlFor="review">Your review</Label>
-                <Textarea
-                  {...register("review")}
-                  className="resize-none h-50"
-                  id="review"
-                  placeholder="Write your review..."
-                />
-                {errors.review && (
-                  <p className="text-red-500 text-sm">
-                    {errors.review.message}
-                  </p>
-                )}
-              </div>
-
-              {/* ===== Dialog Footer ===== */}
-              <DialogFooter className="mt-4 flex justify-end gap-2">
-                <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-                <Button
-                  type="submit"
-                  className="bg-[#145DB8]"
+            <div className="flex gap-1 mt-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() =>
+                    setValue("rating", star, { shouldValidate: true })
+                  }
+                  onMouseEnter={() => setHover(star)}
+                  onMouseLeave={() => setHover(0)}
+                  className="focus:outline-none transition-transform hover:scale-110"
                 >
-                  Send your review
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
-        </>
+                  <Star
+                    size={32}
+                    className={`transition-colors ${
+                      star <= (hover || rating)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "fill-gray-200 text-gray-200"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+            {errors.rating && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.rating.message}
+              </p>
+            )}
+
+            {/* ===== Review Text ===== */}
+            <div className="grid gap-3 mt-4">
+              <Label htmlFor="review">Your review</Label>
+              <Textarea
+                {...register("review")}
+                className="resize-none h-50"
+                id="review"
+                placeholder="Write your review..."
+              />
+              {errors.review && (
+                <p className="text-red-500 text-sm">{errors.review.message}</p>
+              )}
+            </div>
+
+            {/* ===== Dialog Footer ===== */}
+            <DialogFooter className="mt-4 flex justify-end gap-2">
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button type="submit" className="bg-[#145DB8]">
+                Send your review
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
     //   {/* </div>
     // </div> */}
   );

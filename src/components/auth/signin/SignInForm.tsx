@@ -11,6 +11,7 @@ import { useLogin } from '@/hooks/useAuth';
 import type { AxiosError } from 'axios';
 
 interface ErrorResponse {
+  Status?: boolean;
   message: string;
 }
 
@@ -25,10 +26,10 @@ export default function SignInForm() {
   const inputsData = [
     {
       type: "text",
-      placeholder: "Phone number",
-      id: "phone",
-      register: register("phone", { required: true }),
-      error: errors.phone
+      placeholder: "Mobile number",
+      id: "mobile_number",
+      register: register("mobile_number", { required: true }),
+      error: errors.mobile_number
     },
     {
       type: "password",
@@ -41,25 +42,24 @@ export default function SignInForm() {
 
   const onSubmit = (data: SignInFormType) => {
     login({
-      phone: data.phone,
+      mobile_number: data.mobile_number,
       password: data.password
     });
   }
 
-  // Get error message safely
   const errorMessage = isError 
     ? (error as AxiosError<ErrorResponse>)?.response?.data?.message || 'Login failed. Please try again.'
     : '';
 
   return (
-    <div className="w-[90%] sm:w-[90%]  mx-auto lg:w-105 flex flex-col justify-center  overflow-x-hidden my-20 p-2 ">
+    <div className="w-[90%] sm:w-[90%] mx-auto lg:w-105 flex flex-col justify-center overflow-x-hidden my-20 p-2">
       <div className="w-full lg:w-92.75 mx-auto">
         <AuthFormHeading title="sign in" />
         <p className="text-[#6D7379] text-[13px] w-92.75">
           Please provide all information required to create your account
         </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:w-94.5 mx-auto mt-5 flex flex-col gap-3 ">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:w-94.5 mx-auto mt-5 flex flex-col gap-3">
         {isError && (
           <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-[10px] text-sm">
             {errorMessage}
@@ -95,3 +95,4 @@ export default function SignInForm() {
     </div>
   )
 }
+

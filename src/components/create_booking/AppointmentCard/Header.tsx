@@ -7,13 +7,12 @@ import { CalendarDays, ChevronsUpDown } from "lucide-react";
 type IProps = {
   selectedMonth: string;
   setSelectedMonth: (val: string) => void;
-  handleMonthChange: (val: string) => void;
   monthsFromApi: string[];
 };
 const Header = ({ selectedMonth, setSelectedMonth, monthsFromApi }: IProps) => {
   return (
     <>
-      <div className="h-[40px] flex justify-between items-center mb-6 border-b">
+      <div className="h-10 flex justify-between items-center mb-6 border-b">
         <h2 className="text-[#404448] font-medium text-[12px] md:text-[16px]">
           Choose date and time
         </h2>
@@ -27,7 +26,7 @@ const Header = ({ selectedMonth, setSelectedMonth, monthsFromApi }: IProps) => {
             <ChevronsUpDown size={14} />
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent className="w-[200px]">
+          <DropdownMenuContent className="w-50">
             {monthsFromApi.map((month) => (
               <button
                 key={month}

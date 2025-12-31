@@ -9,6 +9,10 @@ export type AppointmentCardData = {
     img: string;
     id: number;
   };
+  specialization: {
+    name: string;
+    id: number;
+  };
   clinic: {
     address: string;
   };

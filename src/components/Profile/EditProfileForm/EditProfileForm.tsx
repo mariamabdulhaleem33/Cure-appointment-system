@@ -12,16 +12,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from "@/components/ui/InputError";
 import { useShowProfile } from "@/hooks/profile/useShowProfile";
 import { useEditProfile } from "@/hooks/profile/useEditProfile";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store";
 import { formatLocation } from "@/utils/formatLocation";
+import { useProfileImage } from "@/context/ProfileImgContext";
 
 const EditProfileForm: FC = () => {
   const { data: profileData } = useShowProfile();
-  const { mutate } = useEditProfile();
-  const selectedFile = useSelector(
-    (state: RootState) => state.profile.selectedFile
-  );
+  const { mutate} = useEditProfile();
+  const { selectedFile } = useProfileImage();
   const {
     register,
     handleSubmit,

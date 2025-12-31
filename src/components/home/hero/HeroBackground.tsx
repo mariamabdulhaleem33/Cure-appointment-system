@@ -16,6 +16,7 @@ const HeroBackground: React.FC = () => {
         max-w-none
         opacity-70
         pointer-events-none
+        -z-20
       "
     />
   );

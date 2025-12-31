@@ -7,7 +7,7 @@ const DoctorReviews = ({ doctorId }: IProps) => {
   return (
     <section className="w-full mb-5 lg:mb-0">
       <Description doctorId={doctorId} />
-      <div className="w-full mt-8">
+      <div className="w-full">
         <ReviewCards doctorId={doctorId} />
       </div>
     </section>

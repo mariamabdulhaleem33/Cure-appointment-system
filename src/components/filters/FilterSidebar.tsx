@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
 
 interface Props {
   open: boolean
@@ -26,21 +25,21 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
     }))
   }
 
-  const setAvailableDate = (value: "today" | "tomorrow") => {
+  const toggleAvailableDate = (value: "today" | "tomorrow") => {
     setFilters((prev) => ({
       ...prev,
       availableDate: prev.availableDate === value ? null : value,
     }))
   }
 
-  const setConsultationType = (value: "in_clinic" | "home_visit") => {
+  const toggleConsultationType = (value: "in_clinic" | "home_visit") => {
     setFilters((prev) => ({
       ...prev,
       consultationType: prev.consultationType === value ? null : value,
     }))
   }
 
-  const setSort = (value: "recommended" | "price_low" | "price_high") => {
+  const toggleSort = (value: "recommended" | "price_low" | "price_high") => {
     setFilters((prev) => ({
       ...prev,
       sort: prev.sort === value ? null : value,
@@ -59,12 +58,10 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
             absolute
             left-0
             top-full
-            mt-3
+            mt-2
             w-[156px]
+            max-h-[771px]
             bg-white
-            border
-            rounded-xl
-            shadow-lg
             p-3
             flex
             flex-col
@@ -77,26 +74,24 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
             className="flex flex-col"
             style={{ width: 107, height: 93, gap: 16, opacity: 1 }}
           >
-            <span className="text-xs font-semibold text-gray-600 mb-2">
+            <span className="text-xs font-medium text-gray-600 mb-2">
               Available Date
             </span>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer">
               <input
-                type="radio"
-                name="available_date"
+                type="checkbox"
                 checked={filters.availableDate === "today"}
-                onChange={() => setAvailableDate("today")}
+                onChange={() => toggleAvailableDate("today")}
               />
               Today
             </label>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer">
               <input
-                type="radio"
-                name="available_date"
+                type="checkbox"
                 checked={filters.availableDate === "tomorrow"}
-                onChange={() => setAvailableDate("tomorrow")}
+                onChange={() => toggleAvailableDate("tomorrow")}
               />
               Tomorrow
             </label>
@@ -107,26 +102,24 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
             className="flex flex-col"
             style={{ width: 127, height: 93, gap: 16, opacity: 1 }}
           >
-            <span className="text-xs font-semibold text-gray-600 mb-2">
+            <span className="text-xs font-medium text-gray-600 mb-2">
               Consultation Type
             </span>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer">
               <input
-                type="radio"
-                name="consultation_type"
+                type="checkbox"
                 checked={filters.consultationType === "in_clinic"}
-                onChange={() => setConsultationType("in_clinic")}
+                onChange={() => toggleConsultationType("in_clinic")}
               />
               In-clinic
             </label>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer">
               <input
-                type="radio"
-                name="consultation_type"
+                type="checkbox"
                 checked={filters.consultationType === "home_visit"}
-                onChange={() => setConsultationType("home_visit")}
+                onChange={() => toggleConsultationType("home_visit")}
               />
               Home Visit
             </label>
@@ -134,11 +127,11 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
 
           {/* Gender */}
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold text-gray-600">
+            <span className="text-xs font-medium text-gray-600">
               Gender
             </span>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer">
               <input
                 type="checkbox"
                 checked={filters.gender.includes("male")}
@@ -147,7 +140,7 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
               Male
             </label>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer">
               <input
                 type="checkbox"
                 checked={filters.gender.includes("female")}
@@ -159,36 +152,33 @@ export default function FilterSidebar({ open, onClose, filters, setFilters }: Pr
 
           {/* Sort */}
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold text-gray-600">
+            <span className="text-xs font-medium text-gray-600">
               Sort by price
             </span>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer whitespace-nowrap">
               <input
-                type="radio"
-                name="sort"
+                type="checkbox"
                 checked={filters.sort === "recommended"}
-                onChange={() => setSort("recommended")}
+                onChange={() => toggleSort("recommended")}
               />
               Most recommended
             </label>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer whitespace-nowrap">
               <input
-                type="radio"
-                name="sort"
+                type="checkbox"
                 checked={filters.sort === "price_low"}
-                onChange={() => setSort("price_low")}
+                onChange={() => toggleSort("price_low")}
               />
               Price Low to High
             </label>
 
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
+            <label className="flex items-center gap-2 text-xs cursor-pointer whitespace-nowrap">
               <input
-                type="radio"
-                name="sort"
+                type="checkbox"
                 checked={filters.sort === "price_high"}
-                onChange={() => setSort("price_high")}
+                onChange={() => toggleSort("price_high")}
               />
               Price High to Low
             </label>

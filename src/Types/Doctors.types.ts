@@ -65,7 +65,8 @@ export interface DoctorProps {
   price: number
   onClick?: () => void
   userId?: number
-  address: string
+  address: string,
+  style?:string
 }
 
 export interface TopRatedDoctor {
