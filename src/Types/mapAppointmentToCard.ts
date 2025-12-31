@@ -1,4 +1,3 @@
-
 import type { AppointmentApi } from "@/Types/appointmentApi";
 import type { AppointmentCardData } from "@/Types/appointmentCardData";
 
@@ -21,6 +20,11 @@ export const mapAppointmentToCard = (
       name: appointment.doctor.user.name,
       specialization: appointment.doctor.specialization.name,
       img: appointment.doctor.user.profile_photo || "/doctor-placeholder.png",
+    },
+
+    specialization: {
+      id: appointment.doctor.specialization.id,
+      name: appointment.doctor.specialization.name,
     },
 
     clinic: {
