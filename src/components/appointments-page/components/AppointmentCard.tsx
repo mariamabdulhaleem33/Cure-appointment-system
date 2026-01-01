@@ -116,7 +116,10 @@ export function AppointmentCard({ card }: AppointmentCardProps) {
                 {config.secondaryBtn}
               </BookAgainButton>
 
-              <Button className="flex-1">{config.primaryBtn}</Button>
+             
+              <FormReview>
+                <Button className="flex-1">{config.primaryBtn}</Button>
+              </FormReview>
             </>
           )}
         </div>
