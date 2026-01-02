@@ -13,7 +13,10 @@ export function TabsDemo({ data }: AppointmentListProps) {
     setSelectedDate(date);
   }
 
-
+  const tabsTriggerClass =
+    "data-[state=active]:bg-sky-700 data-[state=active]:text-white text-muted-foreground";
+  const tabsContentClass =
+    "flex gap-6 flex-wrap sm:justify-center xl:justify-start";
 
   function filterByDateAndStatus(
     status?: "Upcoming" | "Cancelled" | "Completed",
@@ -31,6 +34,13 @@ export function TabsDemo({ data }: AppointmentListProps) {
     });
   }
 
+  const TABS = [
+    { value: "all", status: undefined, label: "all" },
+    { value: "upcoming", status: "Upcoming", label: "up coming" },
+    { value: "Cancelled", status: "Cancelled", label: "Cancelled" },
+    { value: "completed", status: "Completed", label: "completed" },
+  ] as const;
+
   return (
     <div className="flex  flex-col gap-6">
       <Tabs
@@ -43,99 +53,29 @@ export function TabsDemo({ data }: AppointmentListProps) {
             selectedDate={selectedDate}
           />
           <TabsList className="bg-none">
-            <TabsTrigger
-              value="all"
-              className="
-    data-[state=active]:bg-sky-700
-    data-[state=active]:text-white
-    text-muted-foreground
-    
-  "
-            >
-              all
-            </TabsTrigger>
-            <TabsTrigger
-              value="upcoming"
-              className="
-    data-[state=active]:bg-sky-700
-    data-[state=active]:text-white
-    text-muted-foreground
-   
-  "
-            >
-              up coming
-            </TabsTrigger>
-            <TabsTrigger
-              value="Cancelled"
-              className="
-    data-[state=active]:bg-sky-700
-    data-[state=active]:text-white
-    text-muted-foreground
-    
-  "
-            >
-              Cancelled
-            </TabsTrigger>
-            <TabsTrigger
-              value="completed"
-              className="
-    data-[state=active]:bg-sky-700
-    data-[state=active]:text-white
-    text-muted-foreground
-    
-  "
-            >
-              completed
-            </TabsTrigger>
+            {TABS.map(tab => (
+              <TabsTrigger
+                value={tab.value}
+                className={tabsTriggerClass}
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
           </TabsList>
         </div>
-        <TabsContent
-          value="all"
-          className="flex justify-content-center"
-        >
-          <div className="flex gap-6 flex-wrap sm:justify-center xl:justify-start">
-            {filterByDateAndStatus().map(card => (
+        {TABS.map(tab => (
+          <TabsContent
+            value={tab.value}
+            className={tabsContentClass}
+          >
+            {filterByDateAndStatus(tab.status).map(card => (
               <AppointmentCard
                 key={card.id}
                 card={card}
               />
             ))}
-           
-          </div>
-        </TabsContent>
-        <TabsContent value="upcoming">
-          <div className="flex gap-6 flex-wrap justify-start">
-      
-            {filterByDateAndStatus("Upcoming").map(card => (
-              <AppointmentCard
-                key={card.id}
-                card={card}
-              />
-            ))}
-          </div>
-        </TabsContent>
-        <TabsContent value="Cancelled">
-          <div className="flex gap-6 flex-wrap justify-start">
-            {filterByDateAndStatus("Cancelled").map(card => (
-              <AppointmentCard
-                key={card.id}
-                card={card}
-              />
-            ))}
-          
-          </div>
-        </TabsContent>
-        <TabsContent value="completed">
-          <div className="flex gap-6 flex-wrap justify-start">
-            {filterByDateAndStatus("Completed").map(card => (
-              <AppointmentCard
-                key={card.id}
-                card={card}
-              />
-            ))}
-          
-          </div>
-        </TabsContent>
+          </TabsContent>
+        ))}
       </Tabs>
     </div>
   );
