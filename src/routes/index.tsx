@@ -16,7 +16,6 @@ import ChangePassword from "@/components/Profile/PasswordManagement/ChangePasswo
 // import ContactUs from "@/app/components/contact-us/ContactUs";
 // import Chat from "@/features/chat/components/pages/chat";
 
-// import AuthenticatedRoute from "@/routes/AuthenticatedRoute";
 import UnauthenticatedRoute from "@/routes/UnauthenticatedRoute";
 import Favorites from "@/pages/Favorites";
 
