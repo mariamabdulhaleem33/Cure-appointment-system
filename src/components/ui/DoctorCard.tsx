@@ -2,6 +2,7 @@ import { FaStar } from "react-icons/fa6"
 import { CiClock2 } from "react-icons/ci"
 import { Link } from "react-router-dom"
 import type { DoctorProps } from "@/Types/Doctors.types"
+import FavButton from "./FavButton"
 
 export default function DoctorCard({
   imageUrl,
@@ -46,6 +47,7 @@ export default function DoctorCard({
             </span>
           </div>
         </div>
+        <FavButton doctorId={userId}/>
       </div>
       {forBooking && (
         <>

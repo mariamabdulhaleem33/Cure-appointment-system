@@ -1,5 +1,5 @@
 import api from "@/api/axios";
-import type { FavoriteItem } from "@/Types/Favorites.types";
+import type { FavoriteDoctorResponse } from "@/Types/Favorites.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export const useToggleFavorite = (doctorId: number) => {
   const queryClient = useQueryClient();
 
-  const { data: favorites = [] } = useQuery<FavoriteItem[]>({
+  const { data: favorites = [] } = useQuery<FavoriteDoctorResponse[]>({
     queryKey: ["favorites"],
     queryFn: async () => {
       const res = await api.get("/all-favourites");

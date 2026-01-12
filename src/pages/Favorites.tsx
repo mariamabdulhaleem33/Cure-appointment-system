@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import api from "@/api/axios";
 import { type FC } from "react";
 import type { FavoriteDoctorResponse } from "@/Types/Favorites.types";
+import { fixImageUrl } from "@/utils/fixImgUrl";
 
 const Favorites: FC = () => {
   const { data } = useQuery<FavoriteDoctorResponse[]>({
@@ -31,7 +32,7 @@ const Favorites: FC = () => {
               key={fav.doctor_id}
               style="w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
               name={doc.name}
-              imageUrl={doc.profile_photo}
+              imageUrl={fixImageUrl(doc.profile_photo)}
               specialty={doc.specialization_name}
               startTime={startTime}
               endTime={endTime}
