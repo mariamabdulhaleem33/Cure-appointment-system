@@ -10,6 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from "@/components/ui/InputError";
 import { useChangePassword } from "@/hooks/profile/useChangePassword";
+import { Loader2 } from "lucide-react";
 
 const ChangePassword: FC = () => {
   const {
@@ -21,7 +22,7 @@ const ChangePassword: FC = () => {
     resolver: zodResolver(changePasswordSchema),
   });
 
-  const {mutate} = useChangePassword();
+  const {mutate, isPending} = useChangePassword();
 
   const inputFields = [
     {
@@ -81,8 +82,10 @@ const ChangePassword: FC = () => {
         </div>
       ))}
       <div className="w-full  col-start-2 flex flex-col justify-end items-end">
-        <Button className="shadow-sm w-full lg:w-1/2 bg-sky-700 hover:bg-sky-800">
-          Update
+        <Button disabled={isPending} className="shadow-sm w-full lg:w-1/2 bg-sky-700 hover:bg-sky-800">
+          {
+            isPending? <>Updating <Loader2 className="animate-spin"/></>:"Update"
+          }
         </Button>
       </div>
     </form>

@@ -3,16 +3,19 @@ import ProfileImg from "../../../ui/ProfileImage";
 import { useShowProfile } from "@/hooks/profile/useShowProfile";
 import { LocationIcon } from "@/components/profile-popup/icons";
 import { formatLocation } from "@/utils/formatLocation";
+import SidebarHeaderSkelton from "./skelton/SidebarHeaderSkelton";
 
 const UserProfileHeader: FC = () => {
-  const { data } = useShowProfile((data) => ({
+  const { data, isPending } = useShowProfile((data) => ({
     name: data?.name,
     location: formatLocation(data?.location),
     profile_photo_url: data?.profile_photo_url,
   }));
 
   return (
-    <div className="flex flex-col justify-center items-center gap-6">
+ <>
+    {isPending?
+      <SidebarHeaderSkelton />: <div className="flex flex-col justify-center items-center gap-6">
       <ProfileImg
         src={data?.profile_photo_url}
         editable={true}
@@ -28,6 +31,9 @@ const UserProfileHeader: FC = () => {
         </p>
       </div>
     </div>
+    }
+ </>
+    
   );
 };
 
