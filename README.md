@@ -52,6 +52,9 @@ I worked as a **Frontend Developer**, focusing mainly on the **Profile** and **F
 ### Profile Page
 ![Profile Page](./screenshots/Profile.png)
 
+### Profile Page
+![change Passwowrd Page](./screenshots/)
+
 ### Favorites List
 ![Favorites List](./screenshots/Favorites.png)
 
