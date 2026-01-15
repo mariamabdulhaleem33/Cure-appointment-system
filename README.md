@@ -53,7 +53,7 @@ I worked as a **Frontend Developer**, focusing mainly on the **Profile** and **F
 ![Profile Page](./screenshots/Profile.png)
 
 ### Profile Page
-![change Passwowrd Page](./screenshots/ScreenshotFrom2026-01-1401-48-19.png)
+![change Passwowrd Page](./screenshots/changePassword.png)
 
 ### Favorites List
 ![Favorites List](./screenshots/Favorites.png)
